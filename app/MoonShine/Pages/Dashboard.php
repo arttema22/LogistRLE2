@@ -26,8 +26,18 @@ class Dashboard extends Page
 
     public function components(): array
     {
+
         return [
             Grid::make([
+                ValueMetric::make('monopoly')
+                    ->value(function () {
+                        $data = SetupIntegration::find(2);
+                        $balance = Monopoly::make()->callContract($data);
+                        return $balance[0]['balance'];
+                    })
+                    ->translatable('moonshine::integration')
+                    ->columnSpan(2),
+
                 ValueMetric::make('integrations')
                     ->value(SetupIntegration::where('status', 1)->count())
                     ->progress(SetupIntegration::count())

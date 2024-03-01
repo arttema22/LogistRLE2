@@ -120,7 +120,7 @@ class Monopoly extends Page
     // HTTP-метод: GET
     // Имя метода: Contract
     // Адрес метода: /api/v1/contracts
-    private function callContract($data): Collection
+    public function callContract($data): Collection
     {
         return Http::withToken($data->access_token)
             ->get($data->url . '/api/v1/contracts')

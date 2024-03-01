@@ -40,6 +40,7 @@ final class MoonShineLayout implements MoonShineLayoutContract
                 Footer::make()
                     ->copyright(fn (): string => sprintf(
                         <<<'HTML'
+                        Logist v.2
                             &copy; 2022-%d Made for the
                             <a href="https://rlexport.ru"
                                 class="font-semibold text-primary hover:text-secondary"
