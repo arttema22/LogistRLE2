@@ -141,8 +141,9 @@ class Monopoly extends Page
             ->get(
                 $data->url . '/api/v1/contracts/{contract_id}/payments',
                 [
-                    'startDate' => date('Y-m-d', strtotime(date('Y-m-d') . " - 15 day")),
-                    'endDate' => date('Y-m-d'),
+                    //'startDate' => date('Y-m-d', strtotime(date('Y-m-d') . " - 15 day")),
+                    'startDate' => date('Y-m-01 00:00'),
+                    'endDate' => date('Y-m-d 23:59'),
                     'limit' => '1000',
                 ]
             )
@@ -166,8 +167,8 @@ class Monopoly extends Page
             ->get(
                 $data->url . '/api/v1/contracts/{contract_id}/transactions',
                 [
-                    'startDate' => date('Y-m-d', strtotime(date('Y-m-d') . " - 1 day")),
-                    'endDate' => date('Y-m-d'),
+                    'startDate' => date('Y-m-01 00:00'),
+                    'endDate' => date('Y-m-d 23:59'),
                     'limit' => '1000',
                 ]
             )

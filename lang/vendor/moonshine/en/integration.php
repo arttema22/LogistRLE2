@@ -12,7 +12,7 @@ return [
         'additionally' => 'Additionally data',
         'comment' => 'Comment',
         'status' => 'Status',
-        'help_api' => 'API help',
+        'help' => 'API help',
         'manual' => 'Manual',
     ],
     'e1card' => 'E1 CARD',

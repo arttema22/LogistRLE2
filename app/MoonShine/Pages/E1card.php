@@ -114,8 +114,6 @@ class E1card extends Page
                 $data->url . '/transactions',
                 [
                     'lang' => 'ru'
-                    //    'from' => '2024-02-01',
-                    //    'from' => '2024-02-29',
                 ]
             )->json();
 

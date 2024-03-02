@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Models\Refilling;
 use MoonShine\MoonShine;
 use Illuminate\Http\Request;
 use MoonShine\Menu\MenuItem;
@@ -14,6 +15,7 @@ use App\MoonShine\Pages\Monopoly;
 use App\MoonShine\Resources\MoonShineUserResource;
 use App\MoonShine\Resources\SetupIntegrationResource;
 use App\MoonShine\Resources\MoonShineUserRoleResource;
+use App\MoonShine\Resources\RefillingResource;
 use MoonShine\Menu\MenuDivider;
 use MoonShine\Providers\MoonShineApplicationServiceProvider;
 
@@ -32,6 +34,9 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
     protected function menu(): array
     {
         return [
+            MenuItem::make('refilling', new RefillingResource())->icon('heroicons.battery-50')
+                ->translatable('moonshine::refilling'),
+
             MenuGroup::make(static fn () => __('moonshine::ui.resource.system'), [
                 MenuItem::make(
                     static fn () => __('moonshine::ui.resource.admins_title'),
