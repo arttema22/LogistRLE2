@@ -6,6 +6,7 @@ use App\Models\Refilling;
 use App\Models\SetupIntegration;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
+use MoonShine\Models\MoonshineUser;
 
 class MonopolyService
 {
@@ -93,38 +94,28 @@ class MonopolyService
             foreach ($response ?? [] as $transaction) {
                 if (!Refilling::where('inegration_id', $transaction['id'])->exists()) {
 
+                    $driver = MoonshineUser::where('phone', $transaction['driverPhone'])->first();
 
-
-                    Refilling::create([
-                        'date' => $transaction['refuelingDate'],
-                        'owner_id' => 1,
-                        //'driver_id' => $this->getDriver($transaction['driverPhone']), //найти водителя
-                        'driver_id' => 2,
-                        'num_liters_car_refueling' => $transaction['refuelVolume'],
-                        'price_car_refueling' => 10,
-                        'cost_car_refueling' => $transaction['refuelVolume'] * 10,
-                        'station_id' => $transaction['station']['id'],
-                        'brand' => $transaction['station']['brand'],
-                        'address' => $transaction['station']['addressDetails'],
-                        'reg_number' => $transaction['regNumber'],
-                        'driver' => $transaction['driver'],
-                        'driver_phone' => $transaction['driverPhone'],
-                        'inegration_id' => $transaction['id'],
-                    ]);
-                } else {
-                    //             $Contract = FuelSupplier::where('contract_id', $contract['id'])->first();
-                    //             $Contract->balance = $contract['balance'];
-                    //             $Contract->save();
+                    if ($driver) {
+                        Refilling::create([
+                            'date' => $transaction['refuelingDate'],
+                            'owner_id' => 1,
+                            'driver_id' => $driver->id,
+                            'num_liters_car_refueling' => $transaction['refuelVolume'],
+                            'price_car_refueling' => env('PRICE_CAR_REFUELING', 10),
+                            'cost_car_refueling' => $transaction['refuelVolume'] * env('PRICE_CAR_REFUELING', 10),
+                            'station_id' => $transaction['station']['id'],
+                            'brand' => $transaction['station']['brand'],
+                            'address' => $transaction['station']['addressDetails'],
+                            'reg_number' => $transaction['regNumber'],
+                            'driver_name' => $transaction['driver'],
+                            'inegration_id' => $transaction['id'],
+                        ]);
+                    };
                 };
             }
             return true;
         }
-        // dd($response);
         return false;
-    }
-
-    private function getDriver($id)
-    {
-        return 1;
     }
 }

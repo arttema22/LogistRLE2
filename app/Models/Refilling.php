@@ -22,8 +22,7 @@ class Refilling extends Model
         'brand',
         'address',
         'reg_number',
-        'driver',
-        'driver_phone',
+        'driver_name',
         'inegration_id',
         'profit_id',
     ];

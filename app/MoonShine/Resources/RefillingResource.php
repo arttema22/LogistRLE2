@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources;
 
+use Closure;
 use MoonShine\Fields\ID;
-use App\Models\Refilling;
 
+use App\Models\Refilling;
 use MoonShine\Enums\Layer;
 use MoonShine\Fields\Date;
 use MoonShine\Fields\Text;
@@ -15,6 +16,7 @@ use MoonShine\Models\MoonshineUser;
 use Illuminate\Support\Facades\Auth;
 use MoonShine\Resources\ModelResource;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\View\ComponentAttributeBag;
 use MoonShine\ChangeLog\Components\ChangeLog;
 use MoonShine\Fields\Relationships\BelongsTo;
 
@@ -25,21 +27,32 @@ class RefillingResource extends ModelResource
 {
     protected string $model = Refilling::class;
 
-    protected string $title = 'Refillings';
+    public function title(): string
+    {
+        return __('moonshine::refilling.refillings');
+    }
 
     public function indexFields(): array
     {
         return [
-            Date::make('date')->format('d.m.Y'),
-            Text::make('driver_id'),
-            Text::make('num_liters_car_refueling')->badge('primary'),
-            Text::make('price_car_refueling'),
-            Text::make('cost_car_refueling'),
 
-            StackFields::make('brand')
+            Date::make('date')->format('d.m.Y H:i')->sortable()
+                ->translatable('moonshine::refilling'),
+            BelongsTo::make('driver', 'driver', resource: new MoonShineUserResource())
+                ->sortable()
+                ->translatable('moonshine::refilling'),
+            Text::make('num_liters_car_refueling')->badge('primary')
+                ->sortable()
+                ->translatable('moonshine::refilling'),
+            Text::make('price_car_refueling')->translatable('moonshine::refilling'),
+            Text::make('cost_car_refueling')
+                ->sortable()
+                ->translatable('moonshine::refilling'),
+
+            StackFields::make('stantion')
                 ->fields([
-                    Text::make('brand')->translatable('moonshine::integration'),
-                    Text::make('address')->translatable('moonshine::integration'),
+                    Text::make('brand')->translatable('moonshine::refilling'),
+                    Text::make('address')->translatable('moonshine::refilling'),
                 ])
                 ->translatable('moonshine::refilling'),
         ];
@@ -50,8 +63,8 @@ class RefillingResource extends ModelResource
         return [
             Date::make('date')->required(),
             // BelongsTo::make('owner_id', 'owner', resource: new MoonShineUserResource()),
-            BelongsTo::make('driver_id', 'driver', resource: new MoonShineUserResource())
-                ->valuesQuery(fn ($query) => $query->where('moonshine_user_role_id', 3)),
+            // BelongsTo::make('driver_id', 'driver', resource: new MoonShineUserResource())
+            //     ->valuesQuery(fn ($query) => $query->where('moonshine_user_role_id', 3)),
             Text::make('num_liters_car_refueling')->required(),
         ];
     }
@@ -77,6 +90,23 @@ class RefillingResource extends ModelResource
         //dd($item->toJson());
 
         return $item;
+    }
+
+    // Если запись сделана через интеграцию, то она на зеленом фоне
+    public function trAttributes(): Closure
+    {
+        return function (
+            Model $item,
+            int $row,
+            ComponentAttributeBag $attr
+        ): ComponentAttributeBag {
+            if ($item->owner_id === 1) {
+                $attr->setAttributes([
+                    'class' => 'bgc-green'
+                ]);
+            }
+            return $attr;
+        };
     }
 
     // Логирование изменений

@@ -13,6 +13,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
+        $schedule->command('e1card:transaction')->everyMinute();
         $schedule->command('monopoly:transaction')->everyMinute();
 
         // $schedule->call(function () {

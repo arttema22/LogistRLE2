@@ -64,6 +64,7 @@ return [
         'role_title' => 'Roles',
         'role_name' => 'Title',
         'email/phone' => 'Email/Phone',
+        'e1_card' => 'E1-card',
 
         'main_information' => 'Main information',
         'change_password' => 'Change password',

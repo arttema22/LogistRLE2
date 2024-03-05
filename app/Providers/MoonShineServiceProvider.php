@@ -35,7 +35,7 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
     protected function menu(): array
     {
         return [
-            MenuItem::make('refilling', new RefillingResource())->icon('heroicons.battery-50')
+            MenuItem::make('refillings', new RefillingResource())->icon('heroicons.battery-50')
                 ->translatable('moonshine::refilling'),
 
             MenuGroup::make(static fn () => __('moonshine::ui.resource.system'), [

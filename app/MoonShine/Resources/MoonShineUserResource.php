@@ -117,6 +117,10 @@ class MoonShineUserResource extends ModelResource
                                 ->showOnExport()
                                 ->required(),
                         ])->translatable('moonshine::ui.resource'),
+                        Text::make('e1_card')
+                            ->sortable()
+                            ->showOnExport()
+                            ->translatable('moonshine::ui.resource'),
                     ]),
 
                     Tab::make(__('moonshine::ui.resource.password'), [

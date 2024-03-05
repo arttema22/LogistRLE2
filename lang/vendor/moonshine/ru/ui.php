@@ -64,6 +64,7 @@ return [
         'role_title' => 'Роли',
         'role_name' => 'Название',
         'email/phone' => 'Почта/Телефон',
+        'e1_card' => 'E1-карточка',
 
         'main_information' => 'Основная информация',
         'change_password' => 'Изменить пароль',

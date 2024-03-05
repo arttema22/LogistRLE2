@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('refillings', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->date('date');
+            $table->dateTime('date');
             $table->BigInteger('owner_id')->unsigned();
             $table->foreign('owner_id')->references('id')->on('moonshine_users');
             $table->BigInteger('driver_id')->unsigned();
@@ -24,12 +24,12 @@ return new class extends Migration
             $table->float('num_liters_car_refueling', 8, 2);
             $table->float('price_car_refueling', 8, 2)->nullable();
             $table->float('cost_car_refueling', 8, 2)->nullable();
+
             $table->string('station_id')->nullable();
             $table->string('brand')->nullable();
             $table->string('address')->nullable();
             $table->string('reg_number')->nullable();
-            $table->string('driver')->nullable();
-            $table->string('driver_phone')->nullable();
+            $table->string('driver_name')->nullable();
             $table->string('inegration_id')->nullable();
             $table->BigInteger('profit_id')->unsigned()->default(0);
         });

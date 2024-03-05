@@ -36,6 +36,7 @@ class MoonshineUserSeeder extends Seeder
             'phone' => '79214432509',
             'password' => Hash::make('radswad0'),
             'name' => 'Хазиуллин Андрей Рафисович',
+            'e1_card' => 7005230017154060139,
         ]);
 
         MoonshineUser::create([
@@ -60,6 +61,7 @@ class MoonshineUserSeeder extends Seeder
             'phone' => '79312629190',
             'password' => Hash::make('radswad0'),
             'name' => 'Молчанов Александр Антонович',
+            'e1_card' => 7005230017154060022,
         ]);
 
         MoonshineUser::create([
@@ -68,6 +70,7 @@ class MoonshineUserSeeder extends Seeder
             'phone' => '79657711838',
             'password' => Hash::make('radswad0'),
             'name' => 'Лукин Вячеслав Владимирович',
+            'e1_card' => 7005230017154060014,
         ]);
 
         MoonshineUser::create([
@@ -81,7 +84,7 @@ class MoonshineUserSeeder extends Seeder
         MoonshineUser::create([
             'moonshine_user_role_id' => 3,
             'email' => 'alex-1884@mail.ru',
-            'phone' => '79531509048',
+            'phone' => '79219754573',
             'password' => Hash::make('radswad0'),
             'name' => 'Екимов Алексей Сергеевич',
         ]);
@@ -100,6 +103,7 @@ class MoonshineUserSeeder extends Seeder
             'phone' => '79214270568',
             'password' => Hash::make('radswad0'),
             'name' => 'Леонтьев Александр Анатольевич',
+            'e1_card' => 7005230017154060147,
         ]);
 
         MoonshineUser::create([
@@ -108,6 +112,7 @@ class MoonshineUserSeeder extends Seeder
             'phone' => '79312148432',
             'password' => Hash::make('radswad0'),
             'name' => 'Владимиров Алексей Сергеевич',
+            'e1_card' => 7005230017154060063,
         ]);
 
         MoonshineUser::create([
@@ -116,6 +121,7 @@ class MoonshineUserSeeder extends Seeder
             'phone' => '79313219697',
             'password' => Hash::make('radswad0'),
             'name' => 'Тилик Денис Дмитриевич',
+            'e1_card' => 7005230017154060055,
         ]);
 
         MoonshineUser::create([
@@ -124,6 +130,7 @@ class MoonshineUserSeeder extends Seeder
             'phone' => '79212189981',
             'password' => Hash::make('radswad0'),
             'name' => 'Думцев Игорь Александрович',
+            'e1_card' => 7005230017154060071,
         ]);
 
         MoonshineUser::create([
@@ -156,6 +163,7 @@ class MoonshineUserSeeder extends Seeder
             'phone' => '79212466953',
             'password' => Hash::make('radswad0'),
             'name' => 'Быков Иван Николаевич',
+            'e1_card' => 7005230017154060097,
         ]);
 
         MoonshineUser::create([
@@ -164,6 +172,7 @@ class MoonshineUserSeeder extends Seeder
             'phone' => '79214423011',
             'password' => Hash::make('radswad0'),
             'name' => 'Максимов Иван Владимирович',
+            'e1_card' => 7005230017154060048,
         ]);
 
         MoonshineUser::create([
@@ -180,6 +189,7 @@ class MoonshineUserSeeder extends Seeder
             'phone' => '79211898330',
             'password' => Hash::make('radswad0'),
             'name' => 'Молчанов Антон Александрович',
+            'e1_card' => 7005230017154060113,
         ]);
 
         MoonshineUser::create([
@@ -188,6 +198,7 @@ class MoonshineUserSeeder extends Seeder
             'phone' => '79117210092',
             'password' => Hash::make('radswad0'),
             'name' => 'Вийдас Виктор Юрьевич',
+            'e1_card' => 7005230017154060089,
         ]);
     }
 }
