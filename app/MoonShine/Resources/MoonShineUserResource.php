@@ -22,6 +22,7 @@ use MoonShine\Resources\ModelResource;
 use MoonShine\Models\MoonshineUserRole;
 use MoonShine\Fields\Relationships\BelongsTo;
 use App\MoonShine\Resources\MoonShineUserRoleResource;
+use MoonShine\Fields\Relationships\HasOne;
 
 #[Icon('heroicons.outline.users')]
 class MoonShineUserResource extends ModelResource
@@ -46,6 +47,12 @@ class MoonShineUserResource extends ModelResource
                         ID::make()
                             ->sortable()
                             ->showOnExport(),
+
+                        HasOne::make('profile', 'profile', resource: new ProfileResource())
+                            ->fields([
+                                Text::make('last_name', 'last_name'),
+                                Text::make('first_name'),
+                            ]),
 
                         BelongsTo::make(
                             __('moonshine::ui.resource.role'),

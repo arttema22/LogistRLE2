@@ -11,13 +11,24 @@ class Refilling extends Model
 {
     use HasFactory, HasChangeLog;
 
-    // protected $fillable = [
-    //     'date',
-    //     'owner_id',
-    //     'driver_id',
-    //     'name',
-    //     'avatar',
-    // ];
+    protected $fillable = [
+        'date',
+        'owner_id',
+        'driver_id',
+        'num_liters_car_refueling',
+        'price_car_refueling',
+        'cost_car_refueling',
+        'station_id',
+        'brand',
+        'address',
+        'reg_number',
+        'driver',
+        'driver_phone',
+        'inegration_id',
+        'profit_id',
+        'comment',
+        'status',
+    ];
 
     /**
      * Получить данные о создателе записи о заправке.

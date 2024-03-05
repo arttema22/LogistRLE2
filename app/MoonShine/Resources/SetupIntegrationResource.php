@@ -38,7 +38,11 @@ class SetupIntegrationResource extends ModelResource
     {
         return [
             Text::make('name')->translatable('moonshine::integration.setup'),
-            Text::make('help')->link('help_api')->translatable('moonshine::integration.setup'),
+            Text::make(
+                'help',
+                'help_api',
+                fn ($item) => '<a href="' . $item['help_api'] . '" target=_blank>link</a>'
+            )->translatable('moonshine::integration.setup'),
             Switcher::make('status')->updateOnPreview()->translatable('moonshine::integration.setup'),
         ];
     }

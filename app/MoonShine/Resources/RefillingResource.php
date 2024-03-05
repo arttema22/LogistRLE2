@@ -10,10 +10,11 @@ use App\Models\Refilling;
 use MoonShine\Enums\Layer;
 use MoonShine\Fields\Date;
 use MoonShine\Fields\Text;
+use MoonShine\Fields\StackFields;
 use MoonShine\Models\MoonshineUser;
+use Illuminate\Support\Facades\Auth;
 use MoonShine\Resources\ModelResource;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 use MoonShine\ChangeLog\Components\ChangeLog;
 use MoonShine\Fields\Relationships\BelongsTo;
 
@@ -29,8 +30,18 @@ class RefillingResource extends ModelResource
     public function indexFields(): array
     {
         return [
-            ID::make()->sortable(),
             Date::make('date')->format('d.m.Y'),
+            Text::make('driver_id'),
+            Text::make('num_liters_car_refueling')->badge('primary'),
+            Text::make('price_car_refueling'),
+            Text::make('cost_car_refueling'),
+
+            StackFields::make('brand')
+                ->fields([
+                    Text::make('brand')->translatable('moonshine::integration'),
+                    Text::make('address')->translatable('moonshine::integration'),
+                ])
+                ->translatable('moonshine::refilling'),
         ];
     }
 
