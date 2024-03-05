@@ -98,7 +98,8 @@ class MonopolyService
                     Refilling::create([
                         'date' => $transaction['refuelingDate'],
                         'owner_id' => 1,
-                        'driver_id' => $this->getDriver($transaction['driverPhone']), //найти водителя
+                        //'driver_id' => $this->getDriver($transaction['driverPhone']), //найти водителя
+                        'driver_id' => 2,
                         'num_liters_car_refueling' => $transaction['refuelVolume'],
                         'price_car_refueling' => 10,
                         'cost_car_refueling' => $transaction['refuelVolume'] * 10,

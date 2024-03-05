@@ -15,6 +15,7 @@ use App\MoonShine\Pages\Monopoly;
 use App\MoonShine\Resources\MoonShineUserResource;
 use App\MoonShine\Resources\SetupIntegrationResource;
 use App\MoonShine\Resources\MoonShineUserRoleResource;
+use App\MoonShine\Resources\ProfileResource;
 use App\MoonShine\Resources\RefillingResource;
 use MoonShine\Menu\MenuDivider;
 use MoonShine\Providers\MoonShineApplicationServiceProvider;
@@ -39,7 +40,7 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
 
             MenuGroup::make(static fn () => __('moonshine::ui.resource.system'), [
                 MenuItem::make(
-                    static fn () => __('moonshine::ui.resource.admins_title'),
+                    static fn () => __('moonshine::ui.resource.title'),
                     new MoonShineUserResource()
                 ),
                 MenuItem::make(

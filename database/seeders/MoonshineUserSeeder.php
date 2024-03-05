@@ -17,6 +17,7 @@ class MoonshineUserSeeder extends Seeder
         MoonshineUser::create([
             'moonshine_user_role_id' => 1,
             'email' => '9268188@mail.ru ',
+            'phone' => '9268188',
             'password' => Hash::make('1234qwerQWER'),
             'name' => 'system',
         ]);
@@ -24,148 +25,169 @@ class MoonshineUserSeeder extends Seeder
         MoonshineUser::create([
             'moonshine_user_role_id' => 1,
             'email' => 'arttema@mail.ru',
+            'phone' => '79119268188',
             'password' => Hash::make('1234qwerQWER'),
-            'name' => 'Artem',
+            'name' => 'Гусев Артем Александрович',
         ]);
 
         MoonshineUser::create([
             'moonshine_user_role_id' => 3,
             'email' => 'haziullin.andrei@mail.ru',
+            'phone' => '79214432509',
             'password' => Hash::make('radswad0'),
-            'name' => '060',
+            'name' => 'Хазиуллин Андрей Рафисович',
         ]);
 
         MoonshineUser::create([
             'moonshine_user_role_id' => 3,
             'email' => 'smirnov@mail.ru',
+            'phone' => '79215777445',
             'password' => Hash::make('radswad0'),
-            'name' => '548',
+            'name' => 'Смирнов Сергей Александрович',
         ]);
 
         MoonshineUser::create([
             'moonshine_user_role_id' => 3,
             'email' => 'sashok568@inbox.ru',
+            'phone' => '79219811516',
             'password' => Hash::make('radswad0'),
-            'name' => '513',
+            'name' => 'Карпович Александр Иванович',
         ]);
 
         MoonshineUser::create([
             'moonshine_user_role_id' => 3,
             'email' => 'sachamol75@gmail.com',
+            'phone' => '79312629190',
             'password' => Hash::make('radswad0'),
-            'name' => '185',
+            'name' => 'Молчанов Александр Антонович',
         ]);
 
         MoonshineUser::create([
             'moonshine_user_role_id' => 3,
             'email' => 'lukin_vyacheslav@mail.ru',
+            'phone' => '79657711838',
             'password' => Hash::make('radswad0'),
-            'name' => '101',
+            'name' => 'Лукин Вячеслав Владимирович',
         ]);
 
         MoonshineUser::create([
             'moonshine_user_role_id' => 3,
             'email' => 'aleksii.99@mail.ru',
+            'phone' => '79218600782',
             'password' => Hash::make('radswad0'),
-            'name' => '396',
+            'name' => 'Мещеряков Алексей Николаевич',
         ]);
 
         MoonshineUser::create([
             'moonshine_user_role_id' => 3,
             'email' => 'alex-1884@mail.ru',
+            'phone' => '79531509048',
             'password' => Hash::make('radswad0'),
-            'name' => '547',
+            'name' => 'Екимов Алексей Сергеевич',
         ]);
 
         MoonshineUser::create([
             'moonshine_user_role_id' => 3,
             'email' => 'maiorov.ivan1986@mail.ru',
+            'phone' => '79216540978',
             'password' => Hash::make('radswad0'),
-            'name' => '294',
+            'name' => 'Майоров Иван Яковлевич',
         ]);
 
         MoonshineUser::create([
             'moonshine_user_role_id' => 3,
             'email' => 'mers862@mail.ru',
+            'phone' => '79214270568',
             'password' => Hash::make('radswad0'),
-            'name' => '931',
+            'name' => 'Леонтьев Александр Анатольевич',
         ]);
 
         MoonshineUser::create([
             'moonshine_user_role_id' => 3,
             'email' => 'vladimirov@inbox.ru',
+            'phone' => '79312148432',
             'password' => Hash::make('radswad0'),
-            'name' => '097',
+            'name' => 'Владимиров Алексей Сергеевич',
         ]);
 
         MoonshineUser::create([
             'moonshine_user_role_id' => 3,
             'email' => 'tilik@inbox.ru',
+            'phone' => '79313219697',
             'password' => Hash::make('radswad0'),
-            'name' => '792',
+            'name' => 'Тилик Денис Дмитриевич',
         ]);
 
         MoonshineUser::create([
             'moonshine_user_role_id' => 3,
             'email' => 'dumtsev.igor@bk.ru',
+            'phone' => '79212189981',
             'password' => Hash::make('radswad0'),
-            'name' => '280',
+            'name' => 'Думцев Игорь Александрович',
         ]);
 
         MoonshineUser::create([
             'moonshine_user_role_id' => 2,
             'email' => '9132900@gmail.com',
+            'phone' => '79219132900',
             'password' => Hash::make('radswad0'),
-            'name' => '9132900',
+            'name' => 'Клишевич Андрей Владимирович',
         ]);
 
         MoonshineUser::create([
             'moonshine_user_role_id' => 2,
             'email' => 'naa@rlexport.ru',
+            'phone' => '79218864280',
             'password' => Hash::make('radswad0'),
-            'name' => 'Alexyi',
+            'name' => 'Никандров Алексей Анатольевич',
         ]);
 
         MoonshineUser::create([
             'moonshine_user_role_id' => 2,
             'email' => 'mli@rlexport.ru',
+            'phone' => '79117719191',
             'password' => Hash::make('xu7Heme'),
-            'name' => 'mli',
+            'name' => 'Мамина Лаура Игоревна',
         ]);
 
         MoonshineUser::create([
             'moonshine_user_role_id' => 3,
             'email' => 'bykov@rlexport.ru',
+            'phone' => '79212466953',
             'password' => Hash::make('radswad0'),
-            'name' => '269',
+            'name' => 'Быков Иван Николаевич',
         ]);
 
         MoonshineUser::create([
             'moonshine_user_role_id' => 3,
             'email' => 'maksimov@rlexport.ru',
+            'phone' => '79214423011',
             'password' => Hash::make('radswad0'),
-            'name' => '579',
+            'name' => 'Максимов Иван Владимирович',
         ]);
 
         MoonshineUser::create([
             'moonshine_user_role_id' => 3,
             'email' => 'sudarevne@ya.ru',
+            'phone' => '79310002797',
             'password' => Hash::make('radswad0'),
-            'name' => '513',
+            'name' => 'Сударев Дмитрий Владимирович',
         ]);
 
         MoonshineUser::create([
             'moonshine_user_role_id' => 3,
             'email' => 'enter22866@gmail.com',
+            'phone' => '79211898330',
             'password' => Hash::make('radswad0'),
-            'name' => '280',
+            'name' => 'Молчанов Антон Александрович',
         ]);
 
         MoonshineUser::create([
             'moonshine_user_role_id' => 3,
             'email' => 'viidas.viktor@yandex.ru',
+            'phone' => '79117210092',
             'password' => Hash::make('radswad0'),
-            'name' => 'viidas',
+            'name' => 'Вийдас Виктор Юрьевич',
         ]);
     }
 }

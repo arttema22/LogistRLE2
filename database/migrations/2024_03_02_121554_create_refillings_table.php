@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreign('owner_id')->references('id')->on('moonshine_users');
             $table->BigInteger('driver_id')->unsigned();
             $table->foreign('driver_id')->references('id')->on('moonshine_users');
-            $table->BigInteger('petrol_stations_id')->unsigned();
-            $table->foreign('petrol_stations_id')->references('id')->on('dir_petrol_stations');
+            // $table->BigInteger('petrol_stations_id')->unsigned();
+            // $table->foreign('petrol_stations_id')->references('id')->on('dir_petrol_stations');
             $table->float('num_liters_car_refueling', 8, 2);
             $table->float('price_car_refueling', 8, 2)->nullable();
             $table->float('cost_car_refueling', 8, 2)->nullable();
@@ -32,8 +32,6 @@ return new class extends Migration
             $table->string('driver_phone')->nullable();
             $table->string('inegration_id')->nullable();
             $table->BigInteger('profit_id')->unsigned()->default(0);
-            $table->text('comment')->nullable();
-            $table->boolean('status')->default(1);
         });
     }
 

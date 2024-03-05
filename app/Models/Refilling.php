@@ -26,8 +26,6 @@ class Refilling extends Model
         'driver_phone',
         'inegration_id',
         'profit_id',
-        'comment',
-        'status',
     ];
 
     /**

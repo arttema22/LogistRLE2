@@ -60,7 +60,7 @@ return [
             'username' => 'email',
             'password' => 'password',
             'name' => 'name',
-            'avatar' => 'avatar',
+            'avatar' => false,
         ],
         'guard' => 'moonshine',
         'guards' => [
