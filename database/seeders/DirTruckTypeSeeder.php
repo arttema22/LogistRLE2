@@ -25,8 +25,5 @@ class DirTruckTypeSeeder extends Seeder
         DirTruckType::create([
             'name' => 'Лесовоз-фишка'
         ]);
-        DirTruckType::create([
-            'name' => 'Mitsubishi FUSSO'
-        ]);
     }
 }

@@ -15,98 +15,98 @@ class TruckSeeder extends Seeder
     {
         Truck::create([
             'name' => 'Actros',
-            'reg_num' => 'С 294 ХК 198',
+            'reg_num' => 'C 294 XK 198',
             'brand_id' => 3,
             'type_id' => 1,
         ]);
 
         Truck::create([
             'name' => 'Actros',
-            'reg_num' => 'Р 097 ОТ 198',
+            'reg_num' => 'P 097 OT 198',
             'brand_id' => 3,
             'type_id' => 1,
         ]);
 
         Truck::create([
             'name' => 'Actros',
-            'reg_num' => 'B185AX198',
+            'reg_num' => 'B 185 AX 198',
             'brand_id' => 3,
             'type_id' => 3,
         ]);
 
         Truck::create([
             'name' => 'G440',
-            'reg_num' => 'О 547 НТ 198',
+            'reg_num' => 'O 547 HT 198',
             'brand_id' => 4,
             'type_id' => 2,
         ]);
 
         Truck::create([
             'name' => 'Actros',
-            'reg_num' => 'Е 931 ТН 198',
+            'reg_num' => 'E 931 TH 198',
             'brand_id' => 3,
             'type_id' => 1,
         ]);
 
         Truck::create([
             'name' => 'G440',
-            'reg_num' => 'B101KB198',
+            'reg_num' => 'B 101 KB 198',
             'brand_id' => 4,
             'type_id' => 4,
         ]);
 
         Truck::create([
             'name' => 'Actros',
-            'reg_num' => 'У 548 ОВ 178',
+            'reg_num' => 'Y 548 OB 178',
             'brand_id' => 3,
             'type_id' => 3,
         ]);
 
         Truck::create([
             'name' => 'Actros',
-            'reg_num' => 'О 579 РН 198',
+            'reg_num' => 'O 579 PH 198',
             'brand_id' => 3,
             'type_id' => 4,
         ]);
 
         Truck::create([
             'name' => 'FH16',
-            'reg_num' => 'Y396KT47',
+            'reg_num' => 'Y 396 KT 47',
             'brand_id' => 7,
             'type_id' => 4,
         ]);
 
         Truck::create([
             'name' => 'R500',
-            'reg_num' => 'В 185 АХ 198',
+            'reg_num' => 'B 888 AX 198',
             'brand_id' => 4,
             'type_id' => 4,
         ]);
 
         Truck::create([
             'name' => 'Actros',
-            'reg_num' => 'Р 792 НХ 198',
+            'reg_num' => 'P 792 HX 198',
             'brand_id' => 3,
             'type_id' => 2,
         ]);
 
         Truck::create([
             'name' => 'Actros',
-            'reg_num' => 'Х 060 МН 178',
+            'reg_num' => 'X 060 MH 178',
             'brand_id' => 3,
             'type_id' => 2,
         ]);
 
         Truck::create([
             'name' => 'Actros',
-            'reg_num' => 'В 142 СТ 198',
+            'reg_num' => 'B 142 CT 198',
             'brand_id' => 3,
             'type_id' => 1,
         ]);
 
         Truck::create([
             'name' => 'Actros',
-            'reg_num' => 'А 513 ТН 198',
+            'reg_num' => 'A 513 TH 198',
             'brand_id' => 3,
             'type_id' => 1,
         ]);

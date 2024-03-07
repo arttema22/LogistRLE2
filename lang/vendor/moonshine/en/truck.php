@@ -6,4 +6,5 @@ return [
     'reg_num' => 'Thuck number',
     'name' => 'Name',
     'driver' => 'Driver',
+    'all' => 'All',
 ];

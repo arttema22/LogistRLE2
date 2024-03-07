@@ -40,7 +40,7 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
     protected function menu(): array
     {
         return [
-            MenuItem::make('trucks', new TruckResource())->icon('heroicons.truck')
+            MenuItem::make('trucks', new TruckResource())
                 ->translatable('moonshine::truck'),
 
             MenuItem::make('refillings', new RefillingResource())->icon('heroicons.battery-50')
@@ -74,9 +74,9 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
 
             MenuGroup::make('directories', [
                 MenuDivider::make('trucks')->translatable('moonshine::truck'),
-                MenuItem::make('brands', new DirTruckBrandResource())->icon('heroicons.globe-alt')
+                MenuItem::make('brands', new DirTruckBrandResource())
                     ->translatable('moonshine::directory'),
-                MenuItem::make('types', new DirTruckTypeResource())->icon('heroicons.globe-alt')
+                MenuItem::make('types', new DirTruckTypeResource())
                     ->translatable('moonshine::directory'),
             ])->icon('heroicons.bars-3')
                 ->translatable('moonshine::directory'),

@@ -12,9 +12,9 @@ class Truck extends Model
 {
     use HasFactory;
 
-    // protected $fillable = [
-    //     'brand_id',
-    // ];
+    protected $fillable = [
+        'name',
+    ];
 
     /**
      * Получить бренд, которому принадлежит автомобиль.

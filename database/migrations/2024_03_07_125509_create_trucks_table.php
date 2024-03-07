@@ -20,8 +20,6 @@ return new class extends Migration
             $table->foreign('brand_id')->references('id')->on('dir_truck_brands');
             $table->BigInteger('type_id')->unsigned();
             $table->foreign('type_id')->references('id')->on('dir_truck_types');
-            $table->BigInteger('ts_id')->unsigned();
-            $table->foreign('ts_id')->references('id')->on('dir_truck_ts');
             $table->softDeletes();
         });
 
