@@ -14,9 +14,20 @@ return new class extends Migration
         Schema::create('trucks', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('name');
             $table->string('reg_num')->unique();
             $table->BigInteger('brand_id')->unsigned();
             $table->foreign('brand_id')->references('id')->on('dir_truck_brands');
+            $table->BigInteger('type_id')->unsigned();
+            $table->foreign('type_id')->references('id')->on('dir_truck_types');
+            $table->BigInteger('ts_id')->unsigned();
+            $table->foreign('ts_id')->references('id')->on('dir_truck_ts');
+            $table->softDeletes();
+        });
+
+        Schema::create('truck_user', function (Blueprint $table) {
+            $table->BigInteger('truck_id')->unsigned();
+            $table->BigInteger('user_id')->unsigned();
         });
     }
 
@@ -25,6 +36,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('truck_user');
+
         Schema::dropIfExists('trucks');
     }
 };

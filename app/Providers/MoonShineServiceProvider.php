@@ -14,6 +14,7 @@ use App\MoonShine\Pages\E1card;
 use App\MoonShine\Pages\Monopoly;
 use App\MoonShine\Pages\Settings;
 use App\MoonShine\Resources\DirTruckBrandResource;
+use App\MoonShine\Resources\DirTruckTypeResource;
 use App\MoonShine\Resources\MoonShineUserResource;
 use App\MoonShine\Resources\SetupIntegrationResource;
 use App\MoonShine\Resources\MoonShineUserRoleResource;
@@ -73,10 +74,13 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
 
             MenuGroup::make('directories', [
                 MenuDivider::make('trucks')->translatable('moonshine::truck'),
-                MenuItem::make('brand', new DirTruckBrandResource())->icon('heroicons.globe-alt')
+                MenuItem::make('brands', new DirTruckBrandResource())->icon('heroicons.globe-alt')
+                    ->translatable('moonshine::directory'),
+                MenuItem::make('types', new DirTruckTypeResource())->icon('heroicons.globe-alt')
                     ->translatable('moonshine::directory'),
             ])->icon('heroicons.bars-3')
                 ->translatable('moonshine::directory'),
+
 
             MenuItem::make(
                 static fn () => __('moonshine::ui.resource.title'),

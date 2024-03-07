@@ -6,20 +6,20 @@ namespace App\MoonShine\Resources;
 
 use MoonShine\Fields\Text;
 
-use App\Models\DirTruckBrand;
+use App\Models\DirTruckType;
 use MoonShine\Resources\ModelResource;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @extends ModelResource<DirTruckBrand>
+ * @extends ModelResource<DirTruckType>
  */
-class DirTruckBrandResource extends ModelResource
+class DirTruckTypeResource extends ModelResource
 {
-    protected string $model = DirTruckBrand::class;
+    protected string $model = DirTruckType::class;
 
     public function title(): string
     {
-        return __('moonshine::directory.brands');
+        return __('moonshine::directory.types');
     }
 
     public string $column = 'name';

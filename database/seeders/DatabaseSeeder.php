@@ -16,9 +16,12 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             DirTruckBrandSeeder::class,
+            DirTruckTypeSeeder::class,
 
             MoonshineUserRoleSeeder::class,
             MoonshineUserSeeder::class,
+
+            TruckSeeder::class,
 
             SetupIntegrationSeeder::class,
         ]);
