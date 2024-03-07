@@ -31,6 +31,9 @@ class TruckResource extends ModelResource
     // Модель данных
     protected string $model = Truck::class;
 
+    // Проверка прав доступа
+    protected bool $withPolicy = false;
+
     // Редирект после сохранения
     protected ?PageType $redirectAfterSave = PageType::INDEX;
 

@@ -24,6 +24,9 @@ class DirTruckTypeResource extends ModelResource
     // Модель данных
     protected string $model = DirTruckType::class;
 
+    // Проверка прав доступа
+    protected bool $withPolicy = false;
+
     // Редирект после сохранения
     protected ?PageType $redirectAfterSave = PageType::INDEX;
 

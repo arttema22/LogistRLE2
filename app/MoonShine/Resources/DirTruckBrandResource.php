@@ -24,6 +24,9 @@ class DirTruckBrandResource extends ModelResource
     // Модель данных
     protected string $model = DirTruckBrand::class;
 
+    // Проверка прав доступа
+    protected bool $withPolicy = false;
+
     // Редирект после сохранения
     protected ?PageType $redirectAfterSave = PageType::INDEX;
 

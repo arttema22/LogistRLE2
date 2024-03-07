@@ -69,7 +69,7 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
                     new SetupIntegrationResource()
                 )->canSee(function (Request $request) {
                     return $request->user('moonshine')?->moonshine_user_role_id === 1;
-                })->icon('heroicons.wrench-screwdriver'),
+                }),
             ])->icon('heroicons.arrows-right-left'),
 
             MenuGroup::make('directories', [
