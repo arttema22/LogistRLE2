@@ -23,7 +23,7 @@ class Settings extends Page
 
     public function title(): string
     {
-        return $this->title ?: 'Settings';
+        return __('moonshine::setup.settings');
     }
 
     public function components(): array
@@ -36,7 +36,7 @@ class Settings extends Page
                     ->action(route('settings.store'))
                     ->method('POST')
                     ->fields([
-                        Text::make('price_car_refueling'),
+                        Text::make('price_car_refueling')->translatable('moonshine::setup'),
                     ])
                     ->fill([
                         'price_car_refueling' => $settings->get('price_car_refueling'),

@@ -13,11 +13,14 @@ use App\Models\SetupIntegration;
 use App\MoonShine\Pages\E1card;
 use App\MoonShine\Pages\Monopoly;
 use App\MoonShine\Pages\Settings;
+use App\MoonShine\Resources\DirTruckBrandResource;
 use App\MoonShine\Resources\MoonShineUserResource;
 use App\MoonShine\Resources\SetupIntegrationResource;
 use App\MoonShine\Resources\MoonShineUserRoleResource;
 use App\MoonShine\Resources\ProfileResource;
 use App\MoonShine\Resources\RefillingResource;
+use App\MoonShine\Resources\TruckResource;
+use MoonShine\Decorations\Divider;
 use MoonShine\Menu\MenuDivider;
 use MoonShine\Providers\MoonShineApplicationServiceProvider;
 
@@ -36,22 +39,20 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
     protected function menu(): array
     {
         return [
-            MenuItem::make('settings', new Settings())->icon('heroicons.battery-50')
-                ->translatable('moonshine::refilling'),
-
+            MenuItem::make('trucks', new TruckResource())->icon('heroicons.truck')
+                ->translatable('moonshine::truck'),
 
             MenuItem::make('refillings', new RefillingResource())->icon('heroicons.battery-50')
                 ->translatable('moonshine::refilling'),
 
             MenuGroup::make(static fn () => __('moonshine::ui.resource.system'), [
                 MenuItem::make(
-                    static fn () => __('moonshine::ui.resource.title'),
-                    new MoonShineUserResource()
-                ),
-                MenuItem::make(
                     static fn () => __('moonshine::ui.resource.role_title'),
                     new MoonShineUserRoleResource()
                 ),
+
+                MenuItem::make('settings', new Settings())->icon('heroicons.cog-6-tooth')
+                    ->translatable('moonshine::setup'),
             ]),
 
             MenuGroup::make(static fn () => __('moonshine::integration.integrations'), [
@@ -69,6 +70,18 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
                     return $request->user('moonshine')?->moonshine_user_role_id === 1;
                 })->icon('heroicons.wrench-screwdriver'),
             ])->icon('heroicons.arrows-right-left'),
+
+            MenuGroup::make('directories', [
+                MenuDivider::make('trucks')->translatable('moonshine::truck'),
+                MenuItem::make('brand', new DirTruckBrandResource())->icon('heroicons.globe-alt')
+                    ->translatable('moonshine::directory'),
+            ])->icon('heroicons.bars-3')
+                ->translatable('moonshine::directory'),
+
+            MenuItem::make(
+                static fn () => __('moonshine::ui.resource.title'),
+                new MoonShineUserResource()
+            ),
         ];
     }
 
