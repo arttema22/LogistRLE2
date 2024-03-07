@@ -12,6 +12,7 @@ use MoonShine\Menu\MenuGroup;
 use App\Models\SetupIntegration;
 use App\MoonShine\Pages\E1card;
 use App\MoonShine\Pages\Monopoly;
+use App\MoonShine\Pages\Settings;
 use App\MoonShine\Resources\MoonShineUserResource;
 use App\MoonShine\Resources\SetupIntegrationResource;
 use App\MoonShine\Resources\MoonShineUserRoleResource;
@@ -35,6 +36,10 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
     protected function menu(): array
     {
         return [
+            MenuItem::make('settings', new Settings())->icon('heroicons.battery-50')
+                ->translatable('moonshine::refilling'),
+
+
             MenuItem::make('refillings', new RefillingResource())->icon('heroicons.battery-50')
                 ->translatable('moonshine::refilling'),
 
@@ -55,13 +60,13 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
                 MenuItem::make('monopoly', new Monopoly())->icon('heroicons.arrows-right-left')
                     ->translatable('moonshine::integration'),
                 MenuDivider::make()->canSee(function (Request $request) {
-                    return $request->user('moonshine')?->id === 1;
+                    return $request->user('moonshine')?->moonshine_user_role_id === 1;
                 }),
                 MenuItem::make(
                     static fn () => __('moonshine::integration.set_up'),
                     new SetupIntegrationResource()
                 )->canSee(function (Request $request) {
-                    return $request->user('moonshine')?->id === 1;
+                    return $request->user('moonshine')?->moonshine_user_role_id === 1;
                 })->icon('heroicons.wrench-screwdriver'),
             ])->icon('heroicons.arrows-right-left'),
         ];

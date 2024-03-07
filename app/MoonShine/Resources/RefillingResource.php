@@ -27,6 +27,8 @@ class RefillingResource extends ModelResource
 {
     protected string $model = Refilling::class;
 
+    protected bool $withPolicy = true; // Проверка прав доступа
+
     public function title(): string
     {
         return __('moonshine::refilling.refillings');

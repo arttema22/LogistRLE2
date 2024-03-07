@@ -25,7 +25,7 @@ class SetupIntegrationResource extends ModelResource
 {
     protected string $model = SetupIntegration::class;
 
-    //protected bool $withPolicy = true;
+    protected bool $withPolicy = true; // Проверка прав доступа
 
     public function title(): string
     {

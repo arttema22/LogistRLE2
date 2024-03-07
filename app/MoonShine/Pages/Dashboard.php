@@ -43,7 +43,7 @@ class Dashboard extends Page
                     ->progress(SetupIntegration::count())
                     ->translatable('moonshine::integration')
                     ->canSee(function (Request $request) {
-                        return $request->user('moonshine')?->id === 1;
+                        return $request->user('moonshine')?->moonshine_user_role_id === 1;
                     })
                     ->columnSpan(2),
             ]),

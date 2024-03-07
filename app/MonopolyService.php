@@ -4,9 +4,10 @@ namespace App;
 
 use App\Models\Refilling;
 use App\Models\SetupIntegration;
+use Spatie\Valuestore\Valuestore;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Http;
 use MoonShine\Models\MoonshineUser;
+use Illuminate\Support\Facades\Http;
 
 class MonopolyService
 {
@@ -75,6 +76,7 @@ class MonopolyService
     public function callTransaction()
     {
         $data = SetupIntegration::find(2);
+        $settings = Valuestore::make(storage_path('app/settings.json'));
 
         $response = Http::withToken($data->access_token)
             ->withUrlParameters([
@@ -102,8 +104,10 @@ class MonopolyService
                             'owner_id' => 1,
                             'driver_id' => $driver->id,
                             'num_liters_car_refueling' => $transaction['refuelVolume'],
-                            'price_car_refueling' => env('PRICE_CAR_REFUELING', 10),
-                            'cost_car_refueling' => $transaction['refuelVolume'] * env('PRICE_CAR_REFUELING', 10),
+                            'price_car_refueling' => $settings->get('price_car_refueling'),
+                            'cost_car_refueling' => $transaction['refuelVolume'] * $settings->get('price_car_refueling'),
+
+
                             'station_id' => $transaction['station']['id'],
                             'brand' => $transaction['station']['brand'],
                             'address' => $transaction['station']['addressDetails'],
