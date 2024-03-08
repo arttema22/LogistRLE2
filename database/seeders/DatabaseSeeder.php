@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             MoonshineUserSeeder::class,
 
             TruckSeeder::class,
+            TruckUserSeeder::class,
 
             SetupIntegrationSeeder::class,
         ]);

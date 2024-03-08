@@ -14,25 +14,13 @@ class DirTruckBrandSeeder extends Seeder
     public function run(): void
     {
         DirTruckBrand::create([
-            'name' => 'Другое'
-        ]);
-        DirTruckBrand::create([
-            'name' => 'Mitsubishi'
-        ]);
-        DirTruckBrand::create([
             'name' => 'Mercedes-Benz'
         ]);
         DirTruckBrand::create([
-            'name' => 'SCANIA'
+            'name' => 'Volvo'
         ]);
         DirTruckBrand::create([
-            'name' => 'HYUNDAI'
-        ]);
-        DirTruckBrand::create([
-            'name' => 'BMW'
-        ]);
-        DirTruckBrand::create([
-            'name' => 'VOLVO'
+            'name' => 'Scania'
         ]);
     }
 }
