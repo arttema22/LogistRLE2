@@ -38,9 +38,8 @@ class E1cardService
                 if (!Refilling::where('inegration_id', $transaction['UnID'])->exists()) {
 
                     $driver = MoonshineUser::where('e1_card', $transaction['card'])->first();
-                    dd($driver);
-                    if ($driver) {
 
+                    if ($driver) {
                         Refilling::create([
                             'date' => date('Y-m-d H:i:s', strtotime($transaction['date'])),
                             'owner_id' => 1,
@@ -57,6 +56,7 @@ class E1cardService
                             'driver_name' => $transaction['driver'],
                             'inegration_id' => $transaction['UnID'],
                         ]);
+                        dd($driver);
                     };
                 };
             }
