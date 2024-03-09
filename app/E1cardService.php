@@ -56,7 +56,6 @@ class E1cardService
                             'driver_name' => $transaction['driver'],
                             'inegration_id' => $transaction['UnID'],
                         ]);
-                        dd($driver);
                     };
                 };
             }
