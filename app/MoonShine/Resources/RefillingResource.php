@@ -6,13 +6,12 @@ namespace App\MoonShine\Resources;
 
 use Closure;
 use MoonShine\Fields\ID;
-
 use App\Models\Refilling;
 use MoonShine\Enums\Layer;
 use MoonShine\Fields\Date;
 use MoonShine\Fields\Text;
+use MoonShine\Fields\Position;
 use MoonShine\Fields\StackFields;
-use MoonShine\Models\MoonshineUser;
 use Illuminate\Support\Facades\Auth;
 use MoonShine\Resources\ModelResource;
 use Illuminate\Database\Eloquent\Model;
@@ -37,7 +36,7 @@ class RefillingResource extends ModelResource
     public function indexFields(): array
     {
         return [
-
+            Position::make(),
             Date::make('date')->format('d.m.Y H:i')->sortable()
                 ->translatable('moonshine::refilling'),
             BelongsTo::make('driver', 'driver', resource: new MoonShineUserResource())
