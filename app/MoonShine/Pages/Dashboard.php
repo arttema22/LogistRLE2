@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Pages;
 
+use App\Models\Truck;
+use App\Models\Refilling;
 use MoonShine\Pages\Page;
 use Illuminate\Http\Request;
 use MoonShine\Decorations\Grid;
 use App\Models\SetupIntegration;
-use App\Models\Truck;
 use MoonShine\Metrics\ValueMetric;
+use MoonShine\Metrics\LineChartMetric;
 
 class Dashboard extends Page
 {
@@ -30,6 +32,35 @@ class Dashboard extends Page
 
         return [
             Grid::make([
+
+                LineChartMetric::make('refillings')
+                    ->line([
+                        __('moonshine::refilling.cost_car_refueling') => Refilling::query()
+                            ->selectRaw('SUM(cost_car_refueling) as sum, DATE_FORMAT(date, "%d.%m.%Y") as date')
+                            ->groupBy('date')
+                            ->pluck('sum', 'date')
+                            ->toArray()
+                    ])
+                    ->line([
+                        __('moonshine::refilling.num_liters_car_refueling') => Refilling::query()
+                            ->selectRaw('SUM(num_liters_car_refueling) as sum, DATE_FORMAT(date, "%d.%m.%Y") as date')
+                            ->groupBy('date')
+                            ->pluck('sum', 'date')
+                            ->toArray()
+                    ], '#EC4176')->translatable('moonshine::refilling'),
+                // ->line([
+                //     'Avg' => Order::query()
+                //         ->selectRaw('AVG(price) as avg, DATE_FORMAT(created_at, "%d.%m.%Y") as date')
+                //         ->groupBy('date')
+                //         ->pluck('avg', 'date')
+                //         ->toArray()
+                // ], '#EC4176'),
+
+                ValueMetric::make('refillings')
+                    ->value(Refilling::count())
+                    ->translatable('moonshine::refilling')
+                    ->columnSpan(2),
+
                 ValueMetric::make('trucks')
                     ->value(Truck::count())
                     ->translatable('moonshine::truck')
