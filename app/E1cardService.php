@@ -34,13 +34,13 @@ class E1cardService
             )->json();
 
         if (isset($response['transactions'])) {
-            dd($response['transactions']);
             foreach ($response['transactions'] ?? [] as $transaction) {
                 if (!Refilling::where('inegration_id', $transaction['UnID'])->exists()) {
 
                     $driver = MoonshineUser::where('e1_card', $transaction['card'])->first();
 
                     if ($driver) {
+                        dd($driver);
                         Refilling::create([
                             'date' => date('Y-m-d H:i:s', strtotime($transaction['date'])),
                             'owner_id' => 1,
