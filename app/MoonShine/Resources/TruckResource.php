@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
 use MoonShine\Fields\Relationships\BelongsTo;
 use MoonShine\Fields\Relationships\BelongsToMany;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use MoonShine\Fields\Position;
 
 /**
  * @extends ModelResource<Truck>
@@ -68,6 +69,7 @@ class TruckResource extends ModelResource
     public function indexFields(): array
     {
         return [
+            Position::make(),
             Text::make('reg_num')->sortable()
                 ->translatable('moonshine::truck'),
             StackFields::make('truck')->fields([

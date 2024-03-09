@@ -8,6 +8,7 @@ use MoonShine\Pages\Page;
 use Illuminate\Http\Request;
 use MoonShine\Decorations\Grid;
 use App\Models\SetupIntegration;
+use App\Models\Truck;
 use MoonShine\Metrics\ValueMetric;
 
 class Dashboard extends Page
@@ -29,6 +30,11 @@ class Dashboard extends Page
 
         return [
             Grid::make([
+                ValueMetric::make('trucks')
+                    ->value(Truck::count())
+                    ->translatable('moonshine::truck')
+                    ->columnSpan(2),
+
                 ValueMetric::make('monopoly')
                     ->value(function () {
                         $data = SetupIntegration::find(2);
