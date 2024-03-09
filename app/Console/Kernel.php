@@ -13,8 +13,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('e1card:transaction')->everyMinute();
-        $schedule->command('monopoly:transaction')->everyMinute();
+        $schedule->command('e1card:transaction')->everyFiveMinutes();
+        $schedule->command('monopoly:transaction')->everyFiveMinutes();
 
         // $schedule->call(function () {
         //     DB::table('refillings')->delete();
