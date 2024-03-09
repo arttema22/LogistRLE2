@@ -27,7 +27,7 @@ return [
         'notFoundHandler' => MoonShineNotFoundException::class,
     ],
 
-    'use_migrations' => true,
+    'use_migrations' => false,
     'use_notifications' => true,
     'use_theme_switcher' => true,
 
