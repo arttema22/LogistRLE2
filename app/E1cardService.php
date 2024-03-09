@@ -32,8 +32,9 @@ class E1cardService
                     'lang' => 'ru'
                 ]
             )->json();
-        dd($response);
+
         if (isset($response['transactions'])) {
+            dd($response['transactions']);
             foreach ($response['transactions'] ?? [] as $transaction) {
                 if (!Refilling::where('inegration_id', $transaction['UnID'])->exists()) {
 
