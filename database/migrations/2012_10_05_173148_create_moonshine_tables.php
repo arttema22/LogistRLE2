@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('phone')->unique();
             $table->string('password');
             $table->string('name');
-            $table->string('e1_card');
+            $table->string('e1_card')->nullable();
             $table->string('avatar')->nullable();
             $table->string('remember_token', 100)->nullable();
             $table->timestamps();
