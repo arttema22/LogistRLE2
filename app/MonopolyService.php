@@ -100,8 +100,6 @@ class MonopolyService
 
                     if ($driver) {
                         Refilling::create([
-                            //'date' => $transaction['refuelingDate'],
-                            //'date' => date_create_from_format('Y-m-d H:i:s', $transaction['refuelingDate']),
                             'date' => date('Y-m-d H:i:s', strtotime($transaction['refuelingDate'])),
                             'owner_id' => 1,
                             'driver_id' => $driver->id,
