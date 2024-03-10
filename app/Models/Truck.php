@@ -2,15 +2,17 @@
 
 namespace App\Models;
 
+use MoonShine\Models\MoonshineUser;
 use Illuminate\Database\Eloquent\Model;
+use MoonShine\ChangeLog\Traits\HasChangeLog;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use MoonShine\Models\MoonshineUser;
 
 class Truck extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes, HasChangeLog;
 
     protected $fillable = [
         'name',

@@ -43,7 +43,7 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
             MenuItem::make('trucks', new TruckResource())
                 ->translatable('moonshine::truck'),
 
-            MenuItem::make('refillings', new RefillingResource())->icon('heroicons.battery-50')
+            MenuItem::make('refillings', new RefillingResource())
                 ->translatable('moonshine::refilling'),
 
             MenuGroup::make(static fn () => __('moonshine::ui.resource.system'), [

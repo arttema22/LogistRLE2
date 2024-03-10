@@ -27,6 +27,9 @@ use MoonShine\Fields\Relationships\BelongsTo;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use App\MoonShine\Resources\MoonShineUserRoleResource;
 
+/**
+ * @extends ModelResource<MoonshineUser>
+ */
 #[Icon('heroicons.outline.users')]
 class MoonShineUserResource extends ModelResource
 {

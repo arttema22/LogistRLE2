@@ -9,5 +9,6 @@ return [
     'price_car_refueling' => 'Price',
     'cost_car_refueling' => 'Total',
     'stantion' => 'Stantion',
-
+    'all' => 'All',
+    'archive' => 'Archive',
 ];

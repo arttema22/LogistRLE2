@@ -30,8 +30,10 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('reg_number')->nullable();
             $table->string('driver_name')->nullable();
-            $table->string('inegration_id')->nullable();
+            $table->string('integration_id')->nullable();
             $table->BigInteger('profit_id')->unsigned()->default(0);
+
+            $table->softDeletes();
         });
     }
 

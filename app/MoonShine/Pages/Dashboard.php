@@ -33,38 +33,38 @@ class Dashboard extends Page
         return [
             Grid::make([
 
-                LineChartMetric::make('refillings')
-                    ->line([
-                        __('moonshine::refilling.num_liters_car_refueling') => Refilling::query()
-                            ->selectRaw('SUM(num_liters_car_refueling) as sum, DATE_FORMAT(date, "%d.%m.%Y") as date')
-                            ->groupBy('date')
-                            ->pluck('sum', 'date')
-                            ->toArray()
-                    ])
+                // LineChartMetric::make('refillings')
+                //     ->line([
+                //         __('moonshine::refilling.num_liters_car_refueling') => Refilling::query()
+                //             ->selectRaw('SUM(num_liters_car_refueling) as sum, DATE_FORMAT(date, "%d.%m.%Y") as date')
+                //             ->groupBy('date')
+                //             ->pluck('sum', 'date')
+                //             ->toArray()
+                //     ])
+                // ->line([
+                //     __('moonshine::refilling.num_liters_car_refueling') => Refilling::query()
+                //         ->selectRaw('COUNT(num_liters_car_refueling) as count, DATE_FORMAT(date, "%d.%m.%Y") as date')
+                //         ->groupBy('date')
+                //         ->pluck('count', 'date')
+                //         ->toArray()
+                // ])
 
-                    // ->line([
-                    //     __('moonshine::refilling.num_liters_car_refueling') => Refilling::query()
-                    //         ->selectRaw('COUNT(num_liters_car_refueling) as count, DATE_FORMAT(date, "%d.%m.%Y") as date')
-                    //         ->groupBy('date')
-                    //         ->pluck('count', 'date')
-                    //         ->toArray()
-                    // ])
-
-                    // ->line([
-                    //     __('moonshine::refilling.cost_car_refueling') => Refilling::query()
-                    //         ->selectRaw('SUM(cost_car_refueling) as sum, DATE_FORMAT(date, "%d.%m.%Y") as date')
-                    //         ->groupBy('date')
-                    //         ->pluck('sum', 'date')
-                    //         ->toArray()
-                    // ])
-                    // ->line([
-                    //     'Avg' => Refilling::query()
-                    //         ->selectRaw('AVG(cost_car_refueling) as avg, DATE_FORMAT(date, "%d.%m.%Y") as date')
-                    //         ->groupBy('date')
-                    //         ->pluck('avg', 'date')
-                    //         ->toArray()
-                    // ], '#EC4176')
-                    ->translatable('moonshine::refilling'),
+                // ->line([
+                //     __('moonshine::refilling.cost_car_refueling') => Refilling::query()
+                //         ->selectRaw('SUM(cost_car_refueling) as sum, DATE_FORMAT(date, "%d.%m.%Y") as date')
+                //         ->groupBy('date')
+                //         ->pluck('sum', 'date')
+                //         ->toArray()
+                // ])
+                // ->line([
+                //     'Avg' => Refilling::query()
+                //         ->selectRaw('AVG(cost_car_refueling) as avg, DATE_FORMAT(date, "%d.%m.%Y") as date')
+                //         ->groupBy('date')
+                //         ->pluck('avg', 'date')
+                //         ->toArray()
+                // ], '#EC4176')
+                // ->withoutSortKeys()
+                // ->translatable('moonshine::refilling'),
 
                 ValueMetric::make('refillings')
                     ->value(Refilling::count())

@@ -9,5 +9,6 @@ return [
     'price_car_refueling' => 'Цена',
     'cost_car_refueling' => 'Итог',
     'stantion' => 'АЗС',
-
+    'all' => 'Все',
+    'archive' => 'Архив',
 ];

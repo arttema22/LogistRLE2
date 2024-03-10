@@ -6,10 +6,11 @@ use MoonShine\Models\MoonshineUser;
 use Illuminate\Database\Eloquent\Model;
 use MoonShine\ChangeLog\Traits\HasChangeLog;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Refilling extends Model
 {
-    use HasFactory, HasChangeLog;
+    use HasFactory, SoftDeletes, HasChangeLog;
 
     protected $fillable = [
         'date',
@@ -23,7 +24,7 @@ class Refilling extends Model
         'address',
         'reg_number',
         'driver_name',
-        'inegration_id',
+        'integration_id',
         'profit_id',
     ];
 

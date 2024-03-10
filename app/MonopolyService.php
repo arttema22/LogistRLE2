@@ -94,7 +94,7 @@ class MonopolyService
 
         if (isset($response)) {
             foreach ($response ?? [] as $transaction) {
-                if (!Refilling::where('inegration_id', $transaction['id'])->exists()) {
+                if (!Refilling::where('integration_id', $transaction['id'])->exists()) {
 
                     $driver = MoonshineUser::where('phone', $transaction['driverPhone'])->first();
 
@@ -113,7 +113,7 @@ class MonopolyService
                             'address' => $transaction['station']['addressDetails'],
                             'reg_number' => $transaction['regNumber'],
                             'driver_name' => $transaction['driver'],
-                            'inegration_id' => $transaction['id'],
+                            'integration_id' => $transaction['id'],
                         ]);
                     };
                 };

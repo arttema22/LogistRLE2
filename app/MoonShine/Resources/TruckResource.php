@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\MoonShine\Resources;
 
 use App\Models\Truck;
+use MoonShine\Enums\Layer;
 use MoonShine\Fields\Text;
 use MoonShine\Fields\Field;
 use MoonShine\Enums\PageType;
 use MoonShine\Attributes\Icon;
+use MoonShine\Fields\Position;
 use MoonShine\Decorations\Grid;
 use MoonShine\Decorations\Block;
 use MoonShine\Decorations\Column;
@@ -18,10 +20,10 @@ use MoonShine\Handlers\ExportHandler;
 use MoonShine\Handlers\ImportHandler;
 use MoonShine\Resources\ModelResource;
 use Illuminate\Database\Eloquent\Model;
+use MoonShine\ChangeLog\Components\ChangeLog;
 use MoonShine\Fields\Relationships\BelongsTo;
 use MoonShine\Fields\Relationships\BelongsToMany;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use MoonShine\Fields\Position;
 
 /**
  * @extends ModelResource<Truck>
@@ -146,7 +148,10 @@ class TruckResource extends ModelResource
     // Поля для поиска
     public function search(): array
     {
-        return ['name', 'reg_num', 'brand.name', 'type.name', 'users.name'];
+        return [
+            'name', 'reg_num', 'brand.name',
+            'type.name', 'users.name'
+        ];
     }
 
     // Быстрые фильтры
@@ -184,5 +189,16 @@ class TruckResource extends ModelResource
     public function export(): ?ExportHandler
     {
         return null;
+    }
+
+    // Логирование изменений
+    protected function onBoot(): void
+    {
+        $this->getPages()
+            ->formPage()
+            ->pushToLayer(
+                Layer::BOTTOM,
+                ChangeLog::make('Changelog', $this)
+            );
     }
 }
