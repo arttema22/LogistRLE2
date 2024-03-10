@@ -25,6 +25,9 @@ return new class extends Migration
             $table->float('price_car_refueling', 8, 2)->nullable();
             $table->float('cost_car_refueling', 8, 2)->nullable();
 
+            $table->BigInteger('test_station_id')->unsigned();
+            $table->foreign('test_station_id')->references('id')->on('dir_petrol_stations');
+
             $table->string('station_id')->nullable();
             $table->string('brand')->nullable();
             $table->string('address')->nullable();

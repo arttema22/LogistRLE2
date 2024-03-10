@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class DirPetrolStation extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'station_id',
+        'name',
+        'address',
+    ];
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Models\DirPetrolStation;
 use App\Models\Refilling;
 use MoonShine\MoonShine;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ use App\Models\SetupIntegration;
 use App\MoonShine\Pages\E1card;
 use App\MoonShine\Pages\Monopoly;
 use App\MoonShine\Pages\Settings;
+use App\MoonShine\Resources\DirPetrolStationResource;
 use App\MoonShine\Resources\DirTruckBrandResource;
 use App\MoonShine\Resources\DirTruckTypeResource;
 use App\MoonShine\Resources\MoonShineUserResource;
@@ -77,6 +79,9 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
                 MenuItem::make('brands', new DirTruckBrandResource())
                     ->translatable('moonshine::directory'),
                 MenuItem::make('types', new DirTruckTypeResource())
+                    ->translatable('moonshine::directory'),
+                MenuDivider::make('petrol_station')->translatable('moonshine::directory'),
+                MenuItem::make('petrol_station', new DirPetrolStationResource())
                     ->translatable('moonshine::directory'),
             ])->icon('heroicons.bars-3')
                 ->translatable('moonshine::directory'),

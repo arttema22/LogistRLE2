@@ -7,4 +7,5 @@ return [
     'types' => 'Types',
     'type' => 'Type',
     'name' => 'Name',
+    'petrol_station' => 'Petrol Station',
 ];

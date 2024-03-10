@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('station_id');
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('address');
             $table->text('comment')->nullable();
             $table->boolean('status')->default(1);

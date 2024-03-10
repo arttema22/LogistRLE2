@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\DirPetrolStation;
 use App\Models\Refilling;
 use App\Models\SetupIntegration;
 use Spatie\Valuestore\Valuestore;
@@ -96,6 +97,16 @@ class MonopolyService
             foreach ($response ?? [] as $transaction) {
                 if (!Refilling::where('integration_id', $transaction['id'])->exists()) {
 
+                    // Если в базе нет записи о такой АЗС, то она создается
+                    $petrol_station = DirPetrolStation::where('station_id', $transaction['station']['id'])->first();
+                    if (!$petrol_station) {
+                        $petrol_station = DirPetrolStation::create([
+                            'station_id' => $transaction['station']['id'],
+                            'name' => $transaction['station']['brand'],
+                            'address' => $transaction['station']['addressDetails'],
+                        ]);
+                    }
+
                     $driver = MoonshineUser::where('phone', $transaction['driverPhone'])->first();
 
                     if ($driver) {
@@ -106,7 +117,7 @@ class MonopolyService
                             'num_liters_car_refueling' => $transaction['refuelVolume'],
                             'price_car_refueling' => $settings->get('price_car_refueling'),
                             'cost_car_refueling' => $transaction['refuelVolume'] * $settings->get('price_car_refueling'),
-
+                            'test_station_id' => $petrol_station->id,
 
                             'station_id' => $transaction['station']['id'],
                             'brand' => $transaction['station']['brand'],

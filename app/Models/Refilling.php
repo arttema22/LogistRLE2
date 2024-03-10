@@ -19,6 +19,7 @@ class Refilling extends Model
         'num_liters_car_refueling',
         'price_car_refueling',
         'cost_car_refueling',
+        'test_station_id',
         'station_id',
         'brand',
         'address',

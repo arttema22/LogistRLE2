@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Refilling;
+use App\Models\DirPetrolStation;
 use App\Models\SetupIntegration;
 use Spatie\Valuestore\Valuestore;
 use Illuminate\Support\Collection;
@@ -37,6 +38,16 @@ class E1cardService
             foreach ($response['transactions'] ?? [] as $transaction) {
                 if (!Refilling::where('integration_id', $transaction['UnID'])->exists()) {
 
+                    // Если в базе нет записи о такой АЗС, то она создается
+                    $petrol_station = DirPetrolStation::where('station_id', $transaction['station_id'])->first();
+                    if (!$petrol_station) {
+                        $petrol_station = DirPetrolStation::create([
+                            'station_id' => $transaction['station_id'],
+                            'name' => $transaction['brand'],
+                            'address' => $transaction['address'],
+                        ]);
+                    }
+
                     $driver = MoonshineUser::where('e1_card', $transaction['card'])->first();
 
                     if ($driver) {
@@ -47,6 +58,7 @@ class E1cardService
                             'num_liters_car_refueling' => $transaction['volume'],
                             'price_car_refueling' => $settings->get('price_car_refueling'),
                             'cost_car_refueling' => $transaction['volume'] * $settings->get('price_car_refueling'),
+                            'test_station_id' => $petrol_station->id,
 
                             'station_id' => $transaction['station_id'],
                             'brand' => $transaction['brand'],
