@@ -66,7 +66,6 @@ class Refilling extends Model
      */
     public function prunable(): Builder
     {
-        return static::onlyTrashed()
-            ->where('created_at', '<=', now()->subMonth());
+        return static::where('deleted_at', '<=', now()->subDay());
     }
 }
