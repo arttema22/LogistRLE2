@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('dir_petrol_stations', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('station_id');
+            $table->string('station_id')->nullable();
             $table->string('name');
             $table->string('address');
             $table->text('comment')->nullable();

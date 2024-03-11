@@ -8,4 +8,6 @@ return [
     'type' => 'Type',
     'name' => 'Name',
     'petrol_station' => 'Petrol Station',
+    'address' => 'Address',
+    'count_refillings' => 'Count Refillings',
 ];

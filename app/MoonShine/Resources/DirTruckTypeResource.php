@@ -4,16 +4,19 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources;
 
-use MoonShine\Fields\Text;
+use MoonShine\Enums\Layer;
 
+use MoonShine\Fields\Text;
 use App\Models\DirTruckType;
 use MoonShine\Enums\PageType;
 use MoonShine\Attributes\Icon;
+use MoonShine\Fields\Position;
 use MoonShine\Decorations\Block;
 use MoonShine\Handlers\ExportHandler;
 use MoonShine\Handlers\ImportHandler;
 use MoonShine\Resources\ModelResource;
 use Illuminate\Database\Eloquent\Model;
+use MoonShine\ChangeLog\Components\ChangeLog;
 
 /**
  * @extends ModelResource<DirTruckType>
@@ -61,6 +64,7 @@ class DirTruckTypeResource extends ModelResource
     public function indexFields(): array
     {
         return [
+            Position::make(),
             Text::make('name')->sortable()->translatable('moonshine::directory'),
         ];
     }
@@ -97,5 +101,16 @@ class DirTruckTypeResource extends ModelResource
     public function export(): ?ExportHandler
     {
         return null;
+    }
+
+    // Логирование изменений
+    protected function onBoot(): void
+    {
+        $this->getPages()
+            ->formPage()
+            ->pushToLayer(
+                Layer::BOTTOM,
+                ChangeLog::make('Changelog', $this)
+            );
     }
 }
