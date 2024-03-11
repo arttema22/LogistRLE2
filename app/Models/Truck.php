@@ -4,8 +4,10 @@ namespace App\Models;
 
 use MoonShine\Models\MoonshineUser;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use MoonShine\ChangeLog\Traits\HasChangeLog;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\MassPrunable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Truck extends Model
 {
-    use HasFactory, SoftDeletes, HasChangeLog;
+    use HasFactory, SoftDeletes, HasChangeLog, MassPrunable;
 
     protected $fillable = [
         'name',
@@ -49,5 +51,14 @@ class Truck extends Model
     public function truckRefillings(): HasMany
     {
         return $this->hasMany(Refilling::class, 'truck_id', 'id');
+    }
+
+    /**
+     * Запрос для удаления устаревших записей модели.
+     */
+    public function prunable(): Builder
+    {
+        return static::onlyTrashed()
+            ->where('created_at', '<=', now()->subMonth());
     }
 }

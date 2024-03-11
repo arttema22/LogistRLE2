@@ -13,12 +13,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
+        // Получение данных о заправках из интеграции
         $schedule->command('e1card:transaction')->everyFiveMinutes();
+        // Получение данных о заправках из интеграции
         $schedule->command('monopoly:transaction')->everyFiveMinutes();
-
-        // $schedule->call(function () {
-        //     DB::table('refillings')->delete();
-        // })->everyMinute();
+        // переодическое удаление старых записей
+        $schedule->command('model:prune')->daily();
     }
 
     /**

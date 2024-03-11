@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use MoonShine\ChangeLog\Traits\HasChangeLog;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\MassPrunable;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class DirTruckType extends Model
 {
-    use HasFactory, SoftDeletes, HasChangeLog;
+    use HasFactory, SoftDeletes, HasChangeLog, MassPrunable;
 
     /**
      * Получить все автомобили к типу.
@@ -18,5 +20,14 @@ class DirTruckType extends Model
     public function truck(): HasMany
     {
         return $this->hasMany(Truck::class, 'type_id', 'id');
+    }
+
+    /**
+     * Запрос для удаления устаревших записей модели.
+     */
+    public function prunable(): Builder
+    {
+        return static::onlyTrashed()
+            ->where('created_at', '<=', now()->subMonth());
     }
 }
