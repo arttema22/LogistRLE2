@@ -22,6 +22,7 @@ use App\MoonShine\Resources\SetupIntegrationResource;
 use App\MoonShine\Resources\MoonShineUserRoleResource;
 use App\MoonShine\Resources\ProfileResource;
 use App\MoonShine\Resources\RefillingResource;
+use App\MoonShine\Resources\SalaryResource;
 use App\MoonShine\Resources\TruckResource;
 use MoonShine\Decorations\Divider;
 use MoonShine\Menu\MenuDivider;
@@ -42,6 +43,9 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
     protected function menu(): array
     {
         return [
+            MenuItem::make('salaries', new SalaryResource())
+                ->translatable('moonshine::salary'),
+
             MenuItem::make('trucks', new TruckResource())
                 ->translatable('moonshine::truck'),
 

@@ -23,14 +23,13 @@ class Refilling extends Model
         'cost_car_refueling',
         'station_id',
         'truck_id',
-
         'reg_number',
         'integration_id',
         'profit_id',
     ];
 
     /**
-     * Получить данные о создателе записи о заправке.
+     * Получить данные о создателе записи.
      */
     public function owner()
     {

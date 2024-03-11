@@ -26,11 +26,9 @@ return new class extends Migration
             $table->foreign('station_id')->references('id')->on('dir_petrol_stations');
             $table->BigInteger('truck_id')->unsigned()->nullable();
             $table->foreign('truck_id')->references('id')->on('trucks');
-
             $table->string('reg_number')->nullable();
             $table->string('integration_id')->nullable();
             $table->BigInteger('profit_id')->unsigned()->default(0);
-
             $table->softDeletes();
         });
     }

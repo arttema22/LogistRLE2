@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources;
 
-use Closure;
-use App\Models\Refilling;
+use App\Models\Salary;
+use MoonShine\Fields\ID;
+
 use MoonShine\Enums\Layer;
 use MoonShine\Fields\Date;
 use MoonShine\Fields\Text;
@@ -13,28 +14,26 @@ use MoonShine\Fields\Field;
 use MoonShine\Enums\PageType;
 use MoonShine\Attributes\Icon;
 use MoonShine\Fields\Position;
+use MoonShine\Fields\Textarea;
 use MoonShine\Decorations\Block;
-use MoonShine\Fields\StackFields;
 use MoonShine\QueryTags\QueryTag;
-use Spatie\Valuestore\Valuestore;
 use Illuminate\Support\Facades\Auth;
 use MoonShine\Handlers\ExportHandler;
 use MoonShine\Handlers\ImportHandler;
 use MoonShine\Resources\ModelResource;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\View\ComponentAttributeBag;
 use MoonShine\ChangeLog\Components\ChangeLog;
 use MoonShine\Fields\Relationships\BelongsTo;
 
 /**
- * @extends ModelResource<Refilling>
+ * @extends ModelResource<Salary>
  */
-#[Icon('heroicons.outline.battery-50')]
-class RefillingResource extends ModelResource
+#[Icon('heroicons.outline.banknotes')]
+class SalaryResource extends ModelResource
 {
     // Модель данных
-    protected string $model = Refilling::class;
+    protected string $model = Salary::class;
 
     // Проверка прав доступа
     protected bool $withPolicy = false;
@@ -59,14 +58,14 @@ class RefillingResource extends ModelResource
 
     public function title(): string
     {
-        return __('moonshine::refilling.refillings');
+        return __('moonshine::salary.salaries');
     }
 
     // Разрешенные действия
     public function getActiveActions(): array
     {
         return [
-            'create', // 'update', 'delete'
+            'create', 'update', 'delete'
         ];
     }
 
@@ -75,29 +74,12 @@ class RefillingResource extends ModelResource
         return [
             Position::make(),
             Date::make('date')->format('d.m.Y H:i')->sortable()
-                ->translatable('moonshine::refilling'),
+                ->translatable('moonshine::salary'),
             BelongsTo::make('driver', 'driver', resource: new MoonShineUserResource())
                 ->sortable()
-                ->translatable('moonshine::refilling'),
-            Text::make('num_liters_car_refueling')->badge('primary')
-                ->sortable()
-                ->translatable('moonshine::refilling'),
-            Text::make('price_car_refueling')->translatable('moonshine::refilling'),
-            Text::make('cost_car_refueling')
-                ->sortable()
-                ->translatable('moonshine::refilling'),
-            BelongsTo::make(
-                'stantion',
-                'petrolStation',
-                fn ($item) => "$item->name<br>$item->address",
-                resource: new DirPetrolStationResource()
-            )->translatable('moonshine::refilling'),
-            BelongsTo::make(
-                'truck',
-                'truck',
-                fn ($item) => "$item->name<br>$item->reg_num",
-                resource: new DirPetrolStationResource()
-            )->translatable('moonshine::refilling'),
+                ->translatable('moonshine::salary'),
+            Text::make('salary')
+                ->translatable('moonshine::salary'),
         ];
     }
 
@@ -106,27 +88,13 @@ class RefillingResource extends ModelResource
         return [
             Block::make([
                 Date::make('date')->withTime()->required()
-                    ->translatable('moonshine::refilling'),
+                    ->translatable('moonshine::salary'),
                 BelongsTo::make('driver', 'driver', resource: new MoonShineUserResource())
                     ->valuesQuery(fn (Builder $query, Field $field) => $query->where('moonshine_user_role_id', 3))
-                    ->translatable('moonshine::refilling'),
-                BelongsTo::make(
-                    'petrol_station',
-                    'petrolStation',
-                    fn ($item) => "$item->name \ $item->address",
-                    resource: new DirPetrolStationResource()
-                )->searchable()
-                    ->translatable('moonshine::refilling'),
-                BelongsTo::make(
-                    'truck',
-                    'truck',
-                    fn ($item) => "$item->name \ $item->reg_num",
-                    resource: new TruckResource()
-                )->searchable()
-                    ->nullable()
-                    ->translatable('moonshine::refilling'),
-                Text::make('num_liters_car_refueling')->required()
-                    ->translatable('moonshine::refilling'),
+                    ->translatable('moonshine::salary'),
+                Text::make('salary')->required()
+                    ->translatable('moonshine::salary'),
+                Textarea::make('comment')->translatable('moonshine::salary'),
             ]),
         ];
     }
@@ -135,7 +103,7 @@ class RefillingResource extends ModelResource
     {
         return [
             'date' => ['required', 'date'],
-            'num_liters_car_refueling' => ['required'],
+            'salary' => ['required'],
         ];
     }
 
@@ -156,7 +124,6 @@ class RefillingResource extends ModelResource
     {
         return [
             'date', 'driver.name',
-            'num_liters_car_refueling', 'cost_car_refueling'
         ];
     }
 
@@ -165,11 +132,11 @@ class RefillingResource extends ModelResource
     {
         return [
             QueryTag::make(
-                __('moonshine::refilling.all'),
+                __('moonshine::salary.all'),
                 fn (Builder $query) => $query
             )->default(),
             QueryTag::make(
-                __('moonshine::refilling.archive'),
+                __('moonshine::salary.archive'),
                 fn (Builder $query) => $query->onlyTrashed()
             ),
 
@@ -188,29 +155,8 @@ class RefillingResource extends ModelResource
 
     protected function beforeCreating(Model $item): Model
     {
-        $settings = Valuestore::make(storage_path('app/settings.json'));
-
         $item->owner_id = Auth::user()->id;
-        $item->price_car_refueling = $settings->get('price_car_refueling');
-        $item->cost_car_refueling = $item->num_liters_car_refueling * $settings->get('price_car_refueling');
         return $item;
-    }
-
-    // Если запись сделана вручную, то она красная
-    public function trAttributes(): Closure
-    {
-        return function (
-            Model $item,
-            int $row,
-            ComponentAttributeBag $attr
-        ): ComponentAttributeBag {
-            if ($item->owner_id != 1) {
-                $attr->setAttributes([
-                    'class' => 'bgc-red'
-                ]);
-            }
-            return $attr;
-        };
     }
 
     // Логирование изменений
