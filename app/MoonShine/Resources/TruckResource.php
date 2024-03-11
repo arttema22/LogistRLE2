@@ -101,7 +101,7 @@ class TruckResource extends ModelResource
                     Column::make([
                         Text::make('reg_num')
                             ->required()
-                            ->mask('a 999 aa 999')
+                            ->mask('a999aa999')
                             ->translatable('moonshine::truck'),
                     ])->columnSpan(3, 6),
                     Column::make([

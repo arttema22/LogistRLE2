@@ -19,20 +19,15 @@ return new class extends Migration
             $table->foreign('owner_id')->references('id')->on('moonshine_users');
             $table->BigInteger('driver_id')->unsigned();
             $table->foreign('driver_id')->references('id')->on('moonshine_users');
-            // $table->BigInteger('petrol_stations_id')->unsigned();
-            // $table->foreign('petrol_stations_id')->references('id')->on('dir_petrol_stations');
             $table->float('num_liters_car_refueling', 8, 2);
             $table->float('price_car_refueling', 8, 2)->nullable();
             $table->float('cost_car_refueling', 8, 2)->nullable();
+            $table->BigInteger('station_id')->unsigned();
+            $table->foreign('station_id')->references('id')->on('dir_petrol_stations');
+            $table->BigInteger('truck_id')->unsigned()->nullable();
+            $table->foreign('truck_id')->references('id')->on('trucks');
 
-            $table->BigInteger('test_station_id')->unsigned();
-            $table->foreign('test_station_id')->references('id')->on('dir_petrol_stations');
-
-            $table->string('station_id')->nullable();
-            $table->string('brand')->nullable();
-            $table->string('address')->nullable();
             $table->string('reg_number')->nullable();
-            $table->string('driver_name')->nullable();
             $table->string('integration_id')->nullable();
             $table->BigInteger('profit_id')->unsigned()->default(0);
 

@@ -19,12 +19,10 @@ class Refilling extends Model
         'num_liters_car_refueling',
         'price_car_refueling',
         'cost_car_refueling',
-        'test_station_id',
         'station_id',
-        'brand',
-        'address',
+        'truck_id',
+
         'reg_number',
-        'driver_name',
         'integration_id',
         'profit_id',
     ];
@@ -43,5 +41,21 @@ class Refilling extends Model
     public function driver()
     {
         return $this->belongsTo(MoonshineUser::class, 'driver_id', 'id');
+    }
+
+    /**
+     * Получить данные о АЗС.
+     */
+    public function petrolStation()
+    {
+        return $this->belongsTo(DirPetrolStation::class, 'station_id', 'id');
+    }
+
+    /**
+     * Получить данные об автомобиле который заправляется.
+     */
+    public function truck()
+    {
+        return $this->belongsTo(Truck::class, 'truck_id', 'id');
     }
 }

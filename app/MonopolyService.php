@@ -2,8 +2,10 @@
 
 namespace App;
 
-use App\Models\DirPetrolStation;
+use App\Models\Truck;
 use App\Models\Refilling;
+use Illuminate\Support\Str;
+use App\Models\DirPetrolStation;
 use App\Models\SetupIntegration;
 use Spatie\Valuestore\Valuestore;
 use Illuminate\Support\Collection;
@@ -107,6 +109,14 @@ class MonopolyService
                         ]);
                     }
 
+                    // Если в базе есть запись о машине с переданным номером, то ее ID записывается
+                    $truck = Truck::where('reg_num', $transaction['regNumber'])->first();
+                    if ($truck) {
+                        $truck_id = $truck->id;
+                    } else {
+                        $truck_id = null;
+                    }
+
                     $driver = MoonshineUser::where('phone', $transaction['driverPhone'])->first();
 
                     if ($driver) {
@@ -117,13 +127,9 @@ class MonopolyService
                             'num_liters_car_refueling' => $transaction['refuelVolume'],
                             'price_car_refueling' => $settings->get('price_car_refueling'),
                             'cost_car_refueling' => $transaction['refuelVolume'] * $settings->get('price_car_refueling'),
-                            'test_station_id' => $petrol_station->id,
-
-                            'station_id' => $transaction['station']['id'],
-                            'brand' => $transaction['station']['brand'],
-                            'address' => $transaction['station']['addressDetails'],
-                            'reg_number' => $transaction['regNumber'],
-                            'driver_name' => $transaction['driver'],
+                            'station_id' => $petrol_station->id,
+                            'truck_id' => $truck_id,
+                            'reg_number' => Str::upper(Str::slug(str_replace(' ', '', $transaction['regNumber']))),
                             'integration_id' => $transaction['id'],
                         ]);
                     };

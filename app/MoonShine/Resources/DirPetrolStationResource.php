@@ -36,13 +36,6 @@ class DirPetrolStationResource extends ModelResource
         ];
     }
 
-    public function detailFields(): array
-    {
-        return [
-            ID::make()->sortable(),
-        ];
-    }
-
     public function rules(Model $item): array
     {
         return [];

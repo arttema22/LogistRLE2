@@ -85,13 +85,18 @@ class RefillingResource extends ModelResource
             Text::make('cost_car_refueling')
                 ->sortable()
                 ->translatable('moonshine::refilling'),
-
-            StackFields::make('stantion')
-                ->fields([
-                    Text::make('brand')->translatable('moonshine::refilling'),
-                    Text::make('address')->translatable('moonshine::refilling'),
-                ])
-                ->translatable('moonshine::refilling'),
+            BelongsTo::make(
+                'stantion',
+                'petrolStation',
+                fn ($item) => "$item->name<br>$item->address",
+                resource: new DirPetrolStationResource()
+            )->translatable('moonshine::refilling'),
+            BelongsTo::make(
+                'truck',
+                'truck',
+                fn ($item) => "$item->name<br>$item->reg_num",
+                resource: new DirPetrolStationResource()
+            )->translatable('moonshine::refilling'),
         ];
     }
 
