@@ -17,14 +17,18 @@ use MoonShine\Fields\Position;
 use MoonShine\Fields\Textarea;
 use MoonShine\Decorations\Block;
 use MoonShine\QueryTags\QueryTag;
+use MoonShine\Components\Offcanvas;
 use Illuminate\Support\Facades\Auth;
 use MoonShine\Handlers\ExportHandler;
 use MoonShine\Handlers\ImportHandler;
 use MoonShine\Resources\ModelResource;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use MoonShine\ActionButtons\ActionButton;
 use MoonShine\ChangeLog\Components\ChangeLog;
+use MoonShine\Components\When;
 use MoonShine\Fields\Relationships\BelongsTo;
+use MoonShine\Metrics\LineChartMetric;
 
 /**
  * @extends ModelResource<Salary>
@@ -69,17 +73,30 @@ class SalaryResource extends ModelResource
         ];
     }
 
+    public function query(): Builder
+    {
+        if (Auth::user()->moonshine_user_role_id == 3) return parent::query()
+            ->where('driver_id', Auth::user()->id);
+
+        return parent::query();
+    }
+
     public function indexFields(): array
     {
         return [
             Position::make(),
-            Date::make('date')->format('d.m.Y H:i')->sortable()
+            Date::make('date')->format('d.m.Y')->sortable()
                 ->translatable('moonshine::salary'),
             BelongsTo::make('driver', 'driver', resource: new MoonShineUserResource())
                 ->sortable()
+                ->when(
+                    Auth::user()->moonshine_user_role_id === 3,
+                    fn (Field $field) => $field->hideOnIndex(),
+                )
                 ->translatable('moonshine::salary'),
             Text::make('salary')
                 ->translatable('moonshine::salary'),
+            Textarea::make('comment')->translatable('moonshine::salary'),
         ];
     }
 
@@ -87,11 +104,15 @@ class SalaryResource extends ModelResource
     {
         return [
             Block::make([
-                Date::make('date')->withTime()->required()
+                Date::make('date')->required()
                     ->translatable('moonshine::salary'),
                 BelongsTo::make('driver', 'driver', resource: new MoonShineUserResource())
                     ->valuesQuery(fn (Builder $query, Field $field) => $query->where('moonshine_user_role_id', 3))
-                    ->translatable('moonshine::salary'),
+                    ->translatable('moonshine::salary')
+                    ->when(
+                        Auth::user()->moonshine_user_role_id === 3,
+                        fn (Field $field) => $field->hideOnForm(),
+                    ),
                 Text::make('salary')->required()
                     ->translatable('moonshine::salary'),
                 Textarea::make('comment')->translatable('moonshine::salary'),
@@ -156,7 +177,53 @@ class SalaryResource extends ModelResource
     protected function beforeCreating(Model $item): Model
     {
         $item->owner_id = Auth::user()->id;
+
+        if (Auth::user()->moonshine_user_role_id == 3) {
+            $item->driver_id = Auth::user()->id;
+        }
+
         return $item;
+    }
+
+    public function metrics(): array
+    {
+        return [
+            When::make(
+                static fn () => Auth::user()->moonshine_user_role_id === 3,
+                static fn () => [
+                    LineChartMetric::make('salaries')
+                        ->line([
+                            __('moonshine::salary.sum') => Salary::query()
+                                ->selectRaw('SUM(salary) as sum, DATE_FORMAT(date, "%d.%m.%Y") as date')
+                                ->where('driver_id', Auth::user()->id)
+                                ->groupBy('date')
+                                ->pluck('sum', 'date')
+                                ->toArray()
+                        ], 'rgb(42, 69, 35)')->translatable('moonshine::salary')
+                ]
+            ),
+            When::make(
+                static fn () => Auth::user()->moonshine_user_role_id != 3,
+                static fn () => [
+                    LineChartMetric::make('salaries')
+                        ->line(
+                            [
+                                __('moonshine::salary.sum') => Salary::query()
+                                    ->selectRaw('SUM(salary) as sum, DATE_FORMAT(date, "%d.%m.%Y") as date')
+                                    ->groupBy('date')
+                                    ->pluck('sum', 'date')
+                                    ->toArray(),
+                                __('moonshine::salary.avg') => Salary::query()
+                                    ->selectRaw('AVG(salary) as avg, DATE_FORMAT(date, "%d.%m.%Y") as date')
+                                    ->groupBy('date')
+                                    ->pluck('avg', 'date')
+                                    ->toArray()
+                            ],
+                            ['rgb(42, 69, 35)', 'rgb(93, 160, 53)']
+                        )->translatable('moonshine::salary')
+                ]
+            ),
+        ];
     }
 
     // Логирование изменений

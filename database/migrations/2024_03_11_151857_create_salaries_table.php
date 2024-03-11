@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('salaries', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->dateTime('date');
+            $table->date('date');
             $table->BigInteger('owner_id')->unsigned();
             $table->foreign('owner_id')->references('id')->on('moonshine_users');
             $table->BigInteger('driver_id')->unsigned();

@@ -8,4 +8,6 @@ return [
     'comment' => 'Comment',
     'all' => 'All',
     'archive' => 'Archive',
+    'sum' => 'Sum',
+    'avg' => 'Avg',
 ];

@@ -61,7 +61,7 @@ class E1cardService
 
                     if ($driver) {
                         Refilling::create([
-                            'date' => date('Y-m-d H:i:s', strtotime($transaction['date'])),
+                            'date' => date('Y-m-d', strtotime($transaction['date'])),
                             'owner_id' => 1,
                             'driver_id' => $driver->id,
                             'num_liters_car_refueling' => $transaction['volume'],

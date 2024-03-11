@@ -70,11 +70,19 @@ class RefillingResource extends ModelResource
         ];
     }
 
+    public function query(): Builder
+    {
+        if (Auth::user()->moonshine_user_role_id == 3) return parent::query()
+            ->where('driver_id', Auth::user()->id);
+
+        return parent::query();
+    }
+
     public function indexFields(): array
     {
         return [
             Position::make(),
-            Date::make('date')->format('d.m.Y H:i')->sortable()
+            Date::make('date')->format('d.m.Y')->sortable()
                 ->translatable('moonshine::refilling'),
             BelongsTo::make('driver', 'driver', resource: new MoonShineUserResource())
                 ->sortable()
@@ -105,7 +113,7 @@ class RefillingResource extends ModelResource
     {
         return [
             Block::make([
-                Date::make('date')->withTime()->required()
+                Date::make('date')->required()
                     ->translatable('moonshine::refilling'),
                 BelongsTo::make('driver', 'driver', resource: new MoonShineUserResource())
                     ->valuesQuery(fn (Builder $query, Field $field) => $query->where('moonshine_user_role_id', 3))
