@@ -108,6 +108,21 @@ class RefillingResource extends ModelResource
             BelongsTo::make('driver', 'driver', resource: new MoonShineUserResource())
                 ->valuesQuery(fn (Builder $query, Field $field) => $query->where('moonshine_user_role_id', 3))
                 ->translatable('moonshine::refilling'),
+            BelongsTo::make(
+                'petrol_station',
+                'petrolStation',
+                fn ($item) => "$item->name \ $item->address",
+                resource: new DirPetrolStationResource()
+            )->searchable()
+                ->translatable('moonshine::refilling'),
+            BelongsTo::make(
+                'truck',
+                'truck',
+                fn ($item) => "$item->name \ $item->reg_num",
+                resource: new TruckResource()
+            )->searchable()
+                ->nullable()
+                ->translatable('moonshine::refilling'),
             Text::make('num_liters_car_refueling')->required()
                 ->translatable('moonshine::refilling'),
         ];
@@ -171,16 +186,13 @@ class RefillingResource extends ModelResource
     {
         $settings = Valuestore::make(storage_path('app/settings.json'));
 
-
         $item->owner_id = Auth::user()->id;
         $item->price_car_refueling = $settings->get('price_car_refueling');
         $item->cost_car_refueling = $item->num_liters_car_refueling * $settings->get('price_car_refueling');
-
-        dd($item);
         return $item;
     }
 
-    // Если запись сделана через интеграцию, то она на зеленом фоне
+    // Если запись сделана вручную, то она красная
     public function trAttributes(): Closure
     {
         return function (

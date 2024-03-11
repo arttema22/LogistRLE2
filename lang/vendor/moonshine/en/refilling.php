@@ -11,4 +11,5 @@ return [
     'stantion' => 'Stantion',
     'all' => 'All',
     'archive' => 'Archive',
+    'petrol_station' => 'Petrol Station',
 ];
