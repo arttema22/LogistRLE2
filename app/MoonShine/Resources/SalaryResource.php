@@ -17,6 +17,7 @@ use MoonShine\Handlers\ImportHandler;
 use MoonShine\Resources\ModelResource;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use MoonShine\ActionButtons\ActionButton;
 use MoonShine\ChangeLog\Components\ChangeLog;
 use MoonShine\Fields\Relationships\BelongsTo;
 use App\MoonShine\Pages\Salary\SalaryFormPage;
@@ -51,13 +52,13 @@ class SalaryResource extends ModelResource
     protected int $itemsPerPage = 15;
 
     // Модальное окно при создании
-    protected bool $createInModal = true;
+    protected bool $createInModal = false;
 
     // Модальное окно при редактировании
-    protected bool $editInModal = true;
+    protected bool $editInModal = false;
 
     // Модальное окно при просмотре
-    protected bool $detailInModal = true;
+    protected bool $detailInModal = false;
 
     // Поле для отображения значений в связях и хлебных крошках
     public string $column = 'date';

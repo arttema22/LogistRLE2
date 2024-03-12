@@ -7,15 +7,22 @@ namespace App\MoonShine\Pages\Salary;
 use MoonShine\Fields\Date;
 use MoonShine\Fields\Text;
 use MoonShine\Fields\Field;
+use MoonShine\Fields\Number;
 use MoonShine\Fields\Preview;
+use MoonShine\Fields\Password;
 use MoonShine\Fields\Position;
 use MoonShine\Fields\Textarea;
+use MoonShine\Decorations\Divider;
 use MoonShine\Components\Offcanvas;
 use MoonShine\Pages\Crud\IndexPage;
 use Illuminate\Support\Facades\Auth;
+use MoonShine\Decorations\LineBreak;
+use MoonShine\Components\FormBuilder;
 use MoonShine\ActionButtons\ActionButton;
 use MoonShine\Fields\Relationships\BelongsTo;
 use App\MoonShine\Resources\MoonShineUserResource;
+use MoonShine\Fields\Fields;
+use MoonShine\Contracts\MoonShineRenderable;
 
 class SalaryIndexPage extends IndexPage
 {
@@ -40,6 +47,7 @@ class SalaryIndexPage extends IndexPage
             Text::make('salary')
                 ->translatable('moonshine::salary'),
             Textarea::make('comment')->translatable('moonshine::salary'),
+
         ];
     }
 
@@ -53,7 +61,7 @@ class SalaryIndexPage extends IndexPage
     protected function mainLayer(): array
     {
         return [
-            ...parent::mainLayer()
+            ...parent::mainLayer(),
         ];
     }
 

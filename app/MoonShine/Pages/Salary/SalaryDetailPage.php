@@ -17,9 +17,18 @@ use MoonShine\Pages\Crud\DetailPage;
 use Illuminate\Database\Eloquent\Builder;
 use MoonShine\Fields\Relationships\BelongsTo;
 use App\MoonShine\Resources\MoonShineUserResource;
+use Illuminate\Database\Eloquent\Model;
+use MoonShine\Fields\Fields;
+use MoonShine\Contracts\MoonShineRenderable;
+use MoonShine\Decorations\LineBreak;
 
 class SalaryDetailPage extends DetailPage
 {
+    public function getAlias(): ?string
+    {
+        return __('moonshine::salary.detail_page');
+    }
+
     public function fields(): array
     {
         return [
@@ -29,14 +38,11 @@ class SalaryDetailPage extends DetailPage
                 ->translatable('moonshine::salary'),
             Textarea::make('comment')->translatable('moonshine::salary'),
 
-            Preview::make('help')
-                ->link('https://github.com/arttema22/LogistRLE2/wiki/%D0%92%D1%8B%D0%BF%D0%BB%D0%B0%D1%82%D1%8B', __('moonshine::ui.help'), blank: true)
-                ->translatable('moonshine::ui'),
-            Date::make('created_at'),
-            Date::make('updated_at'),
+            Date::make('created_at')->translatable('moonshine::salary'),
+            Date::make('updated_at')->translatable('moonshine::salary'),
             BelongsTo::make('owner', 'owner', resource: new MoonShineUserResource())
                 ->translatable('moonshine::salary'),
-            Text::make('profit_id'),
+            Text::make('profit_id')->translatable('moonshine::salary'),
         ];
     }
 
@@ -57,7 +63,11 @@ class SalaryDetailPage extends DetailPage
     protected function bottomLayer(): array
     {
         return [
-            ...parent::bottomLayer()
+            ...parent::bottomLayer(),
+            LineBreak::make(),
+            Preview::make()
+                ->badge('warning')
+                ->link('https://github.com/arttema22/LogistRLE2/wiki/%D0%92%D1%8B%D0%BF%D0%BB%D0%B0%D1%82%D1%8B', __('moonshine::ui.help'), blank: true)
         ];
     }
 }
