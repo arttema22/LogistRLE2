@@ -78,5 +78,10 @@ class TruckUserSeeder extends Seeder
             'truck_id' => 13,
             'user_id' => 19,
         ]);
+
+        DB::table('truck_user')->insert([
+            'truck_id' => 14,
+            'user_id' => 18,
+        ]);
     }
 }

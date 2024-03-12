@@ -57,6 +57,12 @@ class SalaryResource extends ModelResource
     // Количество элементов на странице
     protected int $itemsPerPage = 15;
 
+    // Модальное окно при создании
+    protected bool $createInModal = true;
+
+    // Модальное окно при редактировании
+    protected bool $editInModal = true;
+
     // Поле для отображения значений в связях и хлебных крошках
     public string $column = 'date';
 
@@ -183,47 +189,6 @@ class SalaryResource extends ModelResource
         }
 
         return $item;
-    }
-
-    public function metrics(): array
-    {
-        return [
-            When::make(
-                static fn () => Auth::user()->moonshine_user_role_id === 3,
-                static fn () => [
-                    LineChartMetric::make('salaries')
-                        ->line([
-                            __('moonshine::salary.sum') => Salary::query()
-                                ->selectRaw('SUM(salary) as sum, DATE_FORMAT(date, "%d.%m.%Y") as date')
-                                ->where('driver_id', Auth::user()->id)
-                                ->groupBy('date')
-                                ->pluck('sum', 'date')
-                                ->toArray()
-                        ], 'rgb(42, 69, 35)')->translatable('moonshine::salary')
-                ]
-            ),
-            When::make(
-                static fn () => Auth::user()->moonshine_user_role_id != 3,
-                static fn () => [
-                    LineChartMetric::make('salaries')
-                        ->line(
-                            [
-                                __('moonshine::salary.sum') => Salary::query()
-                                    ->selectRaw('SUM(salary) as sum, DATE_FORMAT(date, "%d.%m.%Y") as date')
-                                    ->groupBy('date')
-                                    ->pluck('sum', 'date')
-                                    ->toArray(),
-                                __('moonshine::salary.avg') => Salary::query()
-                                    ->selectRaw('AVG(salary) as avg, DATE_FORMAT(date, "%d.%m.%Y") as date')
-                                    ->groupBy('date')
-                                    ->pluck('avg', 'date')
-                                    ->toArray()
-                            ],
-                            ['rgb(42, 69, 35)', 'rgb(93, 160, 53)']
-                        )->translatable('moonshine::salary')
-                ]
-            ),
-        ];
     }
 
     // Логирование изменений

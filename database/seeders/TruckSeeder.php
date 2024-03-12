@@ -103,5 +103,12 @@ class TruckSeeder extends Seeder
             'brand_id' => 1,
             'type_id' => 1,
         ]);
+
+        Truck::create([
+            'name' => 'Actros',
+            'reg_num' => 'B280XB178',
+            'brand_id' => 1,
+            'type_id' => 3,
+        ]);
     }
 }
