@@ -2,6 +2,8 @@
 
 return [
     'salaries' => 'Salaries',
+    'resource_page' => 'salary',
+    'index_page' => 'list',
     'date' => 'Date',
     'driver' => 'Driver',
     'salary' => 'Salary',

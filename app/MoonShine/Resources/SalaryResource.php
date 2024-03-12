@@ -5,33 +5,23 @@ declare(strict_types=1);
 namespace App\MoonShine\Resources;
 
 use App\Models\Salary;
-use MoonShine\Fields\ID;
-
 use MoonShine\Enums\Layer;
 use MoonShine\Fields\Date;
-use MoonShine\Fields\Text;
 use MoonShine\Fields\Field;
-use MoonShine\Fields\Number;
 use MoonShine\Enums\PageType;
-use MoonShine\Fields\Preview;
 use MoonShine\Attributes\Icon;
-use MoonShine\Components\When;
-use MoonShine\Fields\Position;
-use MoonShine\Fields\Textarea;
-use MoonShine\Decorations\Block;
 use MoonShine\QueryTags\QueryTag;
-use MoonShine\Decorations\Heading;
-use MoonShine\Components\Offcanvas;
 use Illuminate\Support\Facades\Auth;
 use MoonShine\Handlers\ExportHandler;
 use MoonShine\Handlers\ImportHandler;
-use MoonShine\Metrics\LineChartMetric;
 use MoonShine\Resources\ModelResource;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use MoonShine\ActionButtons\ActionButton;
 use MoonShine\ChangeLog\Components\ChangeLog;
 use MoonShine\Fields\Relationships\BelongsTo;
+use App\MoonShine\Pages\Salary\SalaryFormPage;
+use App\MoonShine\Pages\Salary\SalaryIndexPage;
+use App\MoonShine\Pages\Salary\SalaryDetailPage;
 
 /**
  * @extends ModelResource<Salary>
@@ -66,20 +56,20 @@ class SalaryResource extends ModelResource
     // Модальное окно при редактировании
     protected bool $editInModal = true;
 
+    // Модальное окно при просмотре
+    protected bool $detailInModal = true;
+
     // Поле для отображения значений в связях и хлебных крошках
     public string $column = 'date';
+
+    public function getAlias(): ?string
+    {
+        return __('moonshine::salary.resource_page');
+    }
 
     public function title(): string
     {
         return __('moonshine::salary.salaries');
-    }
-
-    // Разрешенные действия
-    public function getActiveActions(): array
-    {
-        return [
-            'create', 'update', 'delete'
-        ];
     }
 
     public function query(): Builder
@@ -90,47 +80,16 @@ class SalaryResource extends ModelResource
         return parent::query();
     }
 
-    public function indexFields(): array
+    public function pages(): array
     {
         return [
-            Position::make(),
-            Date::make('date')->format('d.m.Y')->sortable()
-                ->translatable('moonshine::salary'),
-            BelongsTo::make('driver', 'driver', resource: new MoonShineUserResource())
-                ->sortable()
-                ->when(
-                    Auth::user()->moonshine_user_role_id === 3,
-                    fn (Field $field) => $field->hideOnIndex(),
-                )
-                ->translatable('moonshine::salary'),
-            Text::make('salary')
-                ->translatable('moonshine::salary'),
-            Textarea::make('comment')->translatable('moonshine::salary'),
-        ];
-    }
-
-    public function formFields(): array
-    {
-        return [
-            Preview::make()
-                ->link('https://github.com/arttema22/LogistRLE2/wiki/%D0%92%D1%8B%D0%BF%D0%BB%D0%B0%D1%82%D1%8B', __('moonshine::ui.help'), blank: true),
-            Block::make([
-                Date::make('date')->required()
-                    ->translatable('moonshine::salary'),
-                BelongsTo::make('driver', 'driver', resource: new MoonShineUserResource())
-                    ->valuesQuery(fn (Builder $query, Field $field) => $query->where('moonshine_user_role_id', 3))
-                    ->required()
-                    ->nullable()
-                    ->translatable('moonshine::salary')
-                    ->when(
-                        Auth::user()->moonshine_user_role_id === 3,
-                        fn (Field $field) => $field->hideOnForm(),
-                    ),
-                Number::make('salary')->required()
-                    ->min(10)->max(9999999.99)->step(0.01)
-                    ->translatable('moonshine::salary'),
-                Textarea::make('comment')->translatable('moonshine::salary'),
-            ]),
+            SalaryIndexPage::make($this->title()),
+            SalaryFormPage::make(
+                $this->getItemID()
+                    ? __('moonshine::ui.edit')
+                    : __('moonshine::ui.add')
+            ),
+            SalaryDetailPage::make(__('moonshine::ui.show')),
         ];
     }
 
@@ -198,13 +157,6 @@ class SalaryResource extends ModelResource
         }
 
         return $item;
-    }
-
-    public function formButtons(): array
-    {
-        return [
-            ActionButton::make('Link', '/endpoint'),
-        ];
     }
 
     // Логирование изменений
