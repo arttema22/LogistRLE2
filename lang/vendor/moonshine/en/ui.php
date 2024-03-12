@@ -33,6 +33,7 @@ return [
     'collapse_menu' => 'Collapse menu',
     '404' => 'Houston we have a problem page not found',
     'copied' => 'Copied!',
+    'help' => 'Help',
     'notifications' => [
         'title' => 'Notifications',
         'mark_as_read_all' => 'Mark all as read',
