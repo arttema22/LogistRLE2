@@ -9,8 +9,12 @@ use MoonShine\Fields\Text;
 use MoonShine\Fields\Field;
 use MoonShine\Fields\Preview;
 use MoonShine\Fields\Position;
+use MoonShine\Components\Modal;
+use MoonShine\Components\Offcanvas;
 use MoonShine\Pages\Crud\IndexPage;
 use Illuminate\Support\Facades\Auth;
+use MoonShine\Components\FormBuilder;
+use MoonShine\ActionButtons\ActionButton;
 use MoonShine\Fields\Relationships\BelongsTo;
 use App\MoonShine\Resources\MoonShineUserResource;
 
@@ -37,7 +41,6 @@ class SalaryIndexPage extends IndexPage
             Text::make('salary')
                 ->translatable('moonshine::salary'),
             Text::make('comment')->translatable('moonshine::salary'),
-
         ];
     }
 
@@ -59,9 +62,12 @@ class SalaryIndexPage extends IndexPage
     {
         return [
             ...parent::bottomLayer(),
-            Preview::make()
-                ->badge('warning')
-                ->link('https://github.com/arttema22/LogistRLE2/wiki/%D0%92%D1%8B%D0%BF%D0%BB%D0%B0%D1%82%D1%8B', __('moonshine::ui.help'), blank: true)
+            ActionButton::make(
+                __('moonshine::ui.help'),
+                'https://github.com/arttema22/LogistRLE2/wiki/%D0%92%D1%8B%D0%BF%D0%BB%D0%B0%D1%82%D1%8B'
+            )->blank()
+                ->icon('heroicons.outline.information-circle')
+                ->warning(),
         ];
     }
 }

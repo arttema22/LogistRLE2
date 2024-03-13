@@ -23,6 +23,7 @@ use App\MoonShine\Pages\Salary\SalaryFormPage;
 use App\MoonShine\Pages\Salary\SalaryIndexPage;
 use App\MoonShine\Pages\Salary\SalaryDetailPage;
 use Illuminate\Support\Facades\Date as FacadesDate;
+use MoonShine\ActionButtons\ActionButton;
 
 /**
  * @extends ModelResource<Salary>
@@ -58,7 +59,7 @@ class SalaryResource extends ModelResource
     protected bool $editInModal = false;
 
     // Модальное окно при просмотре
-    protected bool $detailInModal = true;
+    protected bool $detailInModal = false;
 
     // Поле для отображения значений в связях и хлебных крошках
     public string $column = 'date';

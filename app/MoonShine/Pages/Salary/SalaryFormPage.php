@@ -114,9 +114,7 @@ class SalaryFormPage extends FormPage
     }
     protected function topLayer(): array
     {
-        return [
-            ...parent::topLayer()
-        ];
+        return [];
     }
 
     protected function mainLayer(): array
