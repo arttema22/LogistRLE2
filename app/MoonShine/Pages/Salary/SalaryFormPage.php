@@ -5,16 +5,19 @@ declare(strict_types=1);
 namespace App\MoonShine\Pages\Salary;
 
 use MoonShine\Fields\Date;
+use MoonShine\Fields\Text;
 use MoonShine\Fields\Field;
+use Illuminate\Http\Request;
 use MoonShine\Enums\JsEvent;
 use MoonShine\Fields\Fields;
 use MoonShine\Fields\Hidden;
 use MoonShine\Fields\Number;
-use MoonShine\Enums\PageType;
 use MoonShine\Fields\Preview;
 use MoonShine\Fields\Textarea;
+use MoonShine\Decorations\Grid;
 use MoonShine\Support\AlpineJs;
 use MoonShine\Decorations\Block;
+use MoonShine\Decorations\Column;
 use MoonShine\Pages\Crud\FormPage;
 use MoonShine\Pages\Crud\IndexPage;
 use Illuminate\Support\Facades\Auth;
@@ -27,8 +30,6 @@ use App\MoonShine\Resources\SalaryResource;
 use MoonShine\Contracts\MoonShineRenderable;
 use MoonShine\Fields\Relationships\BelongsTo;
 use App\MoonShine\Resources\MoonShineUserResource;
-use MoonShine\Decorations\Column;
-use MoonShine\Decorations\Grid;
 
 class SalaryFormPage extends FormPage
 {
@@ -41,29 +42,27 @@ class SalaryFormPage extends FormPage
     {
         return [
             Block::make([
+                BelongsTo::make('driver', 'driver', resource: new MoonShineUserResource())
+                    ->valuesQuery(fn (Builder $query, Field $field) => $query->where('moonshine_user_role_id', 3))
+                    ->required()
+                    ->nullable()
+                    ->translatable('moonshine::salary')
+                    ->when(
+                        Auth::user()->moonshine_user_role_id === 3,
+                        fn (Field $field) => $field->hideOnForm(),
+                    ),
                 Grid::make([
                     Column::make([
                         Date::make('date')->required()
                             ->translatable('moonshine::salary'),
-                    ])->columnSpan(4),
-                    Column::make([
-                        BelongsTo::make('driver', 'driver', resource: new MoonShineUserResource())
-                            ->valuesQuery(fn (Builder $query, Field $field) => $query->where('moonshine_user_role_id', 3))
-                            ->required()
-                            ->nullable()
-                            ->translatable('moonshine::salary')
-                            ->when(
-                                Auth::user()->moonshine_user_role_id === 3,
-                                fn (Field $field) => $field->hideOnCreate()->hideOnForm()->hideOnUpdate(),
-                            ),
-                    ])->columnSpan(4),
+                    ])->columnSpan(6),
                     Column::make([
                         Number::make('salary')->required()
                             ->min(10)->max(9999999.99)->step(0.01)
                             ->translatable('moonshine::salary'),
-                    ])->columnSpan(4),
+                    ])->columnSpan(6),
                 ]),
-                Textarea::make('comment')->translatable('moonshine::salary'),
+                Text::make('comment')->translatable('moonshine::salary'),
             ]),
         ];
     }

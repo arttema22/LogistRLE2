@@ -19,8 +19,8 @@ class Salary extends Model
         'owner_id',
         'driver_id',
         'salary',
-        'profit_id',
         'comment',
+        'profit_id',
     ];
 
     /**

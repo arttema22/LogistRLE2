@@ -17,12 +17,12 @@ use MoonShine\Handlers\ImportHandler;
 use MoonShine\Resources\ModelResource;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use MoonShine\ActionButtons\ActionButton;
 use MoonShine\ChangeLog\Components\ChangeLog;
 use MoonShine\Fields\Relationships\BelongsTo;
 use App\MoonShine\Pages\Salary\SalaryFormPage;
 use App\MoonShine\Pages\Salary\SalaryIndexPage;
 use App\MoonShine\Pages\Salary\SalaryDetailPage;
+use Illuminate\Support\Facades\Date as FacadesDate;
 
 /**
  * @extends ModelResource<Salary>
@@ -34,7 +34,7 @@ class SalaryResource extends ModelResource
     protected string $model = Salary::class;
 
     // Проверка прав доступа
-    protected bool $withPolicy = false;
+    protected bool $withPolicy = true;
 
     // Редирект после сохранения
     protected ?PageType $redirectAfterSave = PageType::INDEX;
@@ -58,7 +58,7 @@ class SalaryResource extends ModelResource
     protected bool $editInModal = false;
 
     // Модальное окно при просмотре
-    protected bool $detailInModal = false;
+    protected bool $detailInModal = true;
 
     // Поле для отображения значений в связях и хлебных крошках
     public string $column = 'date';
@@ -98,7 +98,6 @@ class SalaryResource extends ModelResource
     {
         return [
             'date' => ['required', 'date', 'before_or_equal:today'],
-            'driver_id' => ['required'],
             'salary' => ['required', 'decimal:0,2', 'min:10', 'max:9999999.99'],
         ];
     }
@@ -111,7 +110,11 @@ class SalaryResource extends ModelResource
             BelongsTo::make('driver', 'driver', resource: new MoonShineUserResource())
                 ->valuesQuery(fn (Builder $query, Field $field) => $query->where('moonshine_user_role_id', 3))
                 ->nullable()
-                ->translatable('moonshine::refilling'),
+                ->translatable('moonshine::refilling')
+                ->when(
+                    Auth::user()->moonshine_user_role_id === 3,
+                    fn (Field $field) => $field->disabled(),
+                ),
         ];
     }
 
@@ -119,7 +122,7 @@ class SalaryResource extends ModelResource
     public function search(): array
     {
         return [
-            'date', 'driver.name',
+            'date', 'driver.name', 'salary', 'comment'
         ];
     }
 
@@ -152,11 +155,9 @@ class SalaryResource extends ModelResource
     protected function beforeCreating(Model $item): Model
     {
         $item->owner_id = Auth::user()->id;
-
         if (Auth::user()->moonshine_user_role_id == 3) {
             $item->driver_id = Auth::user()->id;
         }
-
         return $item;
     }
 

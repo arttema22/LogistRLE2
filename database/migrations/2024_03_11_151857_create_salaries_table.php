@@ -20,8 +20,8 @@ return new class extends Migration
             $table->BigInteger('driver_id')->unsigned();
             $table->foreign('driver_id')->references('id')->on('moonshine_users');
             $table->float('salary', 9, 2);
+            $table->string('comment')->nullable();
             $table->BigInteger('profit_id')->unsigned()->default(0);
-            $table->text('comment')->nullable();
             $table->softDeletes();
         });
     }
