@@ -30,6 +30,7 @@ use App\MoonShine\Resources\SalaryResource;
 use MoonShine\Contracts\MoonShineRenderable;
 use MoonShine\Fields\Relationships\BelongsTo;
 use App\MoonShine\Resources\MoonShineUserResource;
+use MoonShine\Components\When;
 
 class SalaryFormPage extends FormPage
 {
@@ -48,7 +49,7 @@ class SalaryFormPage extends FormPage
                     ->nullable()
                     ->translatable('moonshine::salary')
                     ->when(
-                        Auth::user()->moonshine_user_role_id === 3,
+                        fn () => Auth::user()->moonshine_user_role_id === 3,
                         fn (Field $field) => $field->hideOnForm(),
                     ),
                 Grid::make([

@@ -75,8 +75,9 @@ class SalaryResource extends ModelResource
 
     public function query(): Builder
     {
-        if (Auth::user()->moonshine_user_role_id == 3) return parent::query()
-            ->where('driver_id', Auth::user()->id);
+        if (Auth::user()->moonshine_user_role_id == 3)
+            return parent::query()
+                ->where('driver_id', Auth::user()->id);
 
         return parent::query();
     }
