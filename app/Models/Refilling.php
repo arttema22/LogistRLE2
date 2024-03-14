@@ -46,7 +46,9 @@ class Refilling extends Model
     }
 
     /**
+     * petrolStation
      * Получить данные о АЗС.
+     * @return void
      */
     public function petrolStation()
     {

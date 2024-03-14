@@ -11,36 +11,24 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * DirPetrolStation
+ * DirPetrolStationBrand
  */
-class DirPetrolStation extends Model
+class DirPetrolStationBrand extends Model
 {
     use HasFactory, SoftDeletes, HasChangeLog, MassPrunable;
 
     protected $fillable = [
-        'address',
-        'brand_id',
-        'station_num',
+        'name',
     ];
 
     /**
-     * petrolStationBrand
-     * Получить данные о бренде
-     * @return void
-     */
-    public function petrolStationBrand()
-    {
-        return $this->belongsTo(DirPetrolStationBrand::class, 'brand_id', 'id');
-    }
-
-    /**
-     * refillings
-     * Получить данные о заправках на АЗС.
+     * petrolStations
+     * Получить данные о заправочных станциях
      * @return HasMany
      */
-    public function refillings(): HasMany
+    public function petrolStations(): HasMany
     {
-        return $this->hasMany(Refilling::class, 'station_id', 'id');
+        return $this->hasMany(DirPetrolStation::class, 'brand_id', 'id');
     }
 
     /**

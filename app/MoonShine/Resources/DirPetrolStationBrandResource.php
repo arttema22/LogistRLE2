@@ -10,24 +10,23 @@ use MoonShine\Fields\Field;
 use MoonShine\Enums\PageType;
 use MoonShine\Attributes\Icon;
 use MoonShine\Fields\Position;
-use App\Models\DirPetrolStation;
 use MoonShine\Decorations\Block;
+use App\Models\DirPetrolStationBrand;
 use MoonShine\Handlers\ExportHandler;
 use MoonShine\Handlers\ImportHandler;
 use MoonShine\Resources\ModelResource;
 use Illuminate\Database\Eloquent\Model;
 use MoonShine\Fields\Relationships\HasMany;
 use MoonShine\ChangeLog\Components\ChangeLog;
-use MoonShine\Fields\Relationships\BelongsTo;
 
 /**
- * @extends ModelResource<DirPetrolStation>
+ * @extends ModelResource<DirPetrolStationBrand>
  */
-#[Icon('heroicons.outline.battery-50')]
-class DirPetrolStationResource extends ModelResource
+#[Icon('heroicons.outline.bookmark')]
+class DirPetrolStationBrandResource extends ModelResource
 {
     // Модель данных
-    protected string $model = DirPetrolStation::class;
+    protected string $model = DirPetrolStationBrand::class;
 
     // Проверка прав доступа
     protected bool $withPolicy = false;
@@ -39,16 +38,16 @@ class DirPetrolStationResource extends ModelResource
     protected ?PageType $redirectAfterDelete = PageType::INDEX;
 
     // Поле сортировки по умолчанию
-    protected string $sortColumn = 'address';
+    protected string $sortColumn = 'name';
 
     // Тип сортировки по умолчанию
-    protected string $sortDirection = 'ASC';
+    protected string $sortDirection = 'DESC';
 
     // Количество элементов на странице
     protected int $itemsPerPage = 15;
 
     // Поле для отображения значений в связях и хлебных крошках
-    public string $column = 'address';
+    public string $column = 'name';
 
     /**
      * getAlias
@@ -57,7 +56,7 @@ class DirPetrolStationResource extends ModelResource
      */
     public function getAlias(): ?string
     {
-        return __('moonshine::directory.resource_station');
+        return __('moonshine::directory.resource_brand');
     }
 
     /**
@@ -67,7 +66,7 @@ class DirPetrolStationResource extends ModelResource
      */
     public function title(): string
     {
-        return __('moonshine::directory.petrol_station');
+        return __('moonshine::directory.petrol_station_brands');
     }
 
     /**
@@ -91,8 +90,14 @@ class DirPetrolStationResource extends ModelResource
     {
         return [
             Position::make(),
-            Text::make('address')->sortable()->translatable('moonshine::directory'),
-            BelongsTo::make('brand_id', 'petrolStationBrand', resource: new DirPetrolStationBrandResource())
+            Text::make('name')->translatable('moonshine::directory'),
+            HasMany::make('count_refillings', 'petrolStations', resource: new DirPetrolStationResource())
+                ->onlyLink(
+                    'petrolStationBrand',
+                    condition: function (int $count, Field $field): bool {
+                        return $count > 0;
+                    }
+                )
                 ->translatable('moonshine::directory'),
         ];
     }
@@ -106,12 +111,7 @@ class DirPetrolStationResource extends ModelResource
     {
         return [
             Block::make([
-                BelongsTo::make('brand_id', 'petrolStationBrand', resource: new DirPetrolStationBrandResource())
-                    ->required()
-                    ->searchable()
-                    ->nullable()
-                    ->translatable('moonshine::directory'),
-                Text::make('address')->required()->translatable('moonshine::directory'),
+                Text::make('name')->required()->translatable('moonshine::directory'),
             ]),
         ];
     }
@@ -125,20 +125,7 @@ class DirPetrolStationResource extends ModelResource
     public function rules(Model $item): array
     {
         return [
-            'address' => ['required', 'string', 'min:3'],
-            'brand_id' => ['required'],
-        ];
-    }
-
-    /**
-     * search
-     * Поля для поиска
-     * @return array
-     */
-    public function search(): array
-    {
-        return [
-            'name', 'address',
+            'name' => ['required', 'string', 'min:3'],
         ];
     }
 

@@ -34,18 +34,6 @@ class RefillingIndexPage extends IndexPage
                     Auth::user()->moonshine_user_role_id == 3,
                     fn (Field $field) => $field->hideOnIndex()
                 )
-                ->translatable('moonshine::salary'),
-            Text::make('salary')
-                ->translatable('moonshine::salary'),
-            Text::make('comment')->translatable('moonshine::salary'),
-
-
-
-            Position::make(),
-            Date::make('date')->format('d.m.Y')->sortable()
-                ->translatable('moonshine::refilling'),
-            BelongsTo::make('driver', 'driver', resource: new MoonShineUserResource())
-                ->sortable()
                 ->translatable('moonshine::refilling'),
             Text::make('num_liters_car_refueling')->badge('primary')
                 ->sortable()
@@ -57,7 +45,10 @@ class RefillingIndexPage extends IndexPage
             BelongsTo::make(
                 'stantion',
                 'petrolStation',
-                fn ($item) => "$item->name<br>$item->address",
+                function ($item) {
+                    $test = $item->petrolStationBrand->name;
+                    return $test . '<br>' . $item->address;
+                },
                 resource: new DirPetrolStationResource()
             )->translatable('moonshine::refilling'),
             BelongsTo::make(
@@ -66,6 +57,7 @@ class RefillingIndexPage extends IndexPage
                 fn ($item) => "$item->name<br>$item->reg_num",
                 resource: new DirPetrolStationResource()
             )->translatable('moonshine::refilling'),
+            Text::make('comment')->translatable('moonshine::refilling'),
         ];
     }
 

@@ -4,10 +4,15 @@ return [
     'directories' => 'Directories',
     'brands' => 'Brands',
     'brand' => 'Brand',
+    'brand_id' => 'Brand',
     'types' => 'Types',
     'type' => 'Type',
     'name' => 'Name',
+    'petrol_station_brands' => 'Brands',
     'petrol_station' => 'Petrol Station',
     'address' => 'Address',
     'count_refillings' => 'Count Refillings',
+
+    'resource_brand' => 'brand',
+    'resource_station' => 'station',
 ];

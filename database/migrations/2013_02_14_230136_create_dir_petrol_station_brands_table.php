@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dir_petrol_stations', function (Blueprint $table) {
+        Schema::create('dir_petrol_station_brands', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('address');
-            $table->BigInteger('brand_id')->unsigned();
-            $table->foreign('brand_id')->references('id')->on('dir_petrol_station_brands');
-            $table->string('station_num')->nullable();
+            $table->string('name');
             $table->softDeletes();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dir_petrol_stations');
+        Schema::dropIfExists('dir_petrol_station_brands');
     }
 };

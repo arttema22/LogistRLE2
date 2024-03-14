@@ -52,10 +52,21 @@ class RefillingFormPage extends FormPage
                 BelongsTo::make(
                     'petrol_station',
                     'petrolStation',
-                    fn ($item) => "$item->name \ $item->address",
+                    function ($item) {
+                        $test = $item->petrolStationBrand->name;
+                        return $test . ' | ' . $item->address;
+                    },
                     resource: new DirPetrolStationResource()
-                )->searchable()
+                )
+                    ->searchable()
                     ->translatable('moonshine::refilling'),
+
+
+
+
+
+
+
                 BelongsTo::make(
                     'truck',
                     'truck',

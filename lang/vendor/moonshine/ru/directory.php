@@ -2,11 +2,13 @@
 
 return [
     'directories' => 'Справочники',
-    'brands' => 'Марки',
-    'brand' => 'Марка',
+    'brands' => 'Бренды',
+    'brand' => 'Бренд',
+    'brand_id' => 'Бренд',
     'types' => 'Типы',
     'type' => 'Тип',
     'name' => 'Название',
+    'petrol_station_brands' => 'Бренды',
     'petrol_station' => 'АЗС',
     'address' => 'Адрес',
     'count_refillings' => 'Количество',
