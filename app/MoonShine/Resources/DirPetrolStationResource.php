@@ -30,7 +30,7 @@ class DirPetrolStationResource extends ModelResource
     protected string $model = DirPetrolStation::class;
 
     // Проверка прав доступа
-    protected bool $withPolicy = false;
+    protected bool $withPolicy = true;
 
     // Редирект после сохранения
     protected ?PageType $redirectAfterSave = PageType::INDEX;
