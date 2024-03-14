@@ -34,7 +34,7 @@ class SalaryIndexPage extends IndexPage
             BelongsTo::make('driver', 'driver', resource: new MoonShineUserResource())
                 ->sortable()
                 ->when(
-                    Auth::user()->moonshine_user_role_id === 3,
+                    Auth::user()->moonshine_user_role_id == 3,
                     fn (Field $field) => $field->hideOnIndex()
                 )
                 ->translatable('moonshine::salary'),
