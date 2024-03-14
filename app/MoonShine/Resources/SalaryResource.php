@@ -35,7 +35,7 @@ class SalaryResource extends ModelResource
     protected string $model = Salary::class;
 
     // Проверка прав доступа
-    protected bool $withPolicy = true;
+    protected bool $withPolicy = false;
 
     // Редирект после сохранения
     protected ?PageType $redirectAfterSave = PageType::INDEX;

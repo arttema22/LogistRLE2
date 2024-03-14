@@ -49,7 +49,7 @@ class SalaryFormPage extends FormPage
                     ->nullable()
                     ->translatable('moonshine::salary')
                     ->when(
-                        fn () => Auth::user()->moonshine_user_role_id === 3,
+                        fn () => Auth::user()->moonshine_user_role_id == 3,
                         fn (Field $field) => $field->hideOnForm(),
                     ),
                 Grid::make([
