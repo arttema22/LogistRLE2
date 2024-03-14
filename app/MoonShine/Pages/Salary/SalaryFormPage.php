@@ -127,11 +127,7 @@ class SalaryFormPage extends FormPage
     protected function bottomLayer(): array
     {
         return [
-            ...parent::bottomLayer(),
-            LineBreak::make(),
-            Preview::make()
-                ->badge('warning')
-                ->link('https://github.com/arttema22/LogistRLE2/wiki/%D0%92%D1%8B%D0%BF%D0%BB%D0%B0%D1%82%D1%8B', __('moonshine::ui.help'), blank: true)
+            ...parent::bottomLayer()
         ];
     }
 }

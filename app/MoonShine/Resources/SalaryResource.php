@@ -22,8 +22,6 @@ use MoonShine\Fields\Relationships\BelongsTo;
 use App\MoonShine\Pages\Salary\SalaryFormPage;
 use App\MoonShine\Pages\Salary\SalaryIndexPage;
 use App\MoonShine\Pages\Salary\SalaryDetailPage;
-use Illuminate\Support\Facades\Date as FacadesDate;
-use MoonShine\ActionButtons\ActionButton;
 
 /**
  * @extends ModelResource<Salary>
@@ -114,7 +112,7 @@ class SalaryResource extends ModelResource
                 ->nullable()
                 ->translatable('moonshine::refilling')
                 ->when(
-                    Auth::user()->moonshine_user_role_id === 3,
+                    Auth::user()->moonshine_user_role_id == 3,
                     fn (Field $field) => $field->disabled(),
                 ),
         ];

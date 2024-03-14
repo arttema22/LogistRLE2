@@ -43,14 +43,14 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
     protected function menu(): array
     {
         return [
+            MenuItem::make('refillings', new RefillingResource())
+                ->translatable('moonshine::refilling'),
+
             MenuItem::make('salaries', new SalaryResource())
                 ->translatable('moonshine::salary'),
 
             MenuItem::make('trucks', new TruckResource())
                 ->translatable('moonshine::truck'),
-
-            MenuItem::make('refillings', new RefillingResource())
-                ->translatable('moonshine::refilling'),
 
             MenuGroup::make(static fn () => __('moonshine::ui.resource.system'), [
                 MenuItem::make(
@@ -68,13 +68,13 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
                 MenuItem::make('monopoly', new Monopoly())->icon('heroicons.arrows-right-left')
                     ->translatable('moonshine::integration'),
                 MenuDivider::make()->canSee(function (Request $request) {
-                    return $request->user('moonshine')?->moonshine_user_role_id === 1;
+                    return $request->user('moonshine')?->moonshine_user_role_id == 1;
                 }),
                 MenuItem::make(
                     static fn () => __('moonshine::integration.set_up'),
                     new SetupIntegrationResource()
                 )->canSee(function (Request $request) {
-                    return $request->user('moonshine')?->moonshine_user_role_id === 1;
+                    return $request->user('moonshine')?->moonshine_user_role_id == 1;
                 }),
             ])->icon('heroicons.arrows-right-left'),
 
@@ -95,6 +95,10 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
                 static fn () => __('moonshine::ui.resource.title'),
                 new MoonShineUserResource()
             ),
+
+            MenuItem::make('help', 'https://github.com/arttema22/LogistRLE2/wiki', blank: true)
+                ->icon('heroicons.outline.lifebuoy')
+                ->translatable('moonshine::ui'),
         ];
     }
 

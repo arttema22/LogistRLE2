@@ -66,8 +66,7 @@ class SalaryIndexPage extends IndexPage
                 __('moonshine::ui.help'),
                 'https://github.com/arttema22/LogistRLE2/wiki/%D0%92%D1%8B%D0%BF%D0%BB%D0%B0%D1%82%D1%8B'
             )->blank()
-                ->icon('heroicons.outline.information-circle')
-                ->warning(),
+                ->icon('heroicons.outline.lifebuoy'),
         ];
     }
 }
