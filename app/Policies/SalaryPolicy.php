@@ -19,7 +19,7 @@ class SalaryPolicy
 
     public function view(MoonshineUser $user, Salary $item)
     {
-        return $user->moonshine_user_role_id != 3 or $user->id === $item->driver_id;
+        return $user->moonshine_user_role_id != 3 or $user->id == $item->driver_id;
     }
 
     public function create(MoonshineUser $user)
@@ -29,12 +29,12 @@ class SalaryPolicy
 
     public function update(MoonshineUser $user, Salary $item)
     {
-        return $user->moonshine_user_role_id != 3 or $user->id === $item->driver_id;
+        return $user->moonshine_user_role_id != 3 or $user->id == $item->driver_id;
     }
 
     public function delete(MoonshineUser $user, Salary $item)
     {
-        return $user->moonshine_user_role_id != 3 or $user->id === $item->driver_id;
+        return $user->moonshine_user_role_id != 3 or $user->id == $item->driver_id;
     }
 
     public function restore(MoonshineUser $user, Salary $item)
