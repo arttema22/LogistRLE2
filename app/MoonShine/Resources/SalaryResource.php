@@ -50,15 +50,6 @@ class SalaryResource extends ModelResource
     // Количество элементов на странице
     protected int $itemsPerPage = 15;
 
-    // Модальное окно при создании
-    protected bool $createInModal = false;
-
-    // Модальное окно при редактировании
-    protected bool $editInModal = false;
-
-    // Модальное окно при просмотре
-    protected bool $detailInModal = false;
-
     // Поле для отображения значений в связях и хлебных крошках
     public string $column = 'date';
 
@@ -106,11 +97,11 @@ class SalaryResource extends ModelResource
     public function filters(): array
     {
         return [
-            Date::make('date', 'date')->translatable('moonshine::refilling'),
+            Date::make('date', 'date')->translatable('moonshine::salary'),
             BelongsTo::make('driver', 'driver', resource: new MoonShineUserResource())
                 ->valuesQuery(fn (Builder $query, Field $field) => $query->where('moonshine_user_role_id', 3))
                 ->nullable()
-                ->translatable('moonshine::refilling')
+                ->translatable('moonshine::salary')
                 ->when(
                     Auth::user()->moonshine_user_role_id == 3,
                     fn (Field $field) => $field->disabled(),

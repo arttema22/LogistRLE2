@@ -22,12 +22,13 @@ return new class extends Migration
             $table->float('num_liters_car_refueling', 8, 2);
             $table->float('price_car_refueling', 8, 2)->nullable();
             $table->float('cost_car_refueling', 8, 2)->nullable();
-            $table->BigInteger('station_id')->unsigned();
+            $table->BigInteger('station_id')->unsigned()->nullable();
             $table->foreign('station_id')->references('id')->on('dir_petrol_stations');
             $table->BigInteger('truck_id')->unsigned()->nullable();
             $table->foreign('truck_id')->references('id')->on('trucks');
             $table->string('reg_number')->nullable();
             $table->string('integration_id')->nullable();
+            $table->string('comment')->nullable();
             $table->BigInteger('profit_id')->unsigned()->default(0);
             $table->softDeletes();
         });

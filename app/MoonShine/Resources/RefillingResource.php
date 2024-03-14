@@ -8,13 +8,10 @@ use Closure;
 use App\Models\Refilling;
 use MoonShine\Enums\Layer;
 use MoonShine\Fields\Date;
-use MoonShine\Fields\Text;
 use MoonShine\Fields\Field;
+
 use MoonShine\Enums\PageType;
 use MoonShine\Attributes\Icon;
-use MoonShine\Fields\Position;
-use MoonShine\Decorations\Block;
-use MoonShine\Fields\StackFields;
 use MoonShine\QueryTags\QueryTag;
 use Spatie\Valuestore\Valuestore;
 use Illuminate\Support\Facades\Auth;
@@ -26,6 +23,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\View\ComponentAttributeBag;
 use MoonShine\ChangeLog\Components\ChangeLog;
 use MoonShine\Fields\Relationships\BelongsTo;
+use App\MoonShine\Pages\Refilling\RefillingFormPage;
+use App\MoonShine\Pages\Refilling\RefillingIndexPage;
+use App\MoonShine\Pages\Refilling\RefillingDetailPage;
 
 /**
  * @extends ModelResource<Refilling>
@@ -37,7 +37,7 @@ class RefillingResource extends ModelResource
     protected string $model = Refilling::class;
 
     // Проверка прав доступа
-    protected bool $withPolicy = false;
+    protected bool $withPolicy = true;
 
     // Редирект после сохранения
     protected ?PageType $redirectAfterSave = PageType::INDEX;
@@ -57,92 +57,43 @@ class RefillingResource extends ModelResource
     // Поле для отображения значений в связях и хлебных крошках
     public string $column = 'date';
 
+    public function getAlias(): ?string
+    {
+        return __('moonshine::refilling.resource_page');
+    }
+
     public function title(): string
     {
         return __('moonshine::refilling.refillings');
     }
 
-    // Разрешенные действия
-    public function getActiveActions(): array
-    {
-        return [
-            'create', // 'update', 'delete'
-        ];
-    }
-
     public function query(): Builder
     {
-        if (Auth::user()->moonshine_user_role_id == 3) return parent::query()
-            ->where('driver_id', Auth::user()->id);
+        if (Auth::user()->moonshine_user_role_id == 3)
+            return parent::query()
+                ->where('driver_id', Auth::user()->id);
 
         return parent::query();
     }
 
-    public function indexFields(): array
+    public function pages(): array
     {
         return [
-            Position::make(),
-            Date::make('date')->format('d.m.Y')->sortable()
-                ->translatable('moonshine::refilling'),
-            BelongsTo::make('driver', 'driver', resource: new MoonShineUserResource())
-                ->sortable()
-                ->translatable('moonshine::refilling'),
-            Text::make('num_liters_car_refueling')->badge('primary')
-                ->sortable()
-                ->translatable('moonshine::refilling'),
-            Text::make('price_car_refueling')->translatable('moonshine::refilling'),
-            Text::make('cost_car_refueling')
-                ->sortable()
-                ->translatable('moonshine::refilling'),
-            BelongsTo::make(
-                'stantion',
-                'petrolStation',
-                fn ($item) => "$item->name<br>$item->address",
-                resource: new DirPetrolStationResource()
-            )->translatable('moonshine::refilling'),
-            BelongsTo::make(
-                'truck',
-                'truck',
-                fn ($item) => "$item->name<br>$item->reg_num",
-                resource: new DirPetrolStationResource()
-            )->translatable('moonshine::refilling'),
-        ];
-    }
-
-    public function formFields(): array
-    {
-        return [
-            Block::make([
-                Date::make('date')->required()
-                    ->translatable('moonshine::refilling'),
-                BelongsTo::make('driver', 'driver', resource: new MoonShineUserResource())
-                    ->valuesQuery(fn (Builder $query, Field $field) => $query->where('moonshine_user_role_id', 3))
-                    ->translatable('moonshine::refilling'),
-                BelongsTo::make(
-                    'petrol_station',
-                    'petrolStation',
-                    fn ($item) => "$item->name \ $item->address",
-                    resource: new DirPetrolStationResource()
-                )->searchable()
-                    ->translatable('moonshine::refilling'),
-                BelongsTo::make(
-                    'truck',
-                    'truck',
-                    fn ($item) => "$item->name \ $item->reg_num",
-                    resource: new TruckResource()
-                )->searchable()
-                    ->nullable()
-                    ->translatable('moonshine::refilling'),
-                Text::make('num_liters_car_refueling')->required()
-                    ->translatable('moonshine::refilling'),
-            ]),
+            RefillingIndexPage::make($this->title()),
+            RefillingFormPage::make(
+                $this->getItemID()
+                    ? __('moonshine::ui.edit')
+                    : __('moonshine::ui.add')
+            ),
+            RefillingDetailPage::make(__('moonshine::ui.show')),
         ];
     }
 
     public function rules(Model $item): array
     {
         return [
-            'date' => ['required', 'date'],
+            'date' => ['required', 'date', 'before_or_equal:today'],
+            //            'salary' => ['required', 'decimal:0,2', 'min:10', 'max:9999999.99'],];
             'num_liters_car_refueling' => ['required'],
         ];
     }
@@ -155,7 +106,11 @@ class RefillingResource extends ModelResource
             BelongsTo::make('driver', 'driver', resource: new MoonShineUserResource())
                 ->valuesQuery(fn (Builder $query, Field $field) => $query->where('moonshine_user_role_id', 3))
                 ->nullable()
-                ->translatable('moonshine::refilling'),
+                ->translatable('moonshine::refilling')
+                ->when(
+                    Auth::user()->moonshine_user_role_id == 3,
+                    fn (Field $field) => $field->disabled(),
+                ),
         ];
     }
 
@@ -164,7 +119,8 @@ class RefillingResource extends ModelResource
     {
         return [
             'date', 'driver.name',
-            'num_liters_car_refueling', 'cost_car_refueling'
+            'num_liters_car_refueling', 'cost_car_refueling',
+            'comment'
         ];
     }
 
@@ -199,6 +155,9 @@ class RefillingResource extends ModelResource
         $settings = Valuestore::make(storage_path('app/settings.json'));
 
         $item->owner_id = Auth::user()->id;
+        if (Auth::user()->moonshine_user_role_id == 3) {
+            $item->driver_id = Auth::user()->id;
+        }
         $item->price_car_refueling = $settings->get('price_car_refueling');
         $item->cost_car_refueling = $item->num_liters_car_refueling * $settings->get('price_car_refueling');
         return $item;

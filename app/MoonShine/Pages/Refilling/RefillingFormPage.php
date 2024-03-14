@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\MoonShine\Pages\Salary;
+namespace App\MoonShine\Pages\Refilling;
 
 use MoonShine\Fields\Date;
 use MoonShine\Fields\Text;
@@ -22,16 +22,18 @@ use MoonShine\Components\FormBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use MoonShine\ActionButtons\ActionButton;
-use App\MoonShine\Resources\SalaryResource;
+use App\MoonShine\Resources\TruckResource;
 use MoonShine\Contracts\MoonShineRenderable;
 use MoonShine\Fields\Relationships\BelongsTo;
+use App\MoonShine\Resources\RefillingResource;
 use App\MoonShine\Resources\MoonShineUserResource;
+use App\MoonShine\Resources\DirPetrolStationResource;
 
-class SalaryFormPage extends FormPage
+class RefillingFormPage extends FormPage
 {
     public function getAlias(): ?string
     {
-        return __('moonshine::salary.form_page');
+        return __('moonshine::refilling.form_page');
     }
 
     public function fields(): array
@@ -42,23 +44,40 @@ class SalaryFormPage extends FormPage
                     ->valuesQuery(fn (Builder $query, Field $field) => $query->where('moonshine_user_role_id', 3))
                     ->required()
                     ->nullable()
-                    ->translatable('moonshine::salary')
+                    ->translatable('moonshine::refilling')
                     ->when(
                         fn () => Auth::user()->moonshine_user_role_id == 3,
                         fn (Field $field) => $field->hideOnForm(),
                     ),
+                BelongsTo::make(
+                    'petrol_station',
+                    'petrolStation',
+                    fn ($item) => "$item->name \ $item->address",
+                    resource: new DirPetrolStationResource()
+                )->searchable()
+                    ->translatable('moonshine::refilling'),
+                BelongsTo::make(
+                    'truck',
+                    'truck',
+                    fn ($item) => "$item->name \ $item->reg_num",
+                    resource: new TruckResource()
+                )->searchable()
+                    ->nullable()
+                    ->translatable('moonshine::refilling'),
                 Grid::make([
                     Column::make([
                         Date::make('date')->required()
-                            ->translatable('moonshine::salary'),
+                            ->translatable('moonshine::refilling'),
                     ])->columnSpan(6),
                     Column::make([
-                        Number::make('salary')->required()
-                            ->min(10)->max(9999999.99)->step(0.01)
-                            ->translatable('moonshine::salary'),
+                        Text::make('num_liters_car_refueling')->required()
+                            ->translatable('moonshine::refilling'),
+                        // Number::make('salary')->required()
+                        //     ->min(10)->max(9999999.99)->step(0.01)
+                        //     ->translatable('moonshine::salary'),
                     ])->columnSpan(6),
                 ]),
-                Text::make('comment')->translatable('moonshine::salary'),
+                Text::make('comment')->translatable('moonshine::refilling'),
             ]),
         ];
     }
@@ -103,14 +122,16 @@ class SalaryFormPage extends FormPage
             ->name('crud')
             ->submit(__('moonshine::ui.save'), ['class' => 'btn-primary btn-lg'])
             ->buttons([
-                ActionButton::make('cancel', to_page(page: IndexPage::class, resource: SalaryResource::class))
+                ActionButton::make('cancel', to_page(page: IndexPage::class, resource: RefillingResource::class))
                     ->translatable('moonshine::ui')
             ]);
     }
 
     protected function topLayer(): array
     {
-        return [];
+        return [
+            ...parent::topLayer()
+        ];
     }
 
     protected function mainLayer(): array

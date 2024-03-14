@@ -19,7 +19,7 @@ class RefillingPolicy
 
     public function view(MoonshineUser $user, Refilling $item)
     {
-        return false;
+        return true;
     }
 
     public function create(MoonshineUser $user)
@@ -29,12 +29,12 @@ class RefillingPolicy
 
     public function update(MoonshineUser $user, Refilling $item)
     {
-        return true;
+        return $item->integration_id == null;
     }
 
     public function delete(MoonshineUser $user, Refilling $item)
     {
-        return true;
+        return $item->integration_id == null;
     }
 
     public function restore(MoonshineUser $user, Refilling $item)

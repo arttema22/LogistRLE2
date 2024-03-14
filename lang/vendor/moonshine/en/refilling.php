@@ -2,6 +2,12 @@
 
 return [
     'refillings' => 'Refillings',
+
+    'resource_page' => 'refilling',
+    'index_page' => 'list',
+    'form_page' => 'form',
+    'detail_page' => 'detail',
+
     'date' => 'Date',
     'driver' => 'Driver',
     'truck' => 'Truck',

@@ -24,6 +24,7 @@ class Refilling extends Model
         'station_id',
         'truck_id',
         'reg_number',
+        'comment',
         'integration_id',
         'profit_id',
     ];
