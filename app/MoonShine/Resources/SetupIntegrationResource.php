@@ -31,7 +31,7 @@ class SetupIntegrationResource extends ModelResource
     protected string $model = SetupIntegration::class;
 
     // Проверка прав доступа
-    protected bool $withPolicy = true;
+    protected bool $withPolicy = false;
 
     // Редирект после сохранения
     protected ?PageType $redirectAfterSave = PageType::INDEX;
