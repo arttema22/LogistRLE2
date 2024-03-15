@@ -55,15 +55,9 @@ class RefillingFormPage extends FormPage
                     fn ($item) => $item->petrolStationBrand->name . ' | ' . $item->address,
                     resource: new DirPetrolStationResource()
                 )
+                    ->nullable()
                     ->searchable()
                     ->translatable('moonshine::refilling'),
-
-
-
-
-
-
-
                 BelongsTo::make(
                     'truck',
                     'truck',
@@ -78,11 +72,9 @@ class RefillingFormPage extends FormPage
                             ->translatable('moonshine::refilling'),
                     ])->columnSpan(6),
                     Column::make([
-                        Text::make('num_liters_car_refueling')->required()
+                        Number::make('volume')->required()
+                            ->min(10)->max(9999999.99)->step(0.01)
                             ->translatable('moonshine::refilling'),
-                        // Number::make('salary')->required()
-                        //     ->min(10)->max(9999999.99)->step(0.01)
-                        //     ->translatable('moonshine::salary'),
                     ])->columnSpan(6),
                 ]),
                 Text::make('comment')->translatable('moonshine::refilling'),
