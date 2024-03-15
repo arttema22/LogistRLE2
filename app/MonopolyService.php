@@ -11,9 +11,34 @@ use Spatie\Valuestore\Valuestore;
 use Illuminate\Support\Collection;
 use MoonShine\Models\MoonshineUser;
 use Illuminate\Support\Facades\Http;
+use App\Models\DirPetrolStationBrand;
 
 class MonopolyService
 {
+    /**
+     * callAuth
+     * Аутентификация. Получение токена.
+     * HTTP-метод: POST
+     * Адрес метода: https://monopoly.online/Fuel.Api/api/v1/auth
+     * @return void
+     */
+    public function callAuth()
+    {
+        $data = SetupIntegration::find(2);
+        $response = Http::asForm()->post(
+            $data->url . '/api/v1/auth',
+            [
+                'UserName' => $data->user_name,
+                'Password' => $data->password,
+            ]
+        )->json();
+        if (isset($response)) {
+            $data->update([
+                'access_token' => $response['access_token'],
+            ]);
+        }
+    }
+
     // Информация по договору (Contract)
     // Метод, возвращающий данные о договоре и его балансе.
     // Метод и его входные параметры
@@ -70,12 +95,14 @@ class MonopolyService
         return $response;
     }
 
-    // Транзакции по договору (Transaction)
-    // Метод, возвращающий информацию по транзакциям.
-    // Метод и его входные параметры
-    // HTTP-метод: GET
-    // Имя метода: Transaction
-    // Адрес метода: /api/v1/contracts/{contractid}/transactions?startDate={startDate}&endDate={endDate}&limit={limit}&offset={offset}
+    /**
+     * callTransaction
+     * Транзакции по договору (Transaction)
+     * Метод, возвращающий информацию по транзакциям.
+     * HTTP-метод: GET
+     * Адрес метода: https://monopoly.online/Fuel.Api/api/v1/contracts/{contract_id}/transactions
+     * @return void
+     */
     public function callTransaction()
     {
         $data = SetupIntegration::find(2);
@@ -92,20 +119,27 @@ class MonopolyService
                     'endDate' => date('Y-m-d 23:59'),
                     'limit' => '1000',
                 ]
-            )
-            ->collect();
+            )->collect();
 
         if (isset($response)) {
             foreach ($response ?? [] as $transaction) {
                 if (!Refilling::where('integration_id', $transaction['id'])->exists()) {
 
+                    // Если в базе нет такого бренда, то он создается
+                    $petrol_ststion_brand = DirPetrolStationBrand::where('name', $transaction['station']['brand'])->first();
+                    if (!$petrol_ststion_brand) {
+                        $petrol_ststion_brand = DirPetrolStationBrand::create([
+                            'name' => $transaction['station']['brand'],
+                        ]);
+                    }
+
                     // Если в базе нет записи о такой АЗС, то она создается
-                    $petrol_station = DirPetrolStation::where('station_id', $transaction['station']['id'])->first();
+                    $petrol_station = DirPetrolStation::where('station_num', $transaction['station']['id'])->first();
                     if (!$petrol_station) {
                         $petrol_station = DirPetrolStation::create([
-                            'station_id' => $transaction['station']['id'],
-                            'name' => $transaction['station']['brand'],
                             'address' => $transaction['station']['addressDetails'],
+                            'brand_id' => $petrol_ststion_brand->id,
+                            'station_num' => $transaction['station']['id'],
                         ]);
                     }
 
@@ -117,19 +151,19 @@ class MonopolyService
                         $truck_id = null;
                     }
 
+                    // Если водитель с карточкой существует, то создается запись
                     $driver = MoonshineUser::where('phone', $transaction['driverPhone'])->first();
-
                     if ($driver) {
                         Refilling::create([
                             'date' => date('Y-m-d', strtotime($transaction['refuelingDate'])),
                             'owner_id' => 1,
                             'driver_id' => $driver->id,
-                            'num_liters_car_refueling' => $transaction['refuelVolume'],
-                            'price_car_refueling' => $settings->get('price_car_refueling'),
-                            'cost_car_refueling' => $transaction['refuelVolume'] * $settings->get('price_car_refueling'),
+                            'volume' => $transaction['refuelVolume'],
+                            'price' => $settings->get('price_car_refueling'),
+                            'sum' => $transaction['refuelVolume'] * $settings->get('price_car_refueling'),
                             'station_id' => $petrol_station->id,
                             'truck_id' => $truck_id,
-                            'reg_number' => Str::upper(Str::slug(str_replace(' ', '', $transaction['regNumber']))),
+                            'reg_number' => $transaction['regNumber'],
                             'integration_id' => $transaction['id'],
                         ]);
                     };

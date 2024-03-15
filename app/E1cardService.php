@@ -18,11 +18,8 @@ class E1cardService
      * callTransaction
      * Транзакции по договору (Transaction)
      * Метод, возвращающий информацию по транзакциям.
-     * Метод и его входные параметры
      * HTTP-метод: POST
-     * Имя метода: Transaction
      * Адрес метода: /transactions
-     *
      * @return void
      */
     public function callTransaction()

@@ -9,6 +9,10 @@ class SetupIntegration extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'access_token',
+    ];
+
     /**
      * свойство $casts, чтобы указать,
      * что поле additionally должно обрабатываться как JSON

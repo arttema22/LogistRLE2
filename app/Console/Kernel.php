@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
         // Получение данных о заправках из интеграции
         $schedule->command('e1card:transaction')->everyFiveMinutes();
         // Получение данных о заправках из интеграции
-        //    $schedule->command('monopoly:transaction')->everyFiveMinutes();
+        $schedule->command('monopoly:transaction')->everyFiveMinutes();
         // переодическое удаление старых записей
         //$schedule->command('model:prune')->daily();
         $schedule->command('model:prune')->everyFifteenMinutes();
