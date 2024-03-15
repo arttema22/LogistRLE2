@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // Получение данных о заправках из интеграции
-        $schedule->command('e1card:transaction')->everyFiveMinutes();
+        $schedule->command('e1card:transaction')->everyFourMinutes();
         // Получение данных о заправках из интеграции
         $schedule->command('monopoly:transaction')->everyFiveMinutes();
         // переодическое удаление старых записей
