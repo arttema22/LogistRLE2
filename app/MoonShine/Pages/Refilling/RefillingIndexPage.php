@@ -14,6 +14,7 @@ use MoonShine\ActionButtons\ActionButton;
 use MoonShine\Fields\Relationships\BelongsTo;
 use App\MoonShine\Resources\MoonShineUserResource;
 use App\MoonShine\Resources\DirPetrolStationResource;
+use MoonShine\Decorations\LineBreak;
 
 class RefillingIndexPage extends IndexPage
 {
@@ -26,7 +27,7 @@ class RefillingIndexPage extends IndexPage
     {
         return [
             Position::make(),
-            Date::make('date')->format('d.m.Y')->sortable()
+            Date::make('date')->format('d.m.Y H:i')->sortable()
                 ->translatable('moonshine::refilling'),
             BelongsTo::make('driver', 'driver', resource: new MoonShineUserResource())
                 ->sortable()
@@ -35,11 +36,11 @@ class RefillingIndexPage extends IndexPage
                     fn (Field $field) => $field->hideOnIndex()
                 )
                 ->translatable('moonshine::refilling'),
-            Text::make('num_liters_car_refueling')->badge('primary')
+            Text::make('volume')->badge('primary')
                 ->sortable()
                 ->translatable('moonshine::refilling'),
-            Text::make('price_car_refueling')->translatable('moonshine::refilling'),
-            Text::make('cost_car_refueling')
+            Text::make('price')->translatable('moonshine::refilling'),
+            Text::make('sum')
                 ->sortable()
                 ->translatable('moonshine::refilling'),
             BelongsTo::make(
@@ -76,6 +77,7 @@ class RefillingIndexPage extends IndexPage
     {
         return [
             ...parent::bottomLayer(),
+            LineBreak::make(),
             ActionButton::make(
                 __('moonshine::ui.help'),
                 'https://github.com/arttema22/LogistRLE2/wiki/%D0%97%D0%B0%D0%BF%D1%80%D0%B0%D0%B2%D0%BA%D0%B8'

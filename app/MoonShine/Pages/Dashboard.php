@@ -38,7 +38,7 @@ class Dashboard extends Page
         return [
             Grid::make([
                 When::make(
-                    static fn () => Auth::user()->moonshine_user_role_id === 3,
+                    static fn () => Auth::user()->moonshine_user_role_id == 3,
                     static fn () => [
                         LineChartMetric::make('salaries')
                             ->line(
@@ -53,7 +53,8 @@ class Dashboard extends Page
                                     __('moonshine::refilling.refillings') => Refilling::query()
                                         ->selectRaw('COUNT(*) as count, DATE_FORMAT(date, "%d.%m.%Y") as date')
                                         ->where('driver_id', Auth::user()->id)
-                                        ->groupBy('date')
+                                        ->groupByRaw('DATE_FORMAT(date, "%d.%m.%Y")')
+                                        //->groupBy('date')
                                         ->pluck('count', 'date')
                                         ->toArray(),
                                 ],
@@ -79,17 +80,19 @@ class Dashboard extends Page
                                 [
                                     __('moonshine::salary.salaries') => Salary::query()
                                         ->selectRaw('COUNT(*) as count, DATE_FORMAT(date, "%d.%m.%Y") as date')
-                                        ->groupBy('date')
+                                        ->groupByRaw('DATE_FORMAT(date, "%d.%m.%Y")')
+                                        //->groupBy('date')
                                         ->pluck('count', 'date')
                                         ->toArray(),
                                     __('moonshine::refilling.refillings') => Refilling::query()
                                         ->selectRaw('COUNT(*) as count, DATE_FORMAT(date, "%d.%m.%Y") as date')
-                                        ->groupBy('date')
+                                        ->groupByRaw('DATE_FORMAT(date, "%d.%m.%Y")')
+                                        //->groupBy('date')
                                         ->pluck('count', 'date')
                                         ->toArray()
                                 ],
                                 ['rgb(42, 69, 35)', 'rgb(93, 160, 53)']
-                            )
+                            )->withoutSortKeys()
                             ->columnSpan(12)
                             ->translatable('moonshine::ui'),
                         ValueMetric::make('salaries')
