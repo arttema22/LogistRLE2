@@ -75,7 +75,7 @@ class E1cardService
                     $driver = MoonshineUser::where('e1_card', $transaction['card'])->first();
                     if ($driver) {
                         Refilling::create([
-                            'date' => $transaction['date'],
+                            'date' => date('Y-m-d H:i', strtotime($transaction['date'])),
                             'owner_id' => 1,
                             'driver_id' => $driver->id,
                             'volume' => $transaction['volume'],
