@@ -45,10 +45,7 @@ class RefillingIndexPage extends IndexPage
             BelongsTo::make(
                 'stantion',
                 'petrolStation',
-                function ($item) {
-                    $test = $item->petrolStationBrand->name;
-                    return $test . '<br>' . $item->address;
-                },
+                fn ($item) => $item->petrolStationBrand->name . '<br>' . $item->address,
                 resource: new DirPetrolStationResource()
             )->translatable('moonshine::refilling'),
             BelongsTo::make(

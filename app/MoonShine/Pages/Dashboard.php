@@ -46,7 +46,8 @@ class Dashboard extends Page
                                     __('moonshine::salary.salaries') => Salary::query()
                                         ->selectRaw('COUNT(*) as count, DATE_FORMAT(date, "%d.%m.%Y") as date')
                                         ->where('driver_id', Auth::user()->id)
-                                        ->groupBy('date')
+                                        ->groupByRaw('DATE_FORMAT(date, "%d.%m.%Y")')
+                                        //->groupBy('date')
                                         ->pluck('count', 'date')
                                         ->toArray(),
                                     __('moonshine::refilling.refillings') => Refilling::query()

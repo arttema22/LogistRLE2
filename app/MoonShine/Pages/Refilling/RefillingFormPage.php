@@ -52,10 +52,7 @@ class RefillingFormPage extends FormPage
                 BelongsTo::make(
                     'petrol_station',
                     'petrolStation',
-                    function ($item) {
-                        $test = $item->petrolStationBrand->name;
-                        return $test . ' | ' . $item->address;
-                    },
+                    fn ($item) => $item->petrolStationBrand->name . ' | ' . $item->address,
                     resource: new DirPetrolStationResource()
                 )
                     ->searchable()
