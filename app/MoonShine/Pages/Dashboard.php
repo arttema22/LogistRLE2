@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use MoonShine\Components\When;
 use MoonShine\Decorations\Grid;
 use App\Models\SetupIntegration;
+use App\MonopolyService;
 use MoonShine\Metrics\ValueMetric;
 use Illuminate\Support\Facades\Auth;
 use MoonShine\Decorations\Column;

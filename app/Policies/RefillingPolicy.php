@@ -24,7 +24,7 @@ class RefillingPolicy
 
     public function create(MoonshineUser $user)
     {
-        return false;
+        return true;
     }
 
     public function update(MoonshineUser $user, Refilling $item)

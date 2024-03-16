@@ -26,6 +26,7 @@ use MoonShine\Fields\Relationships\BelongsTo;
 use App\MoonShine\Pages\Refilling\RefillingFormPage;
 use App\MoonShine\Pages\Refilling\RefillingIndexPage;
 use App\MoonShine\Pages\Refilling\RefillingDetailPage;
+use Illuminate\Http\Request;
 
 /**
  * @extends ModelResource<Refilling>
@@ -94,6 +95,7 @@ class RefillingResource extends ModelResource
         return [
             'date' => ['required', 'date', 'before_or_equal:today'],
             'volume' => ['required', 'decimal:0,2', 'min:10', 'max:9999999.99'],
+            'station_id' => ['required'],
         ];
     }
 
@@ -118,7 +120,7 @@ class RefillingResource extends ModelResource
     {
         return [
             'date', 'driver.name',
-            'num_liters_car_refueling', 'cost_car_refueling',
+            'volume', 'sum',
             'comment'
         ];
     }
@@ -149,6 +151,7 @@ class RefillingResource extends ModelResource
         return null;
     }
 
+
     protected function beforeCreating(Model $item): Model
     {
         $settings = Valuestore::make(storage_path('app/settings.json'));
@@ -157,8 +160,10 @@ class RefillingResource extends ModelResource
         if (Auth::user()->moonshine_user_role_id == 3) {
             $item->driver_id = Auth::user()->id;
         }
-        $item->volume = $settings->get('price_car_refueling');
+        $item->price = $settings->get('price_car_refueling');
         $item->sum = $item->volume * $settings->get('price_car_refueling');
+
+
         return $item;
     }
 

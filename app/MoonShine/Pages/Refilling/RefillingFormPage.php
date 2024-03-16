@@ -55,6 +55,7 @@ class RefillingFormPage extends FormPage
                     fn ($item) => $item->petrolStationBrand->name . ' | ' . $item->address,
                     resource: new DirPetrolStationResource()
                 )
+                    ->required()
                     ->nullable()
                     ->searchable()
                     ->translatable('moonshine::refilling'),
