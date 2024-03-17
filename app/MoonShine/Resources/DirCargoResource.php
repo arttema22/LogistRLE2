@@ -128,7 +128,7 @@ class DirCargoResource extends ModelResource
     public function search(): array
     {
         return [
-            'name', 'price',
+            'name',
         ];
     }
 
