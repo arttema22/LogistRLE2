@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             DirTruckBrandSeeder::class,
             DirTruckTypeSeeder::class,
+            DirServiceSeeder::class,
 
             MoonshineUserRoleSeeder::class,
             MoonshineUserSeeder::class,
