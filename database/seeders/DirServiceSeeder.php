@@ -15,19 +15,19 @@ class DirServiceSeeder extends Seeder
     public function run(): void
     {
         DirService::create([
-            'title' => 'Погрузка',
+            'name' => 'Погрузка',
             'price' => 500.00,
         ]);
         DirService::create([
-            'title' => 'Разгрузка',
+            'name' => 'Разгрузка',
             'price' => 500.00,
         ]);
         DirService::create([
-            'title' => 'Раскомлевка',
+            'name' => 'Раскомлевка',
             'price' => 500.00,
         ]);
         DirService::create([
-            'title' => 'Сортировка',
+            'name' => 'Сортировка',
             'price' => 500.00,
         ]);
     }

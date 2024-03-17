@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('dir_services', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('title')->unique();
+            $table->string('name')->unique();
             $table->float('price', 8, 2);
             $table->softDeletes();
         });

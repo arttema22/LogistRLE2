@@ -12,7 +12,10 @@ return [
     'petrol_station' => 'Petrol Station',
     'address' => 'Address',
     'count_refillings' => 'Count Refillings',
+    'services' => 'Services',
+    'price' => 'Price',
 
     'resource_brand' => 'brand',
     'resource_station' => 'station',
+    'resource_service' => 'service',
 ];

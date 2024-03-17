@@ -4,28 +4,23 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Models\DirPetrolStation;
-use App\Models\Refilling;
-use MoonShine\MoonShine;
 use Illuminate\Http\Request;
 use MoonShine\Menu\MenuItem;
 use MoonShine\Menu\MenuGroup;
-use App\Models\SetupIntegration;
 use App\MoonShine\Pages\E1card;
 use App\MoonShine\Pages\Monopoly;
 use App\MoonShine\Pages\Settings;
 use App\MoonShine\Resources\DirPetrolStationBrandResource;
 use App\MoonShine\Resources\DirPetrolStationResource;
+use App\MoonShine\Resources\DirServiceResource;
 use App\MoonShine\Resources\DirTruckBrandResource;
 use App\MoonShine\Resources\DirTruckTypeResource;
 use App\MoonShine\Resources\MoonShineUserResource;
 use App\MoonShine\Resources\SetupIntegrationResource;
 use App\MoonShine\Resources\MoonShineUserRoleResource;
-use App\MoonShine\Resources\ProfileResource;
 use App\MoonShine\Resources\RefillingResource;
 use App\MoonShine\Resources\SalaryResource;
 use App\MoonShine\Resources\TruckResource;
-use MoonShine\Decorations\Divider;
 use MoonShine\Menu\MenuDivider;
 use MoonShine\Providers\MoonShineApplicationServiceProvider;
 
@@ -80,6 +75,10 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
             ])->icon('heroicons.arrows-right-left'),
 
             MenuGroup::make('directories', [
+
+                MenuItem::make('services', new DirServiceResource())
+                    ->translatable('moonshine::directory'),
+
                 MenuDivider::make('trucks')->translatable('moonshine::truck'),
                 MenuItem::make('brands', new DirTruckBrandResource())
                     ->translatable('moonshine::directory'),

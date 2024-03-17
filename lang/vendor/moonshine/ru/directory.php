@@ -12,4 +12,6 @@ return [
     'petrol_station' => 'АЗС',
     'address' => 'Адрес',
     'count_refillings' => 'Количество',
+    'services' => 'Услуги',
+    'price' => 'Цена',
 ];

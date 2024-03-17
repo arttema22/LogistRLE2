@@ -4,31 +4,33 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources;
 
+use MoonShine\Fields\ID;
+use App\Models\DirService;
+
 use MoonShine\Enums\Layer;
 use MoonShine\Fields\Text;
+use MoonShine\Fields\Number;
 use MoonShine\Enums\PageType;
 use MoonShine\Attributes\Icon;
 use MoonShine\Fields\Position;
-use App\Models\DirPetrolStation;
 use MoonShine\Decorations\Block;
 use MoonShine\Handlers\ExportHandler;
 use MoonShine\Handlers\ImportHandler;
 use MoonShine\Resources\ModelResource;
 use Illuminate\Database\Eloquent\Model;
 use MoonShine\ChangeLog\Components\ChangeLog;
-use MoonShine\Fields\Relationships\BelongsTo;
 
 /**
- * @extends ModelResource<DirPetrolStation>
+ * @extends ModelResource<DirService>
  */
-#[Icon('heroicons.outline.battery-50')]
-class DirPetrolStationResource extends ModelResource
+#[Icon('heroicons.outline.circle-stack')]
+class DirServiceResource extends ModelResource
 {
     // Модель данных
-    protected string $model = DirPetrolStation::class;
+    protected string $model = DirService::class;
 
     // Проверка прав доступа
-    protected bool $withPolicy = true;
+    protected bool $withPolicy = false;
 
     // Редирект после сохранения
     protected ?PageType $redirectAfterSave = PageType::INDEX;
@@ -37,7 +39,7 @@ class DirPetrolStationResource extends ModelResource
     protected ?PageType $redirectAfterDelete = PageType::INDEX;
 
     // Поле сортировки по умолчанию
-    protected string $sortColumn = 'address';
+    protected string $sortColumn = 'name';
 
     // Тип сортировки по умолчанию
     protected string $sortDirection = 'ASC';
@@ -46,7 +48,7 @@ class DirPetrolStationResource extends ModelResource
     protected int $itemsPerPage = 15;
 
     // Поле для отображения значений в связях и хлебных крошках
-    public string $column = 'address';
+    public string $column = 'name';
 
     /**
      * getAlias
@@ -55,7 +57,7 @@ class DirPetrolStationResource extends ModelResource
      */
     public function getAlias(): ?string
     {
-        return __('moonshine::directory.resource_station');
+        return __('moonshine::directory.resource_service');
     }
 
     /**
@@ -65,7 +67,7 @@ class DirPetrolStationResource extends ModelResource
      */
     public function title(): string
     {
-        return __('moonshine::directory.petrol_station');
+        return __('moonshine::directory.services');
     }
 
     /**
@@ -89,9 +91,8 @@ class DirPetrolStationResource extends ModelResource
     {
         return [
             Position::make(),
-            Text::make('address')->sortable()->translatable('moonshine::directory'),
-            BelongsTo::make('brand_id', 'petrolStationBrand', resource: new DirPetrolStationBrandResource())
-                ->translatable('moonshine::directory'),
+            Text::make('name')->sortable()->translatable('moonshine::directory'),
+            Text::make('price')->sortable()->translatable('moonshine::directory'),
         ];
     }
 
@@ -104,12 +105,10 @@ class DirPetrolStationResource extends ModelResource
     {
         return [
             Block::make([
-                BelongsTo::make('brand_id', 'petrolStationBrand', resource: new DirPetrolStationBrandResource())
-                    ->required()
-                    ->searchable()
-                    ->nullable()
+                Text::make('name')->required()->translatable('moonshine::directory'),
+                Number::make('price')->required()
+                    ->min(9)->max(999999.99)->step(0.01)
                     ->translatable('moonshine::directory'),
-                Text::make('address')->required()->translatable('moonshine::directory'),
             ]),
         ];
     }
@@ -123,8 +122,8 @@ class DirPetrolStationResource extends ModelResource
     public function rules(Model $item): array
     {
         return [
-            'address' => ['required', 'string', 'min:3'],
-            'brand_id' => ['required'],
+            'name' => ['required', 'string', 'min:3'],
+            'price' => ['required', 'decimal:0,2', 'min:9', 'max:999999.99'],
         ];
     }
 
@@ -136,7 +135,7 @@ class DirPetrolStationResource extends ModelResource
     public function search(): array
     {
         return [
-            'name', 'address',
+            'name', 'price',
         ];
     }
 
