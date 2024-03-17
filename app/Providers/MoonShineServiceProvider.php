@@ -10,6 +10,7 @@ use MoonShine\Menu\MenuGroup;
 use App\MoonShine\Pages\E1card;
 use App\MoonShine\Pages\Monopoly;
 use App\MoonShine\Pages\Settings;
+use App\MoonShine\Resources\DirCargoResource;
 use App\MoonShine\Resources\DirPetrolStationBrandResource;
 use App\MoonShine\Resources\DirPetrolStationResource;
 use App\MoonShine\Resources\DirServiceResource;
@@ -75,7 +76,8 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
             ])->icon('heroicons.arrows-right-left'),
 
             MenuGroup::make('directories', [
-
+                MenuItem::make('cargos', new DirCargoResource())
+                    ->translatable('moonshine::directory'),
                 MenuItem::make('services', new DirServiceResource())
                     ->translatable('moonshine::directory'),
 

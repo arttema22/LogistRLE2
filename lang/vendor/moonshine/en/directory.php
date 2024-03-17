@@ -14,8 +14,10 @@ return [
     'count_refillings' => 'Count Refillings',
     'services' => 'Services',
     'price' => 'Price',
+    'cargos' => 'Cargos',
 
     'resource_brand' => 'brand',
     'resource_station' => 'station',
     'resource_service' => 'service',
+    'resource_cargo' => 'cargo',
 ];

@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             DirTruckBrandSeeder::class,
             DirTruckTypeSeeder::class,
             DirServiceSeeder::class,
+            DirCargoSeeder::class,
 
             MoonshineUserRoleSeeder::class,
             MoonshineUserSeeder::class,

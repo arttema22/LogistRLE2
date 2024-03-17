@@ -14,4 +14,5 @@ return [
     'count_refillings' => 'Количество',
     'services' => 'Услуги',
     'price' => 'Цена',
+    'cargos' => 'Грузы',
 ];

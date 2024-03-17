@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources;
 
-use App\Models\DirService;
+use App\Models\DirCargo;
+use MoonShine\Fields\ID;
 use MoonShine\Enums\Layer;
 use MoonShine\Fields\Text;
-use MoonShine\Fields\Number;
 use MoonShine\Enums\PageType;
 use MoonShine\Attributes\Icon;
 use MoonShine\Fields\Position;
@@ -19,13 +19,13 @@ use Illuminate\Database\Eloquent\Model;
 use MoonShine\ChangeLog\Components\ChangeLog;
 
 /**
- * @extends ModelResource<DirService>
+ * @extends ModelResource<DirCargo>
  */
 #[Icon('heroicons.outline.circle-stack')]
-class DirServiceResource extends ModelResource
+class DirCargoResource extends ModelResource
 {
     // Модель данных
-    protected string $model = DirService::class;
+    protected string $model = DirCargo::class;
 
     // Проверка прав доступа
     protected bool $withPolicy = false;
@@ -55,7 +55,7 @@ class DirServiceResource extends ModelResource
      */
     public function getAlias(): ?string
     {
-        return __('moonshine::directory.resource_service');
+        return __('moonshine::directory.resource_cargo');
     }
 
     /**
@@ -65,7 +65,7 @@ class DirServiceResource extends ModelResource
      */
     public function title(): string
     {
-        return __('moonshine::directory.services');
+        return __('moonshine::directory.cargos');
     }
 
     /**
@@ -90,7 +90,6 @@ class DirServiceResource extends ModelResource
         return [
             Position::make(),
             Text::make('name')->sortable()->translatable('moonshine::directory'),
-            Text::make('price')->sortable()->translatable('moonshine::directory'),
         ];
     }
 
@@ -104,9 +103,6 @@ class DirServiceResource extends ModelResource
         return [
             Block::make([
                 Text::make('name')->required()->translatable('moonshine::directory'),
-                Number::make('price')->required()
-                    ->min(9)->max(999999.99)->step(0.01)
-                    ->translatable('moonshine::directory'),
             ]),
         ];
     }
@@ -121,7 +117,6 @@ class DirServiceResource extends ModelResource
     {
         return [
             'name' => ['required', 'string', 'min:3'],
-            'price' => ['required', 'decimal:0,2', 'min:9', 'max:999999.99'],
         ];
     }
 
