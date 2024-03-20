@@ -12,6 +12,7 @@ use Illuminate\Support\Collection;
 use MoonShine\Models\MoonshineUser;
 use Illuminate\Support\Facades\Http;
 use App\Models\DirPetrolStationBrand;
+use App\MoonShine\Controllers\IntegrationRefillingController;
 
 class MonopolyService
 {
@@ -80,39 +81,30 @@ class MonopolyService
                     'limit' => '1000',
                 ]
             )->collect();
-
+        dd($response);
         if (isset($response)) {
             foreach ($response ?? [] as $transaction) {
                 if (!Refilling::where('integration_id', $transaction['id'])->exists()) {
 
-                    // Если в базе нет такого бренда, то он создается
-                    $petrol_ststion_brand = DirPetrolStationBrand::where('name', $transaction['station']['brand'])->first();
-                    if (!$petrol_ststion_brand) {
-                        $petrol_ststion_brand = DirPetrolStationBrand::create([
-                            'name' => $transaction['station']['brand'],
-                        ]);
-                    }
+                    // Получение ID типа топлива
+                    $fuelType = IntegrationRefillingController::getFuelType($transaction['fuelType']);
 
-                    // Если в базе нет записи о такой АЗС, то она создается
-                    $petrol_station = DirPetrolStation::where('station_num', $transaction['station']['id'])->first();
-                    if (!$petrol_station) {
-                        $petrol_station = DirPetrolStation::create([
-                            'address' => $transaction['station']['addressDetails'],
-                            'brand_id' => $petrol_ststion_brand->id,
-                            'station_num' => $transaction['station']['id'],
-                        ]);
-                    }
+                    // Получение ID бренда топливной компании
+                    $petrolStationBrand = IntegrationRefillingController::getPetrolStationBrand($transaction['station']['brand']);
 
-                    // Если в базе есть запись о машине с переданным номером, то ее ID записывается
-                    $truck = Truck::where('reg_num', $transaction['regNumber'])->first();
-                    if ($truck) {
-                        $truck_id = $truck->id;
-                    } else {
-                        $truck_id = null;
-                    }
+                    // Получение ID АЗС
+                    $petrolStation = IntegrationRefillingController::getPetrolStation(
+                        $transaction['station']['id'],
+                        $transaction['station']['addressDetails'],
+                        $petrolStationBrand,
+                    );
+
+                    // Получение ID автомобиля
+                    $Truck = IntegrationRefillingController::getTruck($transaction['regNumber']);
 
                     // Если водитель с карточкой существует, то создается запись
-                    $driver = MoonshineUser::where('phone', $transaction['driverPhone'])->first();
+                    $driver = MoonshineUser::where('phone', $transaction['driverPhone'])
+                        ->where('moonshine_user_role_id', 3)->first();
                     if ($driver) {
                         Refilling::create([
                             'date' => date('Y-m-d', strtotime($transaction['refuelingDate'])),
@@ -121,8 +113,9 @@ class MonopolyService
                             'volume' => $transaction['refuelVolume'],
                             'price' => $settings->get('price_car_refueling'),
                             'sum' => $transaction['refuelVolume'] * $settings->get('price_car_refueling'),
-                            'station_id' => $petrol_station->id,
-                            'truck_id' => $truck_id,
+                            'station_id' => $petrolStation,
+                            'fuel_type_id' => $fuelType,
+                            'truck_id' => $Truck,
                             'reg_number' => $transaction['regNumber'],
                             'integration_id' => $transaction['id'],
                         ]);

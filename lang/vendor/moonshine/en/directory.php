@@ -15,9 +15,11 @@ return [
     'services' => 'Services',
     'price' => 'Price',
     'cargos' => 'Cargos',
+    'fuels' => 'Fuels',
 
     'resource_brand' => 'brand',
     'resource_station' => 'station',
     'resource_service' => 'service',
     'resource_cargo' => 'cargo',
+    'resource_fuel' => 'fuel',
 ];

@@ -22,6 +22,7 @@ class Refilling extends Model
         'price',
         'sum',
         'station_id',
+        'fuel_type_id',
         'truck_id',
         'reg_number',
         'comment',
@@ -53,6 +54,16 @@ class Refilling extends Model
     public function petrolStation()
     {
         return $this->belongsTo(DirPetrolStation::class, 'station_id', 'id');
+    }
+
+    /**
+     * fuelTupe
+     * Получить данные о типе топлива
+     * @return void
+     */
+    public function fuelType()
+    {
+        return $this->belongsTo(DirFuelType::class, 'fuel_type_id', 'id');
     }
 
     /**

@@ -24,6 +24,8 @@ return new class extends Migration
             $table->float('sum', 8, 2);
             $table->BigInteger('station_id')->unsigned()->nullable();
             $table->foreign('station_id')->references('id')->on('dir_petrol_stations');
+            $table->BigInteger('fuel_type_id')->unsigned()->nullable();
+            $table->foreign('fuel_type_id')->references('id')->on('dir_fuel_types');
             $table->BigInteger('truck_id')->unsigned()->nullable();
             $table->foreign('truck_id')->references('id')->on('trucks');
             $table->string('reg_number')->nullable();

@@ -15,4 +15,5 @@ return [
     'services' => 'Услуги',
     'price' => 'Цена',
     'cargos' => 'Грузы',
+    'fuels' => 'Топливо',
 ];

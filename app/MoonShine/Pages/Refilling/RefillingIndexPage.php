@@ -6,15 +6,18 @@ namespace App\MoonShine\Pages\Refilling;
 
 use MoonShine\Fields\Date;
 use MoonShine\Fields\Text;
+use App\Models\DirFuelType;
 use MoonShine\Fields\Field;
 use MoonShine\Fields\Position;
+use MoonShine\Fields\StackFields;
 use MoonShine\Pages\Crud\IndexPage;
 use Illuminate\Support\Facades\Auth;
+use MoonShine\Decorations\LineBreak;
 use MoonShine\ActionButtons\ActionButton;
 use MoonShine\Fields\Relationships\BelongsTo;
+use App\MoonShine\Resources\DirFuelTypeResource;
 use App\MoonShine\Resources\MoonShineUserResource;
 use App\MoonShine\Resources\DirPetrolStationResource;
-use MoonShine\Decorations\LineBreak;
 
 class RefillingIndexPage extends IndexPage
 {
@@ -43,12 +46,19 @@ class RefillingIndexPage extends IndexPage
             Text::make('sum')
                 ->sortable()
                 ->translatable('moonshine::refilling'),
-            BelongsTo::make(
-                'stantion',
-                'petrolStation',
-                fn ($item) => $item->petrolStationBrand->name . '<br>' . $item->address,
-                resource: new DirPetrolStationResource()
-            )->translatable('moonshine::refilling'),
+            StackFields::make('Title')->fields([
+                BelongsTo::make(
+                    'stantion',
+                    'petrolStation',
+                    fn ($item) => $item->petrolStationBrand->name . '<br>' . $item->address,
+                    resource: new DirPetrolStationResource()
+                )->translatable('moonshine::refilling'),
+                BelongsTo::make(
+                    'fuel',
+                    'fuelType',
+                    resource: new DirFuelTypeResource()
+                )->translatable('moonshine::refilling'),
+            ]),
             BelongsTo::make(
                 'truck',
                 'truck',
