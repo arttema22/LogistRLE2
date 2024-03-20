@@ -81,7 +81,7 @@ class MonopolyService
                     'limit' => '1000',
                 ]
             )->collect();
-        dd($response);
+
         if (isset($response)) {
             foreach ($response ?? [] as $transaction) {
                 if (!Refilling::where('integration_id', $transaction['id'])->exists()) {
