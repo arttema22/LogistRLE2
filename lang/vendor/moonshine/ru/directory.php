@@ -16,4 +16,6 @@ return [
     'price' => 'Цена',
     'cargos' => 'Грузы',
     'fuels' => 'Топливо',
+    'fuel_categories' => 'Категории топлива',
+    'fuel_category' => 'Категория топлива',
 ];

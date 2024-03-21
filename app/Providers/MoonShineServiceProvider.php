@@ -11,6 +11,7 @@ use App\MoonShine\Pages\E1card;
 use App\MoonShine\Pages\Monopoly;
 use App\MoonShine\Pages\Settings;
 use App\MoonShine\Resources\DirCargoResource;
+use App\MoonShine\Resources\DirFuelCategoryResource;
 use App\MoonShine\Resources\DirFuelTypeResource;
 use App\MoonShine\Resources\DirPetrolStationBrandResource;
 use App\MoonShine\Resources\DirPetrolStationResource;
@@ -92,6 +93,8 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
                 MenuItem::make('petrol_station', new DirPetrolStationResource())
                     ->translatable('moonshine::directory'),
                 MenuItem::make('fuels', new DirFuelTypeResource())
+                    ->translatable('moonshine::directory'),
+                MenuItem::make('fuel_categories', new DirFuelCategoryResource())
                     ->translatable('moonshine::directory'),
             ])->icon('heroicons.bars-3')
                 ->translatable('moonshine::directory'),

@@ -56,6 +56,7 @@ class RefillingIndexPage extends IndexPage
                 BelongsTo::make(
                     'fuel',
                     'fuelType',
+                    fn ($item) => $item->fuelCategory->name,
                     resource: new DirFuelTypeResource()
                 )->translatable('moonshine::refilling'),
             ]),

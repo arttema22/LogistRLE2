@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dir_fuel_types', function (Blueprint $table) {
+        Schema::create('dir_fuel_categories', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->string('name')->unique();
-            $table->BigInteger('category_id')->unsigned()->default(1);
-            $table->foreign('category_id')->references('id')->on('dir_fuel_categories');
             $table->softDeletes();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dir_fuel_types');
+        Schema::dropIfExists('dir_fuel_categories');
     }
 };

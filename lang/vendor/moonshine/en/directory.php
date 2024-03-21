@@ -16,10 +16,13 @@ return [
     'price' => 'Price',
     'cargos' => 'Cargos',
     'fuels' => 'Fuels',
+    'fuel_categories' => 'Fuel Categories',
+    'fuel_category' => 'Fuel Category',
 
     'resource_brand' => 'brand',
     'resource_station' => 'station',
     'resource_service' => 'service',
     'resource_cargo' => 'cargo',
     'resource_fuel' => 'fuel',
+    'resource_fuel_cat' => 'fuel-category',
 ];

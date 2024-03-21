@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources;
 
+use MoonShine\Fields\ID;
 use MoonShine\Enums\Layer;
+
 use MoonShine\Fields\Text;
-use App\Models\DirFuelType;
-use MoonShine\Fields\Field;
 use MoonShine\Enums\PageType;
 use MoonShine\Attributes\Icon;
 use MoonShine\Fields\Position;
+use App\Models\DirFuelCategory;
 use MoonShine\Decorations\Block;
 use MoonShine\Handlers\ExportHandler;
 use MoonShine\Handlers\ImportHandler;
@@ -18,16 +19,15 @@ use MoonShine\Resources\ModelResource;
 use Illuminate\Database\Eloquent\Model;
 use MoonShine\Fields\Relationships\HasMany;
 use MoonShine\ChangeLog\Components\ChangeLog;
-use MoonShine\Fields\Relationships\BelongsTo;
 
 /**
- * @extends ModelResource<DirFuelType>
+ * @extends ModelResource<DirFuelCategory>
  */
 #[Icon('heroicons.outline.circle-stack')]
-class DirFuelTypeResource extends ModelResource
+class DirFuelCategoryResource extends ModelResource
 {
     // Модель данных
-    protected string $model = DirFuelType::class;
+    protected string $model = DirFuelCategory::class;
 
     // Проверка прав доступа
     protected bool $withPolicy = false;
@@ -57,7 +57,7 @@ class DirFuelTypeResource extends ModelResource
      */
     public function getAlias(): ?string
     {
-        return __('moonshine::directory.resource_fuel');
+        return __('moonshine::directory.resource_fuel_cat');
     }
 
     /**
@@ -67,7 +67,7 @@ class DirFuelTypeResource extends ModelResource
      */
     public function title(): string
     {
-        return __('moonshine::directory.fuels');
+        return __('moonshine::directory.fuel_categories');
     }
 
     /**
@@ -92,8 +92,6 @@ class DirFuelTypeResource extends ModelResource
         return [
             Position::make(),
             Text::make('name')->sortable()->translatable('moonshine::directory'),
-            BelongsTo::make('fuel_category', 'fuelCategory', resource: new DirFuelCategoryResource())
-                ->translatable('moonshine::directory'),
         ];
     }
 
@@ -107,11 +105,6 @@ class DirFuelTypeResource extends ModelResource
         return [
             Block::make([
                 Text::make('name')->required()->translatable('moonshine::directory'),
-                BelongsTo::make('fuel_category', 'fuelCategory', resource: new DirFuelCategoryResource())
-                    ->required()
-                    ->searchable()
-                    ->nullable()
-                    ->translatable('moonshine::directory'),
             ]),
         ];
     }
@@ -125,7 +118,7 @@ class DirFuelTypeResource extends ModelResource
     public function rules(Model $item): array
     {
         return [
-            'name' => ['required', 'string', 'min:2'],
+            'name' => ['required', 'string', 'min:3'],
         ];
     }
 
