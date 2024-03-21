@@ -25,7 +25,6 @@ class E1cardService
     public function callTransaction()
     {
         $data = SetupIntegration::find(1);
-        $settings = Valuestore::make(storage_path('app/settings.json'));
 
         $response = Http::accept('application/json')
             ->withHeaders([
@@ -68,8 +67,8 @@ class E1cardService
                             'owner_id' => 1,
                             'driver_id' => $driver->id,
                             'volume' => $transaction['volume'],
-                            'price' => $settings->get('price_car_refueling'),
-                            'sum' => $transaction['volume'] * $settings->get('price_car_refueling'),
+                            'price' => $transaction['price'],
+                            'sum' => $transaction['sum'],
                             'station_id' => $petrolStation,
                             'fuel_type_id' => $fuelType,
                             'truck_id' => $Truck,

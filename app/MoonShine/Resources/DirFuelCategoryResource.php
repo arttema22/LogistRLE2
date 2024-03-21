@@ -77,9 +77,7 @@ class DirFuelCategoryResource extends ModelResource
      */
     public function getActiveActions(): array
     {
-        return [
-            'create', 'update', 'delete'
-        ];
+        return [];
     }
 
     /**

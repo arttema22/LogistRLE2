@@ -39,14 +39,12 @@ class RefillingIndexPage extends IndexPage
                     fn (Field $field) => $field->hideOnIndex()
                 )
                 ->translatable('moonshine::refilling'),
-            Text::make('volume')->badge('primary')
-                ->sortable()
-                ->translatable('moonshine::refilling'),
-            Text::make('price')->translatable('moonshine::refilling'),
-            Text::make('sum')
-                ->sortable()
-                ->translatable('moonshine::refilling'),
             StackFields::make('Title')->fields([
+                Text::make('volume', 'volume', fn ($item) => $item->volume . ' л.')->translatable('moonshine::refilling'),
+                Text::make('price', 'price', fn ($item) => $item->price . ' р./л.')->translatable('moonshine::refilling'),
+                Text::make('sum', 'sum', fn ($item) => $item->sum . ' руб.')->translatable('moonshine::refilling'),
+            ]),
+            StackFields::make('')->fields([
                 BelongsTo::make(
                     'stantion',
                     'petrolStation',

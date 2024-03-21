@@ -67,7 +67,6 @@ class MonopolyService
     public function callTransaction()
     {
         $data = SetupIntegration::find(2);
-        $settings = Valuestore::make(storage_path('app/settings.json'));
 
         $response = Http::withToken($data->access_token)
             ->withUrlParameters([
@@ -111,8 +110,8 @@ class MonopolyService
                             'owner_id' => 1,
                             'driver_id' => $driver->id,
                             'volume' => $transaction['refuelVolume'],
-                            'price' => $settings->get('price_car_refueling'),
-                            'sum' => $transaction['refuelVolume'] * $settings->get('price_car_refueling'),
+                            'price' => $transaction['pricePerUnitWithDiscount'],
+                            'sum' => $transaction['totalCostsWithDiscount'],
                             'station_id' => $petrolStation,
                             'fuel_type_id' => $fuelType,
                             'truck_id' => $Truck,

@@ -53,7 +53,7 @@ class RefillingResource extends ModelResource
     protected string $sortDirection = 'DESC';
 
     // Количество элементов на странице
-    protected int $itemsPerPage = 15;
+    protected int $itemsPerPage = 30;
 
     // Поле для отображения значений в связях и хлебных крошках
     public string $column = 'date';
