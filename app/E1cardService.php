@@ -59,7 +59,9 @@ class E1cardService
                     $Truck = IntegrationRefillingController::getTruck($transaction['auto']);
 
                     // Если водитель с карточкой существует, то создается запись
-                    $driver = MoonshineUser::where('e1_card', $transaction['card'])->first();
+                    $driver = MoonshineUser::where('e1_card', $transaction['card'])
+                        ->where('moonshine_user_role_id', 3)
+                        ->first();
                     if ($driver) {
                         Refilling::create([
                             'date' => date('Y-m-d H:i', strtotime($transaction['date'])),

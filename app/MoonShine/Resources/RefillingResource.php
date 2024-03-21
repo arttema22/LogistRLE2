@@ -163,7 +163,6 @@ class RefillingResource extends ModelResource
         $item->price = $settings->get('price_car_refueling');
         $item->sum = $item->volume * $settings->get('price_car_refueling');
 
-
         return $item;
     }
 
