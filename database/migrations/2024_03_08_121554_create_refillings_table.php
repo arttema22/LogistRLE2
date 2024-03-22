@@ -28,7 +28,6 @@ return new class extends Migration
             $table->foreign('fuel_type_id')->references('id')->on('dir_fuel_types');
             $table->BigInteger('truck_id')->unsigned()->nullable();
             $table->foreign('truck_id')->references('id')->on('trucks');
-            $table->string('reg_number')->nullable();
             $table->string('comment')->nullable();
             $table->string('integration_id')->nullable();
             $table->BigInteger('profit_id')->unsigned()->default(0);

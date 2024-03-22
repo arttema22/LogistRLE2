@@ -72,7 +72,6 @@ class E1cardService
                             'station_id' => $petrolStation,
                             'fuel_type_id' => $fuelType,
                             'truck_id' => $Truck,
-                            'reg_number' => $transaction['auto'],
                             'integration_id' => $transaction['UnID'],
                         ]);
                     };

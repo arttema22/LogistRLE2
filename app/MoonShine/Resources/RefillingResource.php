@@ -95,7 +95,10 @@ class RefillingResource extends ModelResource
         return [
             'date' => ['required', 'date', 'before_or_equal:today'],
             'volume' => ['required', 'decimal:0,2', 'min:10', 'max:9999999.99'],
+            'price' => ['required', 'decimal:0,2', 'min:10', 'max:9999999.99'],
+            'sum' => ['required', 'decimal:0,2', 'min:10', 'max:9999999.99'],
             'station_id' => ['required'],
+            'fuel_type_id' => ['required'],
         ];
     }
 
@@ -160,8 +163,8 @@ class RefillingResource extends ModelResource
         if (Auth::user()->moonshine_user_role_id == 3) {
             $item->driver_id = Auth::user()->id;
         }
-        $item->price = $settings->get('price_car_refueling');
-        $item->sum = $item->volume * $settings->get('price_car_refueling');
+        //$item->price = $settings->get('price_car_refueling');
+        //$item->sum = $item->volume * $settings->get('price_car_refueling');
 
         return $item;
     }

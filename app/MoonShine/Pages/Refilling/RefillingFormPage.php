@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Pages\Refilling;
 
+use App\Models\DirFuelType;
+use App\MoonShine\Resources\DirFuelCategoryResource;
+use App\MoonShine\Resources\DirFuelTypeResource;
 use MoonShine\Fields\Date;
 use MoonShine\Fields\Text;
 use MoonShine\Fields\Field;
@@ -39,46 +42,66 @@ class RefillingFormPage extends FormPage
     public function fields(): array
     {
         return [
-            Block::make([
-                BelongsTo::make('driver', 'driver', resource: new MoonShineUserResource())
-                    ->valuesQuery(fn (Builder $query, Field $field) => $query->where('moonshine_user_role_id', 3))
-                    ->required()
-                    ->nullable()
-                    ->translatable('moonshine::refilling')
-                    ->when(
-                        fn () => Auth::user()->moonshine_user_role_id == 3,
-                        fn (Field $field) => $field->hideOnForm(),
-                    ),
-                BelongsTo::make(
-                    'petrol_station',
-                    'petrolStation',
-                    fn ($item) => $item->petrolStationBrand->name . ' | ' . $item->address,
-                    resource: new DirPetrolStationResource()
-                )
-                    ->required()
-                    ->nullable()
-                    ->searchable()
-                    ->translatable('moonshine::refilling'),
-                BelongsTo::make(
-                    'truck',
-                    'truck',
-                    fn ($item) => "$item->name \ $item->reg_num",
-                    resource: new TruckResource()
-                )->searchable()
-                    ->nullable()
-                    ->translatable('moonshine::refilling'),
-                Grid::make([
-                    Column::make([
-                        Date::make('date')->required()
+            Grid::make([
+                Column::make([
+                    Block::make([
+                        BelongsTo::make('driver', 'driver', resource: new MoonShineUserResource())
+                            ->valuesQuery(fn (Builder $query, Field $field) => $query->where('moonshine_user_role_id', 3))
+                            ->required()
+                            ->nullable()
+                            ->translatable('moonshine::refilling')
+                            ->when(
+                                fn () => Auth::user()->moonshine_user_role_id == 3,
+                                fn (Field $field) => $field->hideOnForm(),
+                            ),
+                        BelongsTo::make(
+                            'petrol_station',
+                            'petrolStation',
+                            fn ($item) => $item->petrolStationBrand->name . ' | ' . $item->address,
+                            resource: new DirPetrolStationResource()
+                        )
+                            ->required()
+                            ->nullable()
+                            ->searchable()
                             ->translatable('moonshine::refilling'),
-                    ])->columnSpan(6),
-                    Column::make([
+                        BelongsTo::make(
+                            'fuel',
+                            'fuelType',
+                            fn ($item) => $item->fuelCategory->name . ' | ' . $item->name,
+                            resource: new DirFuelTypeResource()
+                        )
+                            ->required()
+                            ->nullable()
+                            ->searchable()
+                            ->translatable('moonshine::refilling'),
+                        Date::make('date')->required()->withTime()
+                            ->translatable('moonshine::refilling'),
                         Number::make('volume')->required()
                             ->min(10)->max(9999999.99)->step(0.01)
                             ->translatable('moonshine::refilling'),
-                    ])->columnSpan(6),
-                ]),
-                Text::make('comment')->translatable('moonshine::refilling'),
+
+                        Number::make('price')->required()
+                            ->min(10)->max(9999999.99)->step(0.01)
+                            ->translatable('moonshine::refilling'),
+
+                        Number::make('sum')->required()
+                            ->min(10)->max(9999999.99)->step(0.01)
+                            ->translatable('moonshine::refilling'),
+                    ]),
+                ])->columnSpan(6),
+                Column::make([
+                    Block::make([
+                        BelongsTo::make(
+                            'truck',
+                            'truck',
+                            fn ($item) => "$item->name \ $item->reg_num",
+                            resource: new TruckResource()
+                        )->searchable()
+                            ->nullable()
+                            ->translatable('moonshine::refilling'),
+                        Text::make('comment')->translatable('moonshine::refilling'),
+                    ]),
+                ])->columnSpan(6),
             ]),
         ];
     }

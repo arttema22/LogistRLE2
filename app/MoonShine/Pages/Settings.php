@@ -11,6 +11,7 @@ use Spatie\Valuestore\Valuestore;
 use MoonShine\Components\FormBuilder;
 use MoonShine\Components\TableBuilder;
 use Illuminate\Database\Eloquent\Collection;
+use MoonShine\Fields\Number;
 
 class Settings extends Page
 {
@@ -36,7 +37,7 @@ class Settings extends Page
                     ->action(route('settings.store'))
                     ->method('POST')
                     ->fields([
-                        Text::make('price_car_refueling')->translatable('moonshine::setup'),
+                        Number::make('price_car_refueling')->step(.01)->translatable('moonshine::setup'),
                     ])
                     ->fill([
                         'price_car_refueling' => $settings->get('price_car_refueling'),

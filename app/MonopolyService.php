@@ -115,7 +115,6 @@ class MonopolyService
                             'station_id' => $petrolStation,
                             'fuel_type_id' => $fuelType,
                             'truck_id' => $Truck,
-                            'reg_number' => $transaction['regNumber'],
                             'integration_id' => $transaction['id'],
                         ]);
                     };
