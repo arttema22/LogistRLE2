@@ -72,8 +72,10 @@ class TruckResource extends ModelResource
     {
         return [
             Position::make(),
-            Text::make('reg_num')->sortable()
-                ->translatable('moonshine::truck'),
+            StackFields::make('reg_num')->fields([
+                Text::make('reg_num_ru'),
+                Text::make('reg_num_en'),
+            ])->translatable('moonshine::truck'),
             StackFields::make('truck')->fields([
                 Text::make('name')->translatable('moonshine::truck'),
                 BelongsTo::make('brand', 'brand', resource: new DirTruckBrandResource())
@@ -99,7 +101,11 @@ class TruckResource extends ModelResource
                             ->translatable('moonshine::truck'),
                     ])->columnSpan(3, 6),
                     Column::make([
-                        Text::make('reg_num')
+                        Text::make('reg_num_ru')
+                            ->required()
+                            //->mask('a 999 aa 999')
+                            ->translatable('moonshine::truck'),
+                        Text::make('reg_num_en')
                             ->required()
                             ->mask('a999aa999')
                             ->translatable('moonshine::truck'),

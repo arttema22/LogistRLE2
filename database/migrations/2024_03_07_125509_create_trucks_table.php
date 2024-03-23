@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
-            $table->string('reg_num')->unique();
+            $table->string('reg_num_ru')->unique();
+            $table->string('reg_num_en')->unique();
             $table->BigInteger('brand_id')->unsigned();
             $table->foreign('brand_id')->references('id')->on('dir_truck_brands');
             $table->BigInteger('type_id')->unsigned();

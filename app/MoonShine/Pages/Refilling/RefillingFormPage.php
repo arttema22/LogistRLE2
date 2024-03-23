@@ -94,7 +94,7 @@ class RefillingFormPage extends FormPage
                         BelongsTo::make(
                             'truck',
                             'truck',
-                            fn ($item) => "$item->name \ $item->reg_num",
+                            fn ($item) => "$item->name \ $item->reg_num_ru",
                             resource: new TruckResource()
                         )->searchable()
                             ->nullable()

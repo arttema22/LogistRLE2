@@ -55,7 +55,8 @@ final class IntegrationRefillingController extends MoonShineController
     static function getTruck($num)
     {
         // Если в базе есть запись о машине с переданным номером, то ее ID записывается
-        $Truck = Truck::where('reg_num', $num)->first();
+        $Truck = Truck::where('reg_num_en', $num)
+            ->orWhere('reg_num_ru', $num)->first();
         if ($Truck) {
             $truck_id = $Truck->id;
         } else {

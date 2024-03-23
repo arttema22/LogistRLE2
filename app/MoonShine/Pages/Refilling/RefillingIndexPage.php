@@ -61,7 +61,7 @@ class RefillingIndexPage extends IndexPage
             BelongsTo::make(
                 'truck',
                 'truck',
-                fn ($item) => "$item->name<br>$item->reg_num",
+                fn ($item) => "$item->name<br>$item->reg_num_ru",
                 resource: new DirPetrolStationResource()
             )->translatable('moonshine::refilling'),
             Text::make('comment')->translatable('moonshine::refilling'),
