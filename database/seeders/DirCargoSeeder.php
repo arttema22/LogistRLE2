@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\DirCargo;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Dir\DirCargo;
 use Illuminate\Database\Seeder;
 
 class DirCargoSeeder extends Seeder

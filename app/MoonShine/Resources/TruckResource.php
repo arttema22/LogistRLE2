@@ -7,23 +7,20 @@ namespace App\MoonShine\Resources;
 use App\Models\Truck;
 use MoonShine\Enums\Layer;
 use MoonShine\Fields\Text;
-use MoonShine\Fields\Field;
 use MoonShine\Enums\PageType;
 use MoonShine\Attributes\Icon;
-use MoonShine\Fields\Position;
-use MoonShine\Decorations\Grid;
-use MoonShine\Decorations\Block;
-use MoonShine\Decorations\Column;
-use MoonShine\Fields\StackFields;
 use MoonShine\QueryTags\QueryTag;
 use MoonShine\Handlers\ExportHandler;
 use MoonShine\Handlers\ImportHandler;
 use MoonShine\Resources\ModelResource;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use App\MoonShine\Pages\Truck\TruckFormPage;
+use App\MoonShine\Pages\Truck\TruckIndexPage;
 use MoonShine\ChangeLog\Components\ChangeLog;
 use MoonShine\Fields\Relationships\BelongsTo;
-use MoonShine\Fields\Relationships\BelongsToMany;
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use App\MoonShine\Pages\Truck\TruckDetailPage;
+
 
 /**
  * @extends ModelResource<Truck>
@@ -53,7 +50,7 @@ class TruckResource extends ModelResource
     protected int $itemsPerPage = 15;
 
     // Поле для отображения значений в связях и хлебных крошках
-    public string $column = 'reg_num';
+    public string $column = 'reg_num_ru';
 
     public function title(): string
     {
@@ -68,64 +65,16 @@ class TruckResource extends ModelResource
         ];
     }
 
-    public function indexFields(): array
+    public function pages(): array
     {
         return [
-            Position::make(),
-            StackFields::make('reg_num')->fields([
-                Text::make('reg_num_ru'),
-                Text::make('reg_num_en'),
-            ])->translatable('moonshine::truck'),
-            StackFields::make('truck')->fields([
-                Text::make('name')->translatable('moonshine::truck'),
-                BelongsTo::make('brand', 'brand', resource: new DirTruckBrandResource())
-                    ->translatable('moonshine::directory'),
-            ])->translatable('moonshine::truck'),
-            BelongsTo::make('type', 'type', resource: new DirTruckTypeResource())
-                ->sortable()
-                ->translatable('moonshine::directory'),
-            BelongsToMany::make('driver', 'users', resource: new MoonShineUserResource())
-                ->inLine(separator: ', ')
-                ->translatable('moonshine::truck'),
-        ];
-    }
-
-    public function formFields(): array
-    {
-        return [
-            Block::make([
-                Grid::make([
-                    Column::make([
-                        Text::make('name')
-                            ->required()
-                            ->translatable('moonshine::truck'),
-                    ])->columnSpan(3, 6),
-                    Column::make([
-                        Text::make('reg_num_ru')
-                            ->required()
-                            //->mask('a 999 aa 999')
-                            ->translatable('moonshine::truck'),
-                        Text::make('reg_num_en')
-                            ->required()
-                            ->mask('a999aa999')
-                            ->translatable('moonshine::truck'),
-                    ])->columnSpan(3, 6),
-                    Column::make([
-                        BelongsTo::make('brand', 'brand', resource: new DirTruckBrandResource())
-                            ->translatable('moonshine::directory'),
-                    ])->columnSpan(3, 6),
-                    Column::make([
-                        BelongsTo::make('type', 'type', resource: new DirTruckTypeResource())
-                            ->translatable('moonshine::directory'),
-                    ])->columnSpan(3, 6),
-                    Column::make([
-                        BelongsToMany::make('driver', 'users', resource: new MoonShineUserResource())
-                            ->valuesQuery(fn (Builder $query, Field $field) => $query->where('moonshine_user_role_id', 3))
-                            ->selectMode()
-                            ->translatable('moonshine::truck'),
-                    ])->columnSpan(3),
-                ]),
-            ]),
+            TruckIndexPage::make($this->title()),
+            TruckFormPage::make(
+                $this->getItemID()
+                    ? __('moonshine::ui.edit')
+                    : __('moonshine::ui.add')
+            ),
+            TruckDetailPage::make(__('moonshine::ui.show')),
         ];
     }
 
@@ -133,7 +82,8 @@ class TruckResource extends ModelResource
     {
         return [
             'name' => ['required', 'string', 'min:3'],
-            'reg_num' => ['required'],
+            'reg_num_ru' => ['required'],
+            'reg_num_en' => ['required'],
         ];
     }
 
@@ -155,7 +105,7 @@ class TruckResource extends ModelResource
     public function search(): array
     {
         return [
-            'name', 'reg_num', 'brand.name',
+            'name', 'reg_num_ru', 'reg_num_en', 'brand.name',
             'type.name', 'users.name'
         ];
     }

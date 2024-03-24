@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Dir;
 
+use App\Models\Truck;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use MoonShine\ChangeLog\Traits\HasChangeLog;
@@ -13,6 +14,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class DirTruckBrand extends Model
 {
     use HasFactory, SoftDeletes, HasChangeLog, MassPrunable;
+
+    protected $fillable = [
+        'name'
+    ];
 
     /**
      * Получить все автомобили к бренду.

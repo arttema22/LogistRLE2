@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Dir;
 
+use App\Models\Refilling;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Dir\DirPetrolStationBrand;
 use Illuminate\Database\Eloquent\Builder;
 use MoonShine\ChangeLog\Traits\HasChangeLog;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -11,24 +13,36 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * DirPetrolStationBrand
+ * DirPetrolStation
  */
-class DirPetrolStationBrand extends Model
+class DirPetrolStation extends Model
 {
     use HasFactory, SoftDeletes, HasChangeLog, MassPrunable;
 
     protected $fillable = [
-        'name',
+        'address',
+        'brand_id',
+        'station_num',
     ];
 
     /**
-     * petrolStations
-     * Получить данные о заправочных станциях
+     * petrolStationBrand
+     * Получить данные о бренде
+     * @return void
+     */
+    public function petrolStationBrand()
+    {
+        return $this->belongsTo(DirPetrolStationBrand::class, 'brand_id', 'id');
+    }
+
+    /**
+     * refillings
+     * Получить данные о заправках на АЗС.
      * @return HasMany
      */
-    public function petrolStations(): HasMany
+    public function refillings(): HasMany
     {
-        return $this->hasMany(DirPetrolStation::class, 'brand_id', 'id');
+        return $this->hasMany(Refilling::class, 'station_id', 'id');
     }
 
     /**

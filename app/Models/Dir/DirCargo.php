@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Dir;
 
 use Illuminate\Database\Eloquent\Model;
 use MoonShine\ChangeLog\Traits\HasChangeLog;

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Dir\DirTruckType;
+use App\Models\Dir\DirTruckBrand;
 use MoonShine\Models\MoonshineUser;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;

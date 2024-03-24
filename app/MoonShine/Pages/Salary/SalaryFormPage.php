@@ -4,30 +4,20 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Pages\Salary;
 
+use App\MoonShine\Pages\Crud\FormPageCustom;
 use MoonShine\Fields\Date;
 use MoonShine\Fields\Text;
 use MoonShine\Fields\Field;
-use MoonShine\Enums\JsEvent;
-use MoonShine\Fields\Fields;
-use MoonShine\Fields\Hidden;
 use MoonShine\Fields\Number;
 use MoonShine\Decorations\Grid;
-use MoonShine\Support\AlpineJs;
 use MoonShine\Decorations\Block;
 use MoonShine\Decorations\Column;
-use MoonShine\Pages\Crud\FormPage;
-use MoonShine\Pages\Crud\IndexPage;
 use Illuminate\Support\Facades\Auth;
-use MoonShine\Components\FormBuilder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use MoonShine\ActionButtons\ActionButton;
-use App\MoonShine\Resources\SalaryResource;
-use MoonShine\Contracts\MoonShineRenderable;
 use MoonShine\Fields\Relationships\BelongsTo;
 use App\MoonShine\Resources\MoonShineUserResource;
 
-class SalaryFormPage extends FormPage
+class SalaryFormPage extends FormPageCustom
 {
     public function getAlias(): ?string
     {
@@ -61,51 +51,6 @@ class SalaryFormPage extends FormPage
                 Text::make('comment')->translatable('moonshine::salary'),
             ]),
         ];
-    }
-
-    protected function formComponent(string $action, ?Model $item, Fields $fields, bool $isAsync = false): MoonShineRenderable
-    {
-        $resource = $this->getResource();
-
-        return FormBuilder::make($action)
-            ->fillCast(
-                $item,
-                $resource->getModelCast()
-            )
-            ->fields(
-                $fields
-                    ->when(
-                        !is_null($item),
-                        fn (Fields $fields): Fields => $fields->push(
-                            Hidden::make('_method')->setValue('PUT')
-                        )
-                    )
-                    ->when(
-                        !$item?->exists && !$resource->isCreateInModal(),
-                        fn (Fields $fields): Fields => $fields->push(
-                            Hidden::make('_force_redirect')->setValue(true)
-                        )
-                    )
-                    ->toArray()
-            )
-            ->when(
-                $isAsync,
-                fn (FormBuilder $formBuilder): FormBuilder => $formBuilder
-                    ->async(asyncEvents: [
-                        $resource->listEventName(request('_component_name', 'default')),
-                        AlpineJs::event(JsEvent::FORM_RESET, 'crud'),
-                    ])
-            )
-            ->when(
-                $resource->isPrecognitive() || (moonshineRequest()->isFragmentLoad('crud-form') && !$isAsync),
-                fn (FormBuilder $form): FormBuilder => $form->precognitive()
-            )
-            ->name('crud')
-            ->submit(__('moonshine::ui.save'), ['class' => 'btn-primary btn-lg'])
-            ->buttons([
-                ActionButton::make('cancel', to_page(page: IndexPage::class, resource: SalaryResource::class))
-                    ->translatable('moonshine::ui')
-            ]);
     }
 
     protected function topLayer(): array

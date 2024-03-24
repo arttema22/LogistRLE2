@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\DirService;
-use App\Models\DirSrevice;
+use App\Models\Dir\DirService;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DirServiceSeeder extends Seeder
 {

@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Dir\DirFuelType;
 use MoonShine\Models\MoonshineUser;
+use App\Models\Dir\DirPetrolStation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use MoonShine\ChangeLog\Traits\HasChangeLog;

@@ -8,24 +8,24 @@ use Illuminate\Http\Request;
 use MoonShine\Menu\MenuItem;
 use MoonShine\Menu\MenuGroup;
 use App\MoonShine\Pages\E1card;
+use MoonShine\Menu\MenuDivider;
 use App\MoonShine\Pages\Monopoly;
 use App\MoonShine\Pages\Settings;
-use App\MoonShine\Resources\DirCargoResource;
-use App\MoonShine\Resources\DirFuelCategoryResource;
-use App\MoonShine\Resources\DirFuelTypeResource;
-use App\MoonShine\Resources\DirPetrolStationBrandResource;
-use App\MoonShine\Resources\DirPetrolStationResource;
-use App\MoonShine\Resources\DirServiceResource;
-use App\MoonShine\Resources\DirTruckBrandResource;
-use App\MoonShine\Resources\DirTruckTypeResource;
-use App\MoonShine\Resources\MoonShineUserResource;
-use App\MoonShine\Resources\SetupIntegrationResource;
-use App\MoonShine\Resources\MoonShineUserRoleResource;
-use App\MoonShine\Resources\RefillingResource;
-use App\MoonShine\Resources\SalaryResource;
 use App\MoonShine\Resources\TruckResource;
-use MoonShine\Menu\MenuDivider;
+use App\MoonShine\Resources\SalaryResource;
+use App\MoonShine\Resources\RefillingResource;
+use App\MoonShine\Resources\Dir\DirCargoResource;
+use App\MoonShine\Resources\MoonShineUserResource;
+use App\MoonShine\Resources\Dir\DirServiceResource;
+use App\MoonShine\Resources\Dir\DirFuelTypeResource;
+use App\MoonShine\Resources\Dir\DirTruckTypeResource;
+use App\MoonShine\Resources\SetupIntegrationResource;
+use App\MoonShine\Resources\Dir\DirTruckBrandResource;
+use App\MoonShine\Resources\MoonShineUserRoleResource;
+use App\MoonShine\Resources\Dir\DirFuelCategoryResource;
+use App\MoonShine\Resources\Dir\DirPetrolStationResource;
 use MoonShine\Providers\MoonShineApplicationServiceProvider;
+use App\MoonShine\Resources\Dir\DirPetrolStationBrandResource;
 
 class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
 {
@@ -48,17 +48,19 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
             MenuItem::make('salaries', new SalaryResource())
                 ->translatable('moonshine::salary'),
 
-            MenuItem::make('trucks', new TruckResource())
-                ->translatable('moonshine::truck'),
-
             MenuGroup::make(static fn () => __('moonshine::ui.resource.system'), [
+                MenuItem::make('trucks', new TruckResource())
+                    ->translatable('moonshine::truck'),
                 MenuItem::make(
                     static fn () => __('moonshine::ui.resource.role_title'),
                     new MoonShineUserRoleResource()
                 ),
-
                 MenuItem::make('settings', new Settings())->icon('heroicons.cog-6-tooth')
                     ->translatable('moonshine::setup'),
+                MenuItem::make(
+                    static fn () => __('moonshine::ui.resource.title'),
+                    new MoonShineUserResource()
+                ),
             ]),
 
             MenuGroup::make(static fn () => __('moonshine::integration.integrations'), [
@@ -98,12 +100,6 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
                     ->translatable('moonshine::directory'),
             ])->icon('heroicons.bars-3')
                 ->translatable('moonshine::directory'),
-
-
-            MenuItem::make(
-                static fn () => __('moonshine::ui.resource.title'),
-                new MoonShineUserResource()
-            ),
 
             MenuItem::make('help', 'https://github.com/arttema22/LogistRLE2/wiki', blank: true)
                 ->icon('heroicons.outline.lifebuoy')

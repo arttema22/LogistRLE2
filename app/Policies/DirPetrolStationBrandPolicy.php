@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
-use Illuminate\Auth\Access\HandlesAuthorization;
-use App\Models\DirPetrolStationBrand;
 use MoonShine\Models\MoonshineUser;
+use App\Models\Dir\DirPetrolStationBrand;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class DirPetrolStationBrandPolicy
 {

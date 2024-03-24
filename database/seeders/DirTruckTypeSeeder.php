@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\DirTruckType;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Dir\DirTruckType;
 
 class DirTruckTypeSeeder extends Seeder
 {

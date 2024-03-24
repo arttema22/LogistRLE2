@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\DirTruckBrand;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Dir\DirTruckBrand;
 
 class DirTruckBrandSeeder extends Seeder
 {
