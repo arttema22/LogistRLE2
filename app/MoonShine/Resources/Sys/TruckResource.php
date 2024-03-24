@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\MoonShine\Resources;
+namespace App\MoonShine\Resources\Sys;
 
-use App\Models\Truck;
+use App\Models\Sys\Truck;
 use MoonShine\Enums\Layer;
 use MoonShine\Fields\Text;
 use MoonShine\Enums\PageType;
@@ -15,11 +15,13 @@ use MoonShine\Handlers\ImportHandler;
 use MoonShine\Resources\ModelResource;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use App\MoonShine\Pages\Truck\TruckFormPage;
-use App\MoonShine\Pages\Truck\TruckIndexPage;
+use App\MoonShine\Pages\Sys\Truck\TruckFormPage;
+use App\MoonShine\Pages\Sys\Truck\TruckIndexPage;
 use MoonShine\ChangeLog\Components\ChangeLog;
 use MoonShine\Fields\Relationships\BelongsTo;
-use App\MoonShine\Pages\Truck\TruckDetailPage;
+use App\MoonShine\Pages\Sys\Truck\TruckDetailPage;
+use App\MoonShine\Resources\Dir\DirTruckTypeResource;
+use App\MoonShine\Resources\Dir\DirTruckBrandResource;
 
 
 /**

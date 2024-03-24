@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\MoonShine\Pages\Truck;
+namespace App\MoonShine\Pages\Sys\Truck;
 
 use MoonShine\Pages\Crud\DetailPage;
 

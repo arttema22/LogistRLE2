@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\MoonShine\Resources;
+namespace App\MoonShine\Resources\Sys;
 
 use MoonShine\Attributes\Icon;
 use MoonShine\Decorations\Block;

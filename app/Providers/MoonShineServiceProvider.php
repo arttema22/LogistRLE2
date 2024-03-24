@@ -10,18 +10,18 @@ use MoonShine\Menu\MenuGroup;
 use App\MoonShine\Pages\E1card;
 use MoonShine\Menu\MenuDivider;
 use App\MoonShine\Pages\Monopoly;
-use App\MoonShine\Pages\Settings;
-use App\MoonShine\Resources\TruckResource;
+use App\MoonShine\Pages\Sys\Settings;
+use App\MoonShine\Resources\Sys\TruckResource;
 use App\MoonShine\Resources\SalaryResource;
 use App\MoonShine\Resources\RefillingResource;
 use App\MoonShine\Resources\Dir\DirCargoResource;
-use App\MoonShine\Resources\MoonShineUserResource;
+use App\MoonShine\Resources\Sys\MoonShineUserResource;
 use App\MoonShine\Resources\Dir\DirServiceResource;
 use App\MoonShine\Resources\Dir\DirFuelTypeResource;
 use App\MoonShine\Resources\Dir\DirTruckTypeResource;
-use App\MoonShine\Resources\SetupIntegrationResource;
+use App\MoonShine\Resources\Sys\SetupIntegrationResource;
 use App\MoonShine\Resources\Dir\DirTruckBrandResource;
-use App\MoonShine\Resources\MoonShineUserRoleResource;
+use App\MoonShine\Resources\Sys\MoonShineUserRoleResource;
 use App\MoonShine\Resources\Dir\DirFuelCategoryResource;
 use App\MoonShine\Resources\Dir\DirPetrolStationResource;
 use MoonShine\Providers\MoonShineApplicationServiceProvider;
@@ -44,7 +44,6 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
         return [
             MenuItem::make('refillings', new RefillingResource())
                 ->translatable('moonshine::refilling'),
-
             MenuItem::make('salaries', new SalaryResource())
                 ->translatable('moonshine::salary'),
 

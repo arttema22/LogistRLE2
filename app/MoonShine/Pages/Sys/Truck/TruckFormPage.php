@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\MoonShine\Pages\Truck;
+namespace App\MoonShine\Pages\Sys\Truck;
 
 use MoonShine\Fields\Text;
 use MoonShine\Fields\Field;
@@ -12,10 +12,10 @@ use MoonShine\Decorations\Column;
 use Illuminate\Database\Eloquent\Builder;
 use App\MoonShine\Pages\Crud\FormPageCustom;
 use MoonShine\Fields\Relationships\BelongsTo;
-use App\MoonShine\Resources\DirTruckTypeResource;
+use App\MoonShine\Resources\Dir\DirTruckTypeResource;
 use MoonShine\Fields\Relationships\BelongsToMany;
-use App\MoonShine\Resources\DirTruckBrandResource;
-use App\MoonShine\Resources\MoonShineUserResource;
+use App\MoonShine\Resources\Dir\DirTruckBrandResource;
+use App\MoonShine\Resources\Sys\MoonShineUserResource;
 
 class TruckFormPage extends FormPageCustom
 {

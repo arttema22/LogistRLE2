@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\MoonShine\Resources;
+namespace App\MoonShine\Resources\Sys;
 
 use MoonShine\Fields\ID;
 use MoonShine\Fields\Date;
@@ -19,13 +19,12 @@ use MoonShine\Decorations\Block;
 use MoonShine\Fields\StackFields;
 use MoonShine\Decorations\Heading;
 use MoonShine\Models\MoonshineUser;
-use Illuminate\Support\Facades\Auth;
 use MoonShine\Fields\PasswordRepeat;
 use MoonShine\Resources\ModelResource;
 use MoonShine\Models\MoonshineUserRole;
 use MoonShine\Fields\Relationships\BelongsTo;
-use Illuminate\Contracts\Database\Eloquent\Builder;
-use App\MoonShine\Resources\MoonShineUserRoleResource;
+use Illuminate\Database\Eloquent\Builder;
+use App\MoonShine\Resources\Sys\MoonShineUserRoleResource;
 
 /**
  * @extends ModelResource<MoonshineUser>

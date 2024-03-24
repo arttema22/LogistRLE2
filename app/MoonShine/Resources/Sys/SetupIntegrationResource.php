@@ -2,19 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\MoonShine\Resources;
+namespace App\MoonShine\Resources\Sys;
 
-use MoonShine\Fields\ID;
 use MoonShine\Fields\Url;
-
 use MoonShine\Fields\Json;
 use MoonShine\Fields\Text;
 use MoonShine\Enums\PageType;
 use MoonShine\Attributes\Icon;
-use MoonShine\Fields\Password;
-use MoonShine\Fields\Switcher;
 use MoonShine\Fields\Textarea;
-use App\Models\SetupIntegration;
+use App\Models\Sys\SetupIntegration;
 use MoonShine\Decorations\Block;
 use MoonShine\Handlers\ExportHandler;
 use MoonShine\Handlers\ImportHandler;

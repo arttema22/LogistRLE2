@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Sys;
 
+use App\Models\Refilling;
 use App\Models\Dir\DirTruckType;
 use App\Models\Dir\DirTruckBrand;
 use MoonShine\Models\MoonshineUser;

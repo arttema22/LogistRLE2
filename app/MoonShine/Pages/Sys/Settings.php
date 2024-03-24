@@ -2,15 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\MoonShine\Pages;
+namespace App\MoonShine\Pages\Sys;
 
 use MoonShine\Pages\Page;
-use MoonShine\Fields\Text;
 use MoonShine\Decorations\Block;
 use Spatie\Valuestore\Valuestore;
 use MoonShine\Components\FormBuilder;
-use MoonShine\Components\TableBuilder;
-use Illuminate\Database\Eloquent\Collection;
 use MoonShine\Fields\Number;
 
 class Settings extends Page

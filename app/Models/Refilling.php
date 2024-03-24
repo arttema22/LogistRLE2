@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Sys\Truck;
 use App\Models\Dir\DirFuelType;
 use MoonShine\Models\MoonshineUser;
 use App\Models\Dir\DirPetrolStation;
