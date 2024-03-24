@@ -5,42 +5,27 @@ declare(strict_types=1);
 namespace App\MoonShine\Resources\Sys;
 
 use App\Models\Sys\Truck;
-use MoonShine\Enums\Layer;
 use MoonShine\Fields\Text;
-use MoonShine\Enums\PageType;
 use MoonShine\Attributes\Icon;
 use MoonShine\QueryTags\QueryTag;
-use MoonShine\Handlers\ExportHandler;
-use MoonShine\Handlers\ImportHandler;
 use MoonShine\Resources\ModelResource;
 use Illuminate\Database\Eloquent\Model;
+use App\MoonShine\Resources\MainResource;
 use Illuminate\Database\Eloquent\Builder;
+use MoonShine\Fields\Relationships\BelongsTo;
 use App\MoonShine\Pages\Sys\Truck\TruckFormPage;
 use App\MoonShine\Pages\Sys\Truck\TruckIndexPage;
-use MoonShine\ChangeLog\Components\ChangeLog;
-use MoonShine\Fields\Relationships\BelongsTo;
-use App\MoonShine\Pages\Sys\Truck\TruckDetailPage;
 use App\MoonShine\Resources\Dir\DirTruckTypeResource;
 use App\MoonShine\Resources\Dir\DirTruckBrandResource;
-
 
 /**
  * @extends ModelResource<Truck>
  */
 #[Icon('heroicons.outline.truck')]
-class TruckResource extends ModelResource
+class TruckResource extends MainResource
 {
     // Модель данных
     protected string $model = Truck::class;
-
-    // Проверка прав доступа
-    protected bool $withPolicy = false;
-
-    // Редирект после сохранения
-    protected ?PageType $redirectAfterSave = PageType::INDEX;
-
-    // Редирект после удаления
-    protected ?PageType $redirectAfterDelete = PageType::INDEX;
 
     // Поле сортировки по умолчанию
     protected string $sortColumn = 'name';
@@ -48,25 +33,34 @@ class TruckResource extends ModelResource
     // Тип сортировки по умолчанию
     protected string $sortDirection = 'ASC';
 
-    // Количество элементов на странице
-    protected int $itemsPerPage = 15;
-
     // Поле для отображения значений в связях и хлебных крошках
     public string $column = 'reg_num_ru';
 
+    /**
+     * getAlias
+     * Устанавливает алиас для ресурса.
+     * @return string
+     */
+    public function getAlias(): ?string
+    {
+        return __('moonshine::system.truck.resource_truck');
+    }
+
+    /**
+     * title
+     * Устанавливает заголовок для ресурса.
+     * @return string
+     */
     public function title(): string
     {
-        return __('moonshine::truck.trucks');
+        return __('moonshine::system.truck.trucks');
     }
 
-    // Разрешенные действия
-    public function getActiveActions(): array
-    {
-        return [
-            'create', 'update', 'delete'
-        ];
-    }
-
+    /**
+     * pages
+     *
+     * @return array
+     */
     public function pages(): array
     {
         return [
@@ -76,10 +70,15 @@ class TruckResource extends ModelResource
                     ? __('moonshine::ui.edit')
                     : __('moonshine::ui.add')
             ),
-            TruckDetailPage::make(__('moonshine::ui.show')),
         ];
     }
 
+    /**
+     * rules
+     * Правила проверки вводимых данных
+     * @param  mixed $item
+     * @return array
+     */
     public function rules(Model $item): array
     {
         return [
@@ -89,21 +88,30 @@ class TruckResource extends ModelResource
         ];
     }
 
-    // Фильтры
+
+    /**
+     * filters
+     *
+     * @return array
+     */
     public function filters(): array
     {
         return [
-            Text::make('name', 'name')->translatable('moonshine::truck'),
+            Text::make('name', 'name')->translatable('moonshine::system.truck'),
             BelongsTo::make('brand', 'brand', resource: new DirTruckBrandResource())
                 ->nullable()
-                ->translatable('moonshine::directory'),
+                ->translatable('moonshine::system.truck'),
             BelongsTo::make('type', 'type', resource: new DirTruckTypeResource())
                 ->nullable()
-                ->translatable('moonshine::directory'),
+                ->translatable('moonshine::system.truck'),
         ];
     }
 
-    // Поля для поиска
+    /**
+     * search
+     * Поля для поиска
+     * @return array
+     */
     public function search(): array
     {
         return [
@@ -112,12 +120,16 @@ class TruckResource extends ModelResource
         ];
     }
 
-    // Быстрые фильтры
+    /**
+     * queryTags
+     *
+     * @return array
+     */
     public function queryTags(): array
     {
         return [
             QueryTag::make(
-                __('moonshine::truck.all'),
+                __('moonshine::system.all'),
                 fn (Builder $query) => $query
             )->default(),
             QueryTag::make(
@@ -137,26 +149,5 @@ class TruckResource extends ModelResource
                 fn (Builder $query) => $query->where('type_id', 4)
             ),
         ];
-    }
-
-    public function import(): ?ImportHandler
-    {
-        return null;
-    }
-
-    public function export(): ?ExportHandler
-    {
-        return null;
-    }
-
-    // Логирование изменений
-    protected function onBoot(): void
-    {
-        $this->getPages()
-            ->formPage()
-            ->pushToLayer(
-                Layer::BOTTOM,
-                ChangeLog::make('Changelog', $this)
-            );
     }
 }

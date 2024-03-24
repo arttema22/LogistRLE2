@@ -5,44 +5,73 @@ declare(strict_types=1);
 namespace App\MoonShine\Resources\Sys;
 
 use MoonShine\Attributes\Icon;
-use MoonShine\Decorations\Block;
-use MoonShine\Fields\ID;
-use MoonShine\Fields\Text;
-use MoonShine\Models\MoonshineUserRole;
-use MoonShine\Resources\ModelResource;
+use App\Models\Sys\MoonshineUserRole;
+use App\MoonShine\Resources\MainResource;
+use App\MoonShine\Pages\Sys\Role\RoleFormPage;
+use App\MoonShine\Pages\Sys\Role\RoleIndexPage;
 
+/**
+ * MoonShineUserRoleResource
+ */
 #[Icon('heroicons.outline.bookmark')]
-class MoonShineUserRoleResource extends ModelResource
+class MoonShineUserRoleResource extends MainResource
 {
+    // Модель данных
     public string $model = MoonshineUserRole::class;
 
+    // Поле сортировки по умолчанию
+    protected string $sortColumn = 'name';
+
+    // Тип сортировки по умолчанию
+    protected string $sortDirection = 'ASC';
+
+    // Поле для отображения значений в связях и хлебных крошках
     public string $column = 'name';
 
     protected bool $isAsync = true;
 
-    protected bool $createInModal = true;
-
-    protected bool $editInModal = true;
-
-    public function title(): string
+    /**
+     * getAlias
+     * Устанавливает алиас для ресурса.
+     * @return string
+     */
+    public function getAlias(): ?string
     {
-        return __('moonshine::ui.resource.role');
+        return __('moonshine::system.role.resource_role');
     }
 
-    public function fields(): array
+    /**
+     * title
+     * Устанавливает заголовок для ресурса.
+     * @return string
+     */
+    public function title(): string
+    {
+        return __('moonshine::system.role.roles');
+    }
+
+    /**
+     * pages
+     *
+     * @return array
+     */
+    public function pages(): array
     {
         return [
-            Block::make([
-                ID::make()->sortable()->showOnExport(),
-                Text::make(__('moonshine::ui.resource.role_name'), 'name')
-                    ->required()
-                    ->showOnExport(),
-            ]),
+            RoleIndexPage::make($this->title()),
+            RoleFormPage::make(
+                $this->getItemID()
+                    ? __('moonshine::ui.edit')
+                    : __('moonshine::ui.add')
+            ),
         ];
     }
 
     /**
-     * @return array{name: string}
+     * rules
+     * Правила проверки вводимых данных
+     * @param  mixed $item
+     * @return array
      */
     public function rules($item): array
     {
@@ -51,10 +80,14 @@ class MoonShineUserRoleResource extends ModelResource
         ];
     }
 
+    /**
+     * search
+     * Поля для поиска
+     * @return array
+     */
     public function search(): array
     {
         return [
-            'id',
             'name',
         ];
     }

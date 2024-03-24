@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Pages\Refilling;
 
-use App\MoonShine\Pages\Crud\FormPageCustom;
-use App\MoonShine\Resources\DirFuelTypeResource;
 use MoonShine\Fields\Date;
 use MoonShine\Fields\Text;
 use MoonShine\Fields\Field;
@@ -15,10 +13,12 @@ use MoonShine\Decorations\Block;
 use MoonShine\Decorations\Column;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
-use App\MoonShine\Resources\TruckResource;
+use App\MoonShine\Pages\Crud\FormPageCustom;
 use MoonShine\Fields\Relationships\BelongsTo;
-use App\MoonShine\Resources\MoonShineUserResource;
-use App\MoonShine\Resources\DirPetrolStationResource;
+use App\MoonShine\Resources\Sys\TruckResource;
+use App\MoonShine\Resources\Dir\DirFuelTypeResource;
+use App\MoonShine\Resources\Sys\MoonShineUserResource;
+use App\MoonShine\Resources\Dir\DirPetrolStationResource;
 
 class RefillingFormPage extends FormPageCustom
 {
@@ -91,27 +91,6 @@ class RefillingFormPage extends FormPageCustom
                     ]),
                 ])->columnSpan(6),
             ]),
-        ];
-    }
-
-    protected function topLayer(): array
-    {
-        return [
-            ...parent::topLayer()
-        ];
-    }
-
-    protected function mainLayer(): array
-    {
-        return [
-            ...parent::mainLayer()
-        ];
-    }
-
-    protected function bottomLayer(): array
-    {
-        return [
-            ...parent::bottomLayer()
         ];
     }
 }

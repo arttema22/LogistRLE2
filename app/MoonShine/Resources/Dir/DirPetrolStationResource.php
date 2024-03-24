@@ -8,6 +8,7 @@ use MoonShine\Attributes\Icon;
 use App\Models\Dir\DirPetrolStation;
 use MoonShine\Resources\ModelResource;
 use Illuminate\Database\Eloquent\Model;
+use App\MoonShine\Resources\MainResource;
 use App\MoonShine\Pages\Dir\DirPetrolStation\DirPetrolStationFormPage;
 use App\MoonShine\Pages\Dir\DirPetrolStation\DirPetrolStationIndexPage;
 
@@ -15,7 +16,7 @@ use App\MoonShine\Pages\Dir\DirPetrolStation\DirPetrolStationIndexPage;
  * @extends ModelResource<DirPetrolStation>
  */
 #[Icon('heroicons.outline.battery-50')]
-class DirPetrolStationResource extends DirResource
+class DirPetrolStationResource extends MainResource
 {
     // Модель данных
     protected string $model = DirPetrolStation::class;

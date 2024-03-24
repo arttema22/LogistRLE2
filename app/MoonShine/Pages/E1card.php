@@ -7,9 +7,9 @@ namespace App\MoonShine\Pages;
 use MoonShine\Pages\Page;
 use MoonShine\Fields\Date;
 use MoonShine\Fields\Text;
-use App\Models\SetupIntegration;
 use MoonShine\Fields\StackFields;
 use Illuminate\Support\Collection;
+use App\Models\Sys\SetupIntegration;
 use Illuminate\Support\Facades\Http;
 use MoonShine\Components\TableBuilder;
 

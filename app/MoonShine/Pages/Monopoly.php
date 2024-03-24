@@ -7,14 +7,14 @@ namespace App\MoonShine\Pages;
 use MoonShine\Pages\Page;
 use MoonShine\Fields\Date;
 use MoonShine\Fields\Text;
-use App\Models\SetupIntegration;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Http;
-use MoonShine\Components\TableBuilder;
+use MoonShine\Decorations\Grid;
 use MoonShine\Decorations\Block;
 use MoonShine\Decorations\Column;
-use MoonShine\Decorations\Grid;
 use MoonShine\Fields\StackFields;
+use Illuminate\Support\Collection;
+use App\Models\Sys\SetupIntegration;
+use Illuminate\Support\Facades\Http;
+use MoonShine\Components\TableBuilder;
 
 class Monopoly extends Page
 {

@@ -8,6 +8,7 @@ use App\Models\Dir\DirCargo;
 use MoonShine\Attributes\Icon;
 use MoonShine\Resources\ModelResource;
 use Illuminate\Database\Eloquent\Model;
+use App\MoonShine\Resources\MainResource;
 use App\MoonShine\Pages\Dir\DirCargo\DirCargoFormPage;
 use App\MoonShine\Pages\Dir\DirCargo\DirCargoIndexPage;
 
@@ -15,7 +16,7 @@ use App\MoonShine\Pages\Dir\DirCargo\DirCargoIndexPage;
  * @extends ModelResource<DirCargo>
  */
 #[Icon('heroicons.outline.circle-stack')]
-class DirCargoResource extends DirResource
+class DirCargoResource extends MainResource
 {
     // Модель данных
     protected string $model = DirCargo::class;

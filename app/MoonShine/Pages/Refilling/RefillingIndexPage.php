@@ -6,7 +6,6 @@ namespace App\MoonShine\Pages\Refilling;
 
 use MoonShine\Fields\Date;
 use MoonShine\Fields\Text;
-use App\Models\DirFuelType;
 use MoonShine\Fields\Field;
 use MoonShine\Fields\Position;
 use MoonShine\Fields\StackFields;
@@ -15,9 +14,9 @@ use Illuminate\Support\Facades\Auth;
 use MoonShine\Decorations\LineBreak;
 use MoonShine\ActionButtons\ActionButton;
 use MoonShine\Fields\Relationships\BelongsTo;
-use App\MoonShine\Resources\DirFuelTypeResource;
-use App\MoonShine\Resources\MoonShineUserResource;
-use App\MoonShine\Resources\DirPetrolStationResource;
+use App\MoonShine\Resources\Dir\DirFuelTypeResource;
+use App\MoonShine\Resources\Sys\MoonShineUserResource;
+use App\MoonShine\Resources\Dir\DirPetrolStationResource;
 
 class RefillingIndexPage extends IndexPage
 {
@@ -65,20 +64,6 @@ class RefillingIndexPage extends IndexPage
                 resource: new DirPetrolStationResource()
             )->translatable('moonshine::refilling'),
             Text::make('comment')->translatable('moonshine::refilling'),
-        ];
-    }
-
-    protected function topLayer(): array
-    {
-        return [
-            ...parent::topLayer()
-        ];
-    }
-
-    protected function mainLayer(): array
-    {
-        return [
-            ...parent::mainLayer()
         ];
     }
 

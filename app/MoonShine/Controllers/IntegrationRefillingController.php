@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Controllers;
 
-use App\Models\Truck;
-use App\Models\DirFuelType;
-use MoonShine\MoonShineRequest;
-use App\Models\DirPetrolStation;
-use App\Models\DirPetrolStationBrand;
-use Symfony\Component\HttpFoundation\Response;
+use App\Models\Sys\Truck;
+use App\Models\Dir\DirFuelType;
+use App\Models\Dir\DirPetrolStation;
+use App\Models\Dir\DirPetrolStationBrand;
 use MoonShine\Http\Controllers\MoonShineController;
 
 final class IntegrationRefillingController extends MoonShineController

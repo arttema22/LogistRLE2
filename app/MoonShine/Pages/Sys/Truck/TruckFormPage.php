@@ -19,6 +19,21 @@ use App\MoonShine\Resources\Sys\MoonShineUserResource;
 
 class TruckFormPage extends FormPageCustom
 {
+    /**
+     * getAlias
+     * Устанавливает алиас для ресурса.
+     * @return string
+     */
+    public function getAlias(): ?string
+    {
+        return __('moonshine::system.resource_form');
+    }
+
+    /**
+     * fields
+     *
+     * @return array
+     */
     public function fields(): array
     {
         return [
@@ -27,55 +42,34 @@ class TruckFormPage extends FormPageCustom
                     Column::make([
                         Text::make('name')
                             ->required()
-                            ->translatable('moonshine::truck'),
+                            ->translatable('moonshine::system.truck'),
                     ])->columnSpan(3, 6),
                     Column::make([
-                        Text::make('reg_num_ru')
+                        Text::make('reg_num')
                             ->required()
                             //->mask('a 999 aa 999')
-                            ->translatable('moonshine::truck'),
-                        Text::make('reg_num_en')
+                            ->translatable('moonshine::system.truck'),
+                        Text::make('reg_num')
                             ->required()
                             ->mask('a999aa999')
-                            ->translatable('moonshine::truck'),
+                            ->translatable('moonshine::system.truck'),
                     ])->columnSpan(3, 6),
                     Column::make([
                         BelongsTo::make('brand', 'brand', resource: new DirTruckBrandResource())
-                            ->translatable('moonshine::directory'),
+                            ->translatable('moonshine::system.truck'),
                     ])->columnSpan(3, 6),
                     Column::make([
                         BelongsTo::make('type', 'type', resource: new DirTruckTypeResource())
-                            ->translatable('moonshine::directory'),
+                            ->translatable('moonshine::system.truck'),
                     ])->columnSpan(3, 6),
                     Column::make([
                         BelongsToMany::make('driver', 'users', resource: new MoonShineUserResource())
                             ->valuesQuery(fn (Builder $query, Field $field) => $query->where('moonshine_user_role_id', 3))
                             ->selectMode()
-                            ->translatable('moonshine::truck'),
+                            ->translatable('moonshine::system.truck'),
                     ])->columnSpan(3),
                 ]),
             ]),
-        ];
-    }
-
-    protected function topLayer(): array
-    {
-        return [
-            ...parent::topLayer()
-        ];
-    }
-
-    protected function mainLayer(): array
-    {
-        return [
-            ...parent::mainLayer()
-        ];
-    }
-
-    protected function bottomLayer(): array
-    {
-        return [
-            ...parent::bottomLayer()
         ];
     }
 }

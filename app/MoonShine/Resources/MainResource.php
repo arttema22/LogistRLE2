@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\MoonShine\Resources\Dir;
+namespace App\MoonShine\Resources;
 
 use MoonShine\Enums\Layer;
 use MoonShine\Enums\PageType;
@@ -12,7 +12,7 @@ use MoonShine\Resources\ModelResource;
 use Illuminate\Database\Eloquent\Model;
 use MoonShine\ChangeLog\Components\ChangeLog;
 
-class DirResource extends ModelResource
+class MainResource extends ModelResource
 {
     // Проверка прав доступа
     protected bool $withPolicy = false;

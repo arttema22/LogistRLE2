@@ -25,6 +25,7 @@ use MoonShine\Fields\Relationships\BelongsTo;
 use App\MoonShine\Pages\Refilling\RefillingFormPage;
 use App\MoonShine\Pages\Refilling\RefillingIndexPage;
 use App\MoonShine\Pages\Refilling\RefillingDetailPage;
+use App\MoonShine\Resources\Sys\MoonShineUserResource;
 
 /**
  * @extends ModelResource<Refilling>

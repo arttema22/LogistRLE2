@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'resource_list' => 'list',
+    'resource_form' => 'form',
+
     'directories' => 'Directories',
     'brands' => 'Brands',
     'brand' => 'Brand',
@@ -19,8 +22,7 @@ return [
     'fuel_categories' => 'Fuel Categories',
     'fuel_category' => 'Fuel Category',
 
-    'resource_list' => 'list',
-    'resource_form' => 'form',
+
     'resource_cargo' => 'cargo',
     'resource_service' => 'service',
     'resource_truck_brand' => 'truck-brand',

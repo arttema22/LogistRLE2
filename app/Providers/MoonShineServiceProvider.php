@@ -49,17 +49,17 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
 
             MenuGroup::make(static fn () => __('moonshine::ui.resource.system'), [
                 MenuItem::make('trucks', new TruckResource())
-                    ->translatable('moonshine::truck'),
+                    ->translatable('moonshine::system.truck'),
                 MenuItem::make(
-                    static fn () => __('moonshine::ui.resource.role_title'),
+                    static fn () => __('moonshine::system.role.roles'),
                     new MoonShineUserRoleResource()
+                ),
+                MenuItem::make(
+                    static fn () => __('moonshine::system.user.users'),
+                    new MoonShineUserResource()
                 ),
                 MenuItem::make('settings', new Settings())->icon('heroicons.cog-6-tooth')
                     ->translatable('moonshine::setup'),
-                MenuItem::make(
-                    static fn () => __('moonshine::ui.resource.title'),
-                    new MoonShineUserResource()
-                ),
             ]),
 
             MenuGroup::make(static fn () => __('moonshine::integration.integrations'), [

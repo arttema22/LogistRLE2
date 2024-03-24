@@ -8,6 +8,7 @@ use MoonShine\Attributes\Icon;
 use App\Models\Dir\DirTruckType;
 use MoonShine\Resources\ModelResource;
 use Illuminate\Database\Eloquent\Model;
+use App\MoonShine\Resources\MainResource;
 use App\MoonShine\Pages\Dir\DirTruckType\DirTruckTypeFormPage;
 use App\MoonShine\Pages\Dir\DirTruckType\DirTruckTypeIndexPage;
 
@@ -15,7 +16,7 @@ use App\MoonShine\Pages\Dir\DirTruckType\DirTruckTypeIndexPage;
  * @extends ModelResource<DirTruckType>
  */
 #[Icon('heroicons.outline.truck')]
-class DirTruckTypeResource extends ModelResource
+class DirTruckTypeResource extends MainResource
 {
     // Модель данных
     protected string $model = DirTruckType::class;

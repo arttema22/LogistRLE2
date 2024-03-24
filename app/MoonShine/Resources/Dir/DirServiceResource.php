@@ -8,6 +8,7 @@ use App\Models\Dir\DirService;
 use MoonShine\Attributes\Icon;
 use MoonShine\Resources\ModelResource;
 use Illuminate\Database\Eloquent\Model;
+use App\MoonShine\Resources\MainResource;
 use App\MoonShine\Pages\Dir\DirService\DirServiceFormPage;
 use App\MoonShine\Pages\Dir\DirService\DirServiceIndexPage;
 
@@ -15,7 +16,7 @@ use App\MoonShine\Pages\Dir\DirService\DirServiceIndexPage;
  * @extends ModelResource<DirService>
  */
 #[Icon('heroicons.outline.circle-stack')]
-class DirServiceResource extends DirResource
+class DirServiceResource extends MainResource
 {
     // Модель данных
     protected string $model = DirService::class;

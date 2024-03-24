@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\DirFuelCategory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Dir\DirFuelCategory;
 use Illuminate\Database\Seeder;
 
 class DirFuelCategorySeeder extends Seeder

@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\SetupIntegration;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Sys\SetupIntegration;
 use Illuminate\Database\Seeder;
 
 class SetupIntegrationSeeder extends Seeder

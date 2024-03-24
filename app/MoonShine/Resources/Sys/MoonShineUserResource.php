@@ -4,54 +4,54 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources\Sys;
 
-use MoonShine\Fields\ID;
-use MoonShine\Fields\Date;
-use MoonShine\Fields\Text;
-use MoonShine\Fields\Email;
-use MoonShine\Fields\Phone;
-use MoonShine\Enums\PageType;
 use MoonShine\Attributes\Icon;
-use MoonShine\Decorations\Tab;
-use MoonShine\Fields\Password;
 use Illuminate\Validation\Rule;
-use MoonShine\Decorations\Tabs;
-use MoonShine\Decorations\Block;
-use MoonShine\Fields\StackFields;
-use MoonShine\Decorations\Heading;
-use MoonShine\Models\MoonshineUser;
-use MoonShine\Fields\PasswordRepeat;
+use App\Models\Sys\MoonshineUser;
 use MoonShine\Resources\ModelResource;
-use MoonShine\Models\MoonshineUserRole;
-use MoonShine\Fields\Relationships\BelongsTo;
+use App\MoonShine\Resources\MainResource;
 use Illuminate\Database\Eloquent\Builder;
-use App\MoonShine\Resources\Sys\MoonShineUserRoleResource;
+use App\MoonShine\Pages\Sys\User\UserFormPage;
+use App\MoonShine\Pages\Sys\User\UserIndexPage;
 
 /**
  * @extends ModelResource<MoonshineUser>
  */
 #[Icon('heroicons.outline.users')]
-class MoonShineUserResource extends ModelResource
+class MoonShineUserResource extends MainResource
 {
+    // Модель данных
     public string $model = MoonshineUser::class;
 
+    // Поле сортировки по умолчанию
+    protected string $sortColumn = 'name';
+
+    // Тип сортировки по умолчанию
+    protected string $sortDirection = 'ASC';
+
+    // Поле для отображения значений в связях и хлебных крошках
     public string $column = 'name';
 
     public array $with = ['moonshineUserRole'];
 
-    protected bool $withPolicy = false; // Проверка прав доступа
-
-    protected string $sortColumn = 'name'; // Поле сортировки по умолчанию
-
-    protected string $sortDirection = 'ASC'; // Тип сортировки по умолчанию
-
-    public function title(): string
+    /**
+     * getAlias
+     * Устанавливает алиас для ресурса.
+     * @return string
+     */
+    public function getAlias(): ?string
     {
-        return __('moonshine::ui.resource.title');
+        return __('moonshine::system.user.resource_user');
     }
 
-    // редиректы после создания и удаления
-    protected ?PageType $redirectAfterSave = PageType::INDEX;
-    protected ?PageType $redirectAfterDelete = PageType::INDEX;
+    /**
+     * title
+     * Устанавливает заголовок для ресурса.
+     * @return string
+     */
+    public function title(): string
+    {
+        return __('moonshine::system.user.users');
+    }
 
     public function query(): Builder
     {
@@ -68,83 +68,28 @@ class MoonShineUserResource extends ModelResource
             ->where('moonshine_user_role_id', 3);
     }
 
-    public function fields(): array
+    /**
+     * pages
+     *
+     * @return array
+     */
+    public function pages(): array
     {
         return [
-            Block::make([
-                Tabs::make([
-                    Tab::make(__('moonshine::ui.resource.main_information'), [
-                        ID::make()
-                            ->sortable()
-                            ->showOnExport()
-                            ->hideOnIndex(),
-
-                        Text::make(__('moonshine::ui.resource.name'), 'name')
-                            ->required()
-                            ->sortable()
-                            ->showOnExport(),
-
-                        BelongsTo::make(
-                            __('moonshine::ui.resource.role'),
-                            'moonshineUserRole',
-                            static fn (MoonshineUserRole $model) => $model->name,
-                            new MoonShineUserRoleResource(),
-                        )
-                            ->sortable()
-                            ->badge('purple'),
-
-                        // Image::make(__('moonshine::ui.resource.avatar'), 'avatar')
-                        //     ->showOnExport()
-                        //     ->disk(config('moonshine.disk', 'public'))
-                        //     ->dir('moonshine_users')
-                        //     ->allowedExtensions(['jpg', 'png', 'jpeg', 'gif']),
-
-                        Date::make(__('moonshine::ui.resource.created_at'), 'created_at')
-                            ->format("d.m.Y")
-                            ->default(now()->toDateTimeString())
-                            ->sortable()
-                            ->hideOnForm()
-                            ->hideOnIndex()
-                            ->showOnExport(),
-
-                        StackFields::make('email/phone')->fields([
-                            Email::make(__('moonshine::ui.resource.email'), 'email')
-                                ->sortable()
-                                ->showOnExport()
-                                ->required(),
-                            Phone::make('phone')
-                                //->mask('+7(999) 999-99-99')
-                                ->translatable('moonshine::ui.resource')
-                                ->sortable()
-                                ->showOnExport()
-                                ->required(),
-                        ])->translatable('moonshine::ui.resource'),
-                        Text::make('e1_card')
-                            ->sortable()
-                            ->showOnExport()
-                            ->translatable('moonshine::ui.resource'),
-                    ]),
-
-                    Tab::make(__('moonshine::ui.resource.password'), [
-                        Heading::make('Change password'),
-
-                        Password::make(__('moonshine::ui.resource.password'), 'password')
-                            ->customAttributes(['autocomplete' => 'new-password'])
-                            ->hideOnIndex()
-                            ->eye(),
-
-                        PasswordRepeat::make(__('moonshine::ui.resource.repeat_password'), 'password_repeat')
-                            ->customAttributes(['autocomplete' => 'confirm-password'])
-                            ->hideOnIndex()
-                            ->eye(),
-                    ]),
-                ]),
-            ]),
+            UserIndexPage::make($this->title()),
+            UserFormPage::make(
+                $this->getItemID()
+                    ? __('moonshine::ui.edit')
+                    : __('moonshine::ui.add')
+            ),
         ];
     }
 
     /**
-     * @return array{name: string, moonshine_user_role_id: string, email: mixed[], password: string}
+     * rules
+     * Правила проверки вводимых данных
+     * @param  mixed $item
+     * @return array
      */
     public function rules($item): array
     {
@@ -170,16 +115,14 @@ class MoonShineUserResource extends ModelResource
         ];
     }
 
-    public function getActiveActions(): array
-    {
-        return ['create', 'update', 'delete'];
-    }
-
+    /**
+     * search
+     * Поля для поиска
+     * @return array
+     */
     public function search(): array
     {
         return [
-            'email',
-            'phone',
             'name',
         ];
     }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Pages\Salary;
 
-use App\MoonShine\Pages\Crud\FormPageCustom;
 use MoonShine\Fields\Date;
 use MoonShine\Fields\Text;
 use MoonShine\Fields\Field;
@@ -14,8 +13,9 @@ use MoonShine\Decorations\Block;
 use MoonShine\Decorations\Column;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
+use App\MoonShine\Pages\Crud\FormPageCustom;
 use MoonShine\Fields\Relationships\BelongsTo;
-use App\MoonShine\Resources\MoonShineUserResource;
+use App\MoonShine\Resources\Sys\MoonShineUserResource;
 
 class SalaryFormPage extends FormPageCustom
 {
@@ -50,25 +50,6 @@ class SalaryFormPage extends FormPageCustom
                 ]),
                 Text::make('comment')->translatable('moonshine::salary'),
             ]),
-        ];
-    }
-
-    protected function topLayer(): array
-    {
-        return [];
-    }
-
-    protected function mainLayer(): array
-    {
-        return [
-            ...parent::mainLayer()
-        ];
-    }
-
-    protected function bottomLayer(): array
-    {
-        return [
-            ...parent::bottomLayer()
         ];
     }
 }

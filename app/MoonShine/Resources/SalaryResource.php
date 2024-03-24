@@ -22,6 +22,7 @@ use MoonShine\Fields\Relationships\BelongsTo;
 use App\MoonShine\Pages\Salary\SalaryFormPage;
 use App\MoonShine\Pages\Salary\SalaryIndexPage;
 use App\MoonShine\Pages\Salary\SalaryDetailPage;
+use App\MoonShine\Resources\Sys\MoonShineUserResource;
 
 /**
  * @extends ModelResource<Salary>

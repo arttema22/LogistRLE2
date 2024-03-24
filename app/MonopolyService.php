@@ -2,16 +2,10 @@
 
 namespace App;
 
-use App\Models\Truck;
 use App\Models\Refilling;
-use Illuminate\Support\Str;
-use App\Models\DirPetrolStation;
-use App\Models\SetupIntegration;
-use Spatie\Valuestore\Valuestore;
-use Illuminate\Support\Collection;
+use App\Models\Sys\SetupIntegration;
 use MoonShine\Models\MoonshineUser;
 use Illuminate\Support\Facades\Http;
-use App\Models\DirPetrolStationBrand;
 use App\MoonShine\Controllers\IntegrationRefillingController;
 
 class MonopolyService

@@ -8,6 +8,7 @@ use MoonShine\Attributes\Icon;
 use App\Models\Dir\DirFuelCategory;
 use MoonShine\Resources\ModelResource;
 use Illuminate\Database\Eloquent\Model;
+use App\MoonShine\Resources\MainResource;
 use App\MoonShine\Pages\Dir\DirFuelCategory\DirFuelCategoryFormPage;
 use App\MoonShine\Pages\Dir\DirFuelCategory\DirFuelCategoryIndexPage;
 
@@ -15,7 +16,7 @@ use App\MoonShine\Pages\Dir\DirFuelCategory\DirFuelCategoryIndexPage;
  * @extends ModelResource<DirFuelCategory>
  */
 #[Icon('heroicons.outline.circle-stack')]
-class DirFuelCategoryResource extends DirResource
+class DirFuelCategoryResource extends MainResource
 {
     // Модель данных
     protected string $model = DirFuelCategory::class;

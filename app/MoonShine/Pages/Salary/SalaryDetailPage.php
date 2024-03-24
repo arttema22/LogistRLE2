@@ -9,7 +9,7 @@ use MoonShine\Fields\Text;
 use MoonShine\Fields\Number;
 use MoonShine\Pages\Crud\DetailPage;
 use MoonShine\Fields\Relationships\BelongsTo;
-use App\MoonShine\Resources\MoonShineUserResource;
+use App\MoonShine\Resources\Sys\MoonShineUserResource;
 
 class SalaryDetailPage extends DetailPage
 {
@@ -32,27 +32,6 @@ class SalaryDetailPage extends DetailPage
             BelongsTo::make('owner', 'owner', resource: new MoonShineUserResource())
                 ->translatable('moonshine::salary'),
             Text::make('profit_id')->translatable('moonshine::salary'),
-        ];
-    }
-
-    protected function topLayer(): array
-    {
-        return [
-            ...parent::topLayer()
-        ];
-    }
-
-    protected function mainLayer(): array
-    {
-        return [
-            ...parent::mainLayer()
-        ];
-    }
-
-    protected function bottomLayer(): array
-    {
-        return [
-            ...parent::bottomLayer()
         ];
     }
 }

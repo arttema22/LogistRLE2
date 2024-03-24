@@ -12,7 +12,7 @@ use MoonShine\Pages\Crud\IndexPage;
 use Illuminate\Support\Facades\Auth;
 use MoonShine\ActionButtons\ActionButton;
 use MoonShine\Fields\Relationships\BelongsTo;
-use App\MoonShine\Resources\MoonShineUserResource;
+use App\MoonShine\Resources\Sys\MoonShineUserResource;
 
 class SalaryIndexPage extends IndexPage
 {
@@ -37,20 +37,6 @@ class SalaryIndexPage extends IndexPage
             Text::make('salary')
                 ->translatable('moonshine::salary'),
             Text::make('comment')->translatable('moonshine::salary'),
-        ];
-    }
-
-    protected function topLayer(): array
-    {
-        return [
-            ...parent::topLayer()
-        ];
-    }
-
-    protected function mainLayer(): array
-    {
-        return [
-            ...parent::mainLayer(),
         ];
     }
 

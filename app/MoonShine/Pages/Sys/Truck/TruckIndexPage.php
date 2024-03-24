@@ -16,6 +16,21 @@ use App\MoonShine\Resources\Sys\MoonShineUserResource;
 
 class TruckIndexPage extends IndexPage
 {
+    /**
+     * getAlias
+     * Устанавливает алиас для ресурса.
+     * @return string
+     */
+    public function getAlias(): ?string
+    {
+        return __('moonshine::system.resource_list');
+    }
+
+    /**
+     * fields
+     *
+     * @return array
+     */
     public function fields(): array
     {
         return [
@@ -23,39 +38,17 @@ class TruckIndexPage extends IndexPage
             StackFields::make('reg_num')->fields([
                 Text::make('reg_num_ru'),
                 Text::make('reg_num_en'),
-            ])->translatable('moonshine::truck'),
+            ])->translatable('moonshine::system.truck'),
             StackFields::make('truck')->fields([
-                Text::make('name')->translatable('moonshine::truck'),
-                BelongsTo::make('brand', 'brand', resource: new DirTruckBrandResource())
-                    ->translatable('moonshine::directory'),
-            ])->translatable('moonshine::truck'),
+                Text::make('name'),
+                BelongsTo::make('brand', 'brand', resource: new DirTruckBrandResource()),
+            ])->translatable('moonshine::system.truck'),
             BelongsTo::make('type', 'type', resource: new DirTruckTypeResource())
                 ->sortable()
-                ->translatable('moonshine::directory'),
+                ->translatable('moonshine::system.truck'),
             BelongsToMany::make('driver', 'users', resource: new MoonShineUserResource())
                 ->inLine(separator: ', ')
-                ->translatable('moonshine::truck'),
-        ];
-    }
-
-    protected function topLayer(): array
-    {
-        return [
-            ...parent::topLayer()
-        ];
-    }
-
-    protected function mainLayer(): array
-    {
-        return [
-            ...parent::mainLayer()
-        ];
-    }
-
-    protected function bottomLayer(): array
-    {
-        return [
-            ...parent::bottomLayer()
+                ->translatable('moonshine::system.truck'),
         ];
     }
 }
