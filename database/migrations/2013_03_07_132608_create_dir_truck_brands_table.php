@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name')->unique();
-            $table->text('comment')->nullable();
-            $table->boolean('status')->default(1);
             $table->softDeletes();
         });
     }
