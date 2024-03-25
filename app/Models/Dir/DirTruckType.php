@@ -2,7 +2,7 @@
 
 namespace App\Models\Dir;
 
-use App\Models\Truck;
+use App\Models\Sys\Truck;
 use Illuminate\Database\Eloquent\Model;
 use MoonShine\ChangeLog\Traits\HasChangeLog;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -28,7 +28,9 @@ class DirTruckType extends Model
     }
 
     /**
+     * prunable
      * Запрос для удаления устаревших записей модели.
+     * @return Builder
      */
     public function prunable(): Builder
     {

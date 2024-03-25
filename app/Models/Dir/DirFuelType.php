@@ -4,6 +4,7 @@ namespace App\Models\Dir;
 
 use App\Models\Refilling;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use MoonShine\ChangeLog\Traits\HasChangeLog;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\MassPrunable;
@@ -37,5 +38,15 @@ class DirFuelType extends Model
     public function refillings(): HasMany
     {
         return $this->hasMany(Refilling::class, 'fuel_type_id', 'id');
+    }
+
+    /**
+     * prunable
+     * Запрос для удаления устаревших записей модели.
+     * @return Builder
+     */
+    public function prunable(): Builder
+    {
+        return static::where('deleted_at', '<=', now()->subDay());
     }
 }

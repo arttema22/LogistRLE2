@@ -6,7 +6,6 @@ namespace App\Models\Sys;
 
 use Illuminate\Notifications\Notifiable;
 use MoonShine\ChangeLog\Traits\HasChangeLog;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\MassPrunable;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,7 +18,7 @@ class MoonshineUser extends Authenticatable
     //    use HasMoonShineSocialite;
     use HasFactory;
     use Notifiable;
-    use HasChangeLog, MassPrunable;
+    use HasChangeLog;
 
     protected $fillable = [
         'email',

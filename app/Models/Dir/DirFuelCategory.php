@@ -3,6 +3,7 @@
 namespace App\Models\Dir;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use MoonShine\ChangeLog\Traits\HasChangeLog;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\MassPrunable;
@@ -25,5 +26,15 @@ class DirFuelCategory extends Model
     public function fuelType(): HasMany
     {
         return $this->hasMany(DirFuelType::class, 'category_id', 'id');
+    }
+
+    /**
+     * prunable
+     * Запрос для удаления устаревших записей модели.
+     * @return Builder
+     */
+    public function prunable(): Builder
+    {
+        return static::where('deleted_at', '<=', now()->subDay());
     }
 }

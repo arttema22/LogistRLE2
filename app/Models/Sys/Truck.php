@@ -57,7 +57,9 @@ class Truck extends Model
     }
 
     /**
+     * prunable
      * Запрос для удаления устаревших записей модели.
+     * @return Builder
      */
     public function prunable(): Builder
     {

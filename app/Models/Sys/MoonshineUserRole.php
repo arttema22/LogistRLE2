@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class MoonshineUserRole extends Model
 {
-    use HasFactory, HasChangeLog, MassPrunable;
+    use HasFactory, HasChangeLog;
 
     final public const DEFAULT_ROLE_ID = 1;
 
