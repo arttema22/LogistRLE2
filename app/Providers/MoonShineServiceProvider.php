@@ -60,23 +60,13 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
                 ),
                 MenuItem::make('settings', new Settings())->icon('heroicons.cog-6-tooth')
                     ->translatable('moonshine::setup'),
-            ]),
-
-            MenuGroup::make(static fn () => __('moonshine::integration.integrations'), [
-                MenuItem::make('e1card', new E1card())->icon('heroicons.arrows-right-left')
-                    ->translatable('moonshine::integration'),
-                MenuItem::make('monopoly', new Monopoly())->icon('heroicons.arrows-right-left')
-                    ->translatable('moonshine::integration'),
-                MenuDivider::make()->canSee(function (Request $request) {
-                    return $request->user('moonshine')?->moonshine_user_role_id == 1;
-                }),
                 MenuItem::make(
                     static fn () => __('moonshine::integration.set_up'),
                     new SetupIntegrationResource()
                 )->canSee(function (Request $request) {
                     return $request->user('moonshine')?->moonshine_user_role_id == 1;
                 }),
-            ])->icon('heroicons.arrows-right-left'),
+            ]),
 
             MenuGroup::make('directories', [
                 MenuItem::make('cargos', new DirCargoResource())

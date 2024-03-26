@@ -37,6 +37,7 @@ class RefillingFormPage extends FormPageCustom
                             ->valuesQuery(fn (Builder $query, Field $field) => $query->where('moonshine_user_role_id', 3))
                             ->required()
                             ->nullable()
+                            ->searchable()
                             ->translatable('moonshine::refilling')
                             ->when(
                                 fn () => Auth::user()->moonshine_user_role_id == 3,

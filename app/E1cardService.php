@@ -11,6 +11,32 @@ use Illuminate\Support\Facades\Http;
 class E1cardService
 {
     /**
+     * callAuth
+     * Аутентификация. Получение токена.
+     * HTTP-метод: POST
+     * Адрес метода: /token
+     * @return void
+     */
+    public function callAuth()
+    {
+        $data = SetupIntegration::find(1);
+        $response = Http::asForm()->post(
+            $data->url . '/token',
+            [
+                'client_id' => 'external_app',
+                'username' => $data->user_name,
+                'password' => $data->password,
+            ]
+        )->json();
+
+        if (isset($response)) {
+            $data->update([
+                'access_token' => $response['data']['access_token'],
+            ]);
+        }
+    }
+
+    /**
      * callTransaction
      * Транзакции по договору (Transaction)
      * Метод, возвращающий информацию по транзакциям.

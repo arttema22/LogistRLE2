@@ -35,22 +35,6 @@ class MonopolyService
     }
 
     /**
-     * callContract
-     * Информация по договору
-     * HTTP-метод: GET
-     * Адрес метода: https://monopoly.online/Fuel.Api/api/v1/contracts
-     * @return void
-     */
-    public function callContract()
-    {
-        $data = SetupIntegration::find(2);
-        $response = Http::withToken(config('services.monopoly.access_token'))
-            ->get($data->url . '/api/v1/contracts')
-            ->collect();
-        return $response;
-    }
-
-    /**
      * callTransaction
      * Транзакции по договору (Transaction)
      * Метод, возвращающий информацию по транзакциям.

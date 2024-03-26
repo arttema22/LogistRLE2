@@ -72,12 +72,6 @@ class Dashboard extends Page
                         LineChartMetric::make('total')
                             ->line(
                                 [
-                                    __('moonshine::salary.salaries') => Salary::query()
-                                        ->selectRaw('COUNT(*) as count, DATE_FORMAT(date, "%d.%m.%Y") as date')
-                                        ->groupByRaw('DATE_FORMAT(date, "%d.%m.%Y")')
-                                        //->groupBy('date')
-                                        ->pluck('count', 'date')
-                                        ->toArray(),
                                     __('moonshine::refilling.refillings') => Refilling::query()
                                         ->selectRaw('COUNT(*) as count, DATE_FORMAT(date, "%d.%m.%Y") as date')
                                         ->groupByRaw('DATE_FORMAT(date, "%d.%m.%Y")')
