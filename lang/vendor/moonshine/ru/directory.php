@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'total' => 'Всего',
+    'directories' => 'Справочники',
+    'brands' => 'Бренды',
+    'brand' => 'Бренд',
+    'addresses' => 'Адреса',
+    'types' => 'Типы',
+    'type' => 'Тип',
+    'name' => 'Название',
+    'petrol_station_brands' => 'Бренды',
+    'petrol_station' => 'АЗС',
+    'address' => 'Адрес',
+    'count_refillings' => 'Количество',
+    'services' => 'Услуги',
+    'price' => 'Цена',
+    'cargos' => 'Грузы',
+    'fuels' => 'Топливо',
+    'fuel_categories' => 'Категории топлива',
+    'fuel_category' => 'Категория топлива',
+    'fuel_types' => 'Типы топлива',
+    'trucks' => 'Машины',
+    'new_service_info' => 'После сохранения новой услуги не забудьте установить ее стоимость в разделе "Тарифы"- "Услуги".',
+];

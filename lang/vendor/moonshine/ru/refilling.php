@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'refillings' => 'Заправки',
+    'refilling' => 'Заправка',
+    'date' => 'Дата',
+    'driver' => 'Водитель',
+    'truck' => 'Авто',
+    'volume' => 'Количество',
+    'price' => 'Цена',
+    'sum' => 'Итог',
+    'stantion' => 'АЗС',
+    'address' => 'Адрес',
+    'comment' => 'Комментарий',
+    'all' => 'Все',
+    'archive' => 'Архив',
+    'petrol_station' => 'Станция',
+    'data' => 'Данные',
+    'fuel' => 'Топливо',
+    'fuel_type' => 'Марка',
+    'refilling_count' => 'Количество заправок',
+    'refilling_sum' => 'Сумма заправок',
+    'refilling_volume' => 'Количество топлива',
+    'diesel' => 'Дизель',
+    'petrol' => 'Бензин',
+    'undefined' => 'Не определено',
+];
