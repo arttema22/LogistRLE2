@@ -17,10 +17,14 @@ return new class extends Migration
             $table->timestamps();
             $table->date('date')->default(date(now()));
             $table->string('title')->nullable();
-            $table->BigInteger('owner_id')->unsigned();
-            $table->foreign('owner_id')->references('id')->on('moonshine_users');
-            $table->BigInteger('driver_id')->unsigned();
-            $table->foreign('driver_id')->references('id')->on('moonshine_users');
+            $table->foreignId('owner_id')
+                ->constrained('moonshine_users')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+            $table->foreignId('driver_id')
+                ->constrained('moonshine_users')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->float('saldo_start', 8, 2)->default(0);
             $table->float('sum_salary', 8, 2)->default(0);
             $table->float('sum_refuelings', 8, 2)->default(0);
@@ -33,6 +37,20 @@ return new class extends Migration
             $table->softDeletes();
         });
 
+        Profit::create([
+            'date' => now(),
+            'title' => 'Старт',
+            'owner_id' => 1,
+            'driver_id' => 1,
+            'comment' => 'Начальная загрузка',
+        ]);
+        Profit::create([
+            'date' => now(),
+            'title' => 'Старт',
+            'owner_id' => 1,
+            'driver_id' => 2,
+            'comment' => 'Начальная загрузка',
+        ]);
         Profit::create([
             'date' => now(),
             'title' => 'Старт',
@@ -101,6 +119,27 @@ return new class extends Migration
             'title' => 'Старт',
             'owner_id' => 1,
             'driver_id' => 12,
+            'comment' => 'Начальная загрузка',
+        ]);
+        Profit::create([
+            'date' => now(),
+            'title' => 'Старт',
+            'owner_id' => 1,
+            'driver_id' => 13,
+            'comment' => 'Начальная загрузка',
+        ]);
+        Profit::create([
+            'date' => now(),
+            'title' => 'Старт',
+            'owner_id' => 1,
+            'driver_id' => 14,
+            'comment' => 'Начальная загрузка',
+        ]);
+        Profit::create([
+            'date' => now(),
+            'title' => 'Старт',
+            'owner_id' => 1,
+            'driver_id' => 15,
             'comment' => 'Начальная загрузка',
         ]);
         Profit::create([

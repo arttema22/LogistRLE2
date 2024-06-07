@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Models\Sys;
 
-use App\Models\Profit;
-use App\Models\Refilling;
 use App\Models\Route;
+use App\Models\Profit;
 use App\Models\Salary;
 use App\Models\Service;
+use App\Models\Refilling;
 use Illuminate\Notifications\Notifiable;
 use MoonShine\ChangeLog\Traits\HasChangeLog;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,19 +21,17 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class MoonshineUser extends Authenticatable
 {
-    //    use HasMoonShineSocialite;
+    // use HasMoonShineSocialite;
     use HasFactory;
     use Notifiable;
     use HasChangeLog;
 
     protected $fillable = [
-        'email',
         'moonshine_user_role_id',
+        'email',
         'password',
         'name',
         'avatar',
-        'phone',
-        'e1_card'
     ];
 
     protected static function newFactory(): Factory
@@ -45,9 +44,24 @@ class MoonshineUser extends Authenticatable
         return $this->moonshine_user_role_id === MoonshineUserRole::DEFAULT_ROLE_ID;
     }
 
+    /**
+     * moonshineUserRole
+     *
+     * @return BelongsTo
+     */
     public function moonshineUserRole(): BelongsTo
     {
         return $this->belongsTo(MoonshineUserRole::class);
+    }
+
+    /**
+     * profile
+     * Получить данные профиля пользователя
+     * @return HasOne
+     */
+    public function profile(): HasOne
+    {
+        return $this->hasOne(UserProfil::class, 'driver_id');
     }
 
     /**
@@ -69,8 +83,6 @@ class MoonshineUser extends Authenticatable
     {
         return $this->hasMany(Refilling::class, 'driver_id', 'id');
     }
-
-
 
     /**
      * profits

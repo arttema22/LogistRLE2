@@ -4,26 +4,17 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Pages;
 
-use App\Models\Sys\MoonshineUserRole as SysMoonshineUserRole;
 use MoonShine\Pages\Page;
 use MoonShine\Fields\Text;
 use MoonShine\Fields\Email;
 use MoonShine\Fields\Phone;
 use MoonShine\Fields\Password;
-use MoonShine\MoonShineRequest;
-use MoonShine\Decorations\Heading;
-use MoonShine\Fields\PasswordRepeat;
 use MoonShine\Components\FormBuilder;
 use MoonShine\Decorations\Block;
 use MoonShine\Decorations\Column;
-use MoonShine\Decorations\Flex;
 use MoonShine\Decorations\Grid;
 use MoonShine\Models\MoonshineUserRole;
-use MoonShine\Fields\Relationships\BelongsTo;
 use MoonShine\Fields\Select;
-use MoonShine\Resources\MoonShineUserRoleResource;
-
-use function Laravel\Prompts\select;
 
 class NewUserPage extends Page
 {
@@ -58,32 +49,32 @@ class NewUserPage extends Page
                         Column::make([
                             Block::make([
                                 Text::make('surname')
+                                    ->required()
                                     ->translatable('moonshine::ui.resource'),
                                 Text::make('name')
+                                    ->required()
                                     ->translatable('moonshine::ui.resource'),
                                 Text::make('patronymic')
                                     ->translatable('moonshine::ui.resource'),
                                 Select::make('role')
+                                    ->required()
                                     ->options($role)
                                     ->translatable('moonshine::ui.resource'),
                                 Email::make('email')
+                                    ->required()
                                     ->translatable('moonshine::ui.resource'),
                                 Password::make('password')
+                                    ->required()
                                     ->translatable('moonshine::ui.resource')
                                     ->customAttributes(['autocomplete' => 'new-password'])
                                     ->eye(),
                             ]),
                         ])->columnSpan(6),
                         Column::make([
-
                             Phone::make('phone')
-                                //->mask('+7(999) 999-99-99')
-                                ->translatable('moonshine::ui.resource')
-                            //->required()
-                            ,
+                                ->translatable('moonshine::ui.resource'),
                             Text::make('e1_card')
                                 ->translatable('moonshine::ui.resource'),
-
                             Text::make('saldo_start')
                                 ->translatable('moonshine::ui.resource'),
                         ])->columnSpan(6),
@@ -92,9 +83,5 @@ class NewUserPage extends Page
                 ->fill([])
                 ->name('new-user'),
         ];
-    }
-
-    public function test(MoonShineRequest $request)
-    {
     }
 }
