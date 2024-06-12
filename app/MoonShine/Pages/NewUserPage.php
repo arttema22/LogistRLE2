@@ -48,9 +48,10 @@ class NewUserPage extends Page
                     Grid::make([
                         Column::make([
                             Block::make([
-                                Text::make('surname')
+                                Text::make('surname', 'profile.surname')
                                     ->required()
                                     ->translatable('moonshine::ui.resource'),
+
                                 Text::make('name')
                                     ->required()
                                     ->translatable('moonshine::ui.resource'),

@@ -20,8 +20,9 @@ final class FormNewUserController extends MoonShineController
 {
     public function __invoke(MoonShineRequest $request): Response
     {
+        // dd($request);
         $validated = $request->validate([
-            'surname' => ['required'],
+            'profile.surname' => ['required'],
             'name' => ['required'],
             'patronymic' => [],
             'role' => ['required'],
@@ -42,13 +43,13 @@ final class FormNewUserController extends MoonShineController
         $user->moonshine_user_role_id = $request->role;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        $user->name = Str::title($request->surname) . ' '
+        $user->name = Str::title($request->profile['surname']) . ' '
             . Str::upper(Str::limit($request->name, 1, '.')) .
             Str::upper(Str::limit($request->patronymic, 1, '.'));
         $user->save();
 
         $profile = new UserProfil();
-        $profile->surname = $request->surname;
+        $profile->surname = $request->profile['surname'];
         $profile->name = $request->name;
         $profile->patronymic = $request->patronymic;
         $profile->phone = $request->phone;
@@ -56,7 +57,7 @@ final class FormNewUserController extends MoonShineController
         $user->profile()->save($profile);
 
         $profit = new Profit();
-        $profit->owner_id = 1;
+        $profit->owner_id = Auth('moonshine')->id();
         $profit->saldo_start = $request->saldo_start;
         $profit->comment = 'Начальная загрузка';
         $user->profits()->save($profit);

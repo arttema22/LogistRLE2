@@ -1,10 +1,10 @@
 <?php
 
 use MoonShine\Forms\LoginForm;
+use App\Models\Sys\MoonshineUser;
 use App\MoonShine\MoonShineLayout;
-use MoonShine\Pages\ProfilePage;
-use MoonShine\Models\MoonshineUser;
 use MoonShine\Http\Middleware\Authenticate;
+use App\MoonShine\Pages\Sys\User\UserProfilePage;
 use MoonShine\Exceptions\MoonShineNotFoundException;
 use MoonShine\Http\Middleware\SecurityHeadersMiddleware;
 
@@ -45,7 +45,7 @@ return [
 
     'pages' => [
         'dashboard' => App\MoonShine\Pages\Dashboard::class,
-        'profile' => ProfilePage::class
+        'profile' => UserProfilePage::class,
     ],
 
     'model_resources' => [
@@ -57,9 +57,13 @@ return [
         'enable' => true,
         'middleware' => Authenticate::class,
         'fields' => [
-            'username' => 'email',
-            'password' => 'password',
+            'surname' => 'surname',
             'name' => 'name',
+            'patronymic' => 'patronymic',
+            'phone' => 'phone',
+            'e1_card' => 'e1_card',
+            'email' => 'email',
+            'password' => 'password',
             'avatar' => false,
         ],
         'guard' => 'moonshine',

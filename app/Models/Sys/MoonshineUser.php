@@ -31,7 +31,6 @@ class MoonshineUser extends Authenticatable
         'email',
         'password',
         'name',
-        'avatar',
     ];
 
     protected static function newFactory(): Factory

@@ -105,6 +105,12 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
                 MenuItem::make('cargos', new DirCargoResource())
                     ->translatable('moonshine::directory'),
                 MenuDivider::make('trucks')->translatable('moonshine::directory'),
+
+                // MenuGroup::make('trucks', [
+                //     MenuItem::make('brands', new DirTruckBrandResource())
+                //         ->translatable('moonshine::directory'),
+                // ])->translatable('moonshine::directory'),
+
                 MenuItem::make('brands', new DirTruckBrandResource())
                     ->translatable('moonshine::directory'),
                 MenuItem::make('types', new DirTruckTypeResource())

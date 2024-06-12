@@ -4,18 +4,11 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Pages\Sys\User;
 
-use MoonShine\Fields\ID;
-use MoonShine\Fields\Date;
 use MoonShine\Fields\Text;
 use MoonShine\Fields\Email;
 use MoonShine\Fields\Phone;
-use MoonShine\Decorations\Tab;
 use MoonShine\Fields\Password;
-use MoonShine\Decorations\Tabs;
 use MoonShine\Decorations\Block;
-use MoonShine\Fields\StackFields;
-use MoonShine\Decorations\Heading;
-use MoonShine\Fields\PasswordRepeat;
 use App\Models\Sys\MoonshineUserRole;
 use App\MoonShine\Pages\Crud\FormPageCustom;
 use MoonShine\Fields\Relationships\BelongsTo;
@@ -42,73 +35,40 @@ class UserFormPage extends FormPageCustom
     {
         return [
             Block::make([
-                Tabs::make([
-                    Tab::make(__('moonshine::ui.resource.main_information'), [
-                        ID::make()
-                            ->sortable()
-                            ->showOnExport()
-                            ->hideOnIndex(),
+                Text::make('surname', 'profile.surname')
+                    ->required()
+                    ->translatable('moonshine::ui.resource'),
 
-                        Text::make(__('moonshine::ui.resource.name'), 'name')
-                            ->required()
-                            ->sortable()
-                            ->showOnExport(),
+                Text::make('name', 'profile.name')
+                    ->required()
+                    ->translatable('moonshine::ui.resource'),
 
-                        BelongsTo::make(
-                            __('moonshine::ui.resource.role'),
-                            'moonshineUserRole',
-                            static fn (MoonshineUserRole $model) => $model->name,
-                            new MoonShineUserRoleResource(),
-                        )
-                            ->sortable()
-                            ->badge('purple'),
+                Text::make('patronymic', 'profile.patronymic')
+                    ->translatable('moonshine::ui.resource'),
 
-                        // Image::make(__('moonshine::ui.resource.avatar'), 'avatar')
-                        //     ->showOnExport()
-                        //     ->disk(config('moonshine.disk', 'public'))
-                        //     ->dir('moonshine_users')
-                        //     ->allowedExtensions(['jpg', 'png', 'jpeg', 'gif']),
+                BelongsTo::make(
+                    __('moonshine::ui.resource.role'),
+                    'moonshineUserRole',
+                    static fn (MoonshineUserRole $model) => $model->name,
+                    new MoonShineUserRoleResource(),
+                ),
+                Email::make(__('moonshine::ui.resource.email'), 'email')
+                    ->required(),
 
-                        Date::make(__('moonshine::ui.resource.created_at'), 'created_at')
-                            ->format("d.m.Y")
-                            ->default(now()->toDateTimeString())
-                            ->sortable()
-                            ->hideOnForm()
-                            ->hideOnIndex()
-                            ->showOnExport(),
+                Phone::make('phone', 'profile.phone')
+                    ->translatable('moonshine::ui.resource')
+                    ->required(),
 
-                        StackFields::make('email/phone')->fields([
-                            Email::make(__('moonshine::ui.resource.email'), 'email')
-                                ->sortable()
-                                ->showOnExport()
-                                ->required(),
-                            Phone::make('phone')
-                                //->mask('+7(999) 999-99-99')
-                                ->translatable('moonshine::ui.resource')
-                                ->sortable()
-                                ->showOnExport()
-                                ->required(),
-                        ])->translatable('moonshine::ui.resource'),
-                        Text::make('e1_card')
-                            ->sortable()
-                            ->showOnExport()
-                            ->translatable('moonshine::ui.resource'),
-                    ]),
+                Text::make('e1_card', 'profile.e1_card')
+                    ->translatable('moonshine::ui.resource'),
 
-                    Tab::make(__('moonshine::ui.resource.password'), [
-                        Heading::make(__('moonshine::system.user.change_password')),
+                Text::make('saldo_start', 'profit.saldo_start')
+                    ->translatable('moonshine::ui.resource'),
 
-                        Password::make(__('moonshine::ui.resource.password'), 'password')
-                            ->customAttributes(['autocomplete' => 'new-password'])
-                            ->hideOnIndex()
-                            ->eye(),
+                Password::make(__('moonshine::ui.resource.password'), 'password')
+                    ->customAttributes(['autocomplete' => 'new-password'])
+                    ->eye(),
 
-                        PasswordRepeat::make(__('moonshine::ui.resource.repeat_password'), 'password_repeat')
-                            ->customAttributes(['autocomplete' => 'confirm-password'])
-                            ->hideOnIndex()
-                            ->eye(),
-                    ]),
-                ]),
             ]),
         ];
     }
