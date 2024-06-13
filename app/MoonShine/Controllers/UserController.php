@@ -21,7 +21,7 @@ final class UserController extends MoonShineController
     public function storeProfile(ProfileFormRequest $request): Response
     {
         $data = $request->validated();
-
+        dd($data);
         $profileData = [
             config('moonshine.auth.fields.surname', 'surname') => e($data['surname']),
             config('moonshine.auth.fields.name', 'name') => e($data['name']),
