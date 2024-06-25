@@ -4,17 +4,19 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Pages;
 
+use App\MoonShine\Controllers\UserController;
 use MoonShine\Pages\Page;
 use MoonShine\Fields\Text;
 use MoonShine\Fields\Email;
 use MoonShine\Fields\Phone;
+use MoonShine\Fields\Select;
 use MoonShine\Fields\Password;
-use MoonShine\Components\FormBuilder;
+use MoonShine\Decorations\Grid;
 use MoonShine\Decorations\Block;
 use MoonShine\Decorations\Column;
-use MoonShine\Decorations\Grid;
+use MoonShine\Fields\PasswordRepeat;
+use MoonShine\Components\FormBuilder;
 use MoonShine\Models\MoonshineUserRole;
-use MoonShine\Fields\Select;
 
 class NewUserPage extends Page
 {
@@ -33,54 +35,70 @@ class NewUserPage extends Page
         return $this->title ?: 'NewUserPage';
     }
 
+    public function fields(): array
+    {
+        $role = MoonshineUserRole::all('id', 'name')->pluck('name', 'id')->toArray();
+
+        return [
+            Grid::make([
+                Column::make([
+                    Block::make([
+                        Text::make('surname')
+                            //->required()
+                            ->translatable('moonshine::ui.resource'),
+                        Text::make('name')
+                            //->required()
+                            ->translatable('moonshine::ui.resource'),
+                        Text::make('patronymic')
+                            ->translatable('moonshine::ui.resource'),
+                    ]),
+                ])->columnSpan(6),
+                Column::make([
+                    Block::make([
+                        Select::make('role')
+                            //->required()
+                            ->options($role)
+                            ->translatable('moonshine::ui.resource'),
+                        Password::make('password')
+                            //->required()
+                            ->translatable('moonshine::ui.resource')
+                            ->customAttributes(['autocomplete' => 'new-password'])
+                            ->eye(),
+                        PasswordRepeat::make(trans('moonshine::ui.resource.repeat_password'), 'password_repeat')
+                            ->customAttributes(['autocomplete' => 'confirm-password'])
+                            ->eye(),
+                    ]),
+                ])->columnSpan(6),
+                Column::make([
+                    Block::make([
+                        Email::make('email')
+                            //->required()
+                            ->translatable('moonshine::ui.resource'),
+                        Phone::make('phone')
+                            ->translatable('moonshine::ui.resource'),
+                    ]),
+                ])->columnSpan(6),
+                Column::make([
+                    Block::make([
+                        Text::make('e1_card')
+                            ->translatable('moonshine::ui.resource'),
+                        Text::make('saldo_start')
+                            ->translatable('moonshine::ui.resource'),
+                    ]),
+                ])->columnSpan(6),
+            ]),
+        ];
+    }
+
     /**
      * @return list<MoonShineComponent>
      */
     public function components(): array
     {
-        $role = MoonshineUserRole::all('id', 'name')->pluck('name', 'id')->toArray();
-
         return [
-            FormBuilder::make()
-                ->action(route('user.store'))
+            FormBuilder::make(action([UserController::class, 'store']))
                 ->method('POST')
-                ->fields([
-                    Grid::make([
-                        Column::make([
-                            Block::make([
-                                Text::make('surname', 'profile.surname')
-                                    ->required()
-                                    ->translatable('moonshine::ui.resource'),
-
-                                Text::make('name')
-                                    ->required()
-                                    ->translatable('moonshine::ui.resource'),
-                                Text::make('patronymic')
-                                    ->translatable('moonshine::ui.resource'),
-                                Select::make('role')
-                                    ->required()
-                                    ->options($role)
-                                    ->translatable('moonshine::ui.resource'),
-                                Email::make('email')
-                                    ->required()
-                                    ->translatable('moonshine::ui.resource'),
-                                Password::make('password')
-                                    ->required()
-                                    ->translatable('moonshine::ui.resource')
-                                    ->customAttributes(['autocomplete' => 'new-password'])
-                                    ->eye(),
-                            ]),
-                        ])->columnSpan(6),
-                        Column::make([
-                            Phone::make('phone')
-                                ->translatable('moonshine::ui.resource'),
-                            Text::make('e1_card')
-                                ->translatable('moonshine::ui.resource'),
-                            Text::make('saldo_start')
-                                ->translatable('moonshine::ui.resource'),
-                        ])->columnSpan(6),
-                    ]),
-                ])
+                ->fields($this->fields())
                 ->fill([])
                 ->name('new-user'),
         ];

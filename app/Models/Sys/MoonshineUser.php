@@ -11,6 +11,7 @@ use App\Models\Service;
 use App\Models\Refilling;
 use Illuminate\Notifications\Notifiable;
 use MoonShine\ChangeLog\Traits\HasChangeLog;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -125,5 +126,17 @@ class MoonshineUser extends Authenticatable
     public function routes(): HasMany
     {
         return $this->hasMany(Route::class, 'driver_id');
+    }
+
+    /**
+     * email
+     *
+     * @return Attribute
+     */
+    protected function email(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => strtolower($value),
+        );
     }
 }

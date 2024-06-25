@@ -14,3 +14,7 @@ Route::post('/new-user/store', FormNewUserController::class)
 Route::post('/profile', [UserController::class, 'storeProfile'])
     ->middleware(config('moonshine.auth.middleware', []))
     ->name('profile.store');
+
+Route::post('/store', [UserController::class, 'store'])
+    ->middleware(config('moonshine.auth.middleware', []))
+    ->name('new.user.store');
