@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name')->unique();
+            $table->string('1с_ref_key')->unique()->nullable();
         });
 
         DirService::create([

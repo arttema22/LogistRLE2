@@ -50,6 +50,18 @@ return new class extends Migration
             ],
             'help_api' => 'https://help.monopoly.online/pages/viewpage.action?pageId=3475181',
         ]);
+
+        SetupIntegration::create([
+            'name' => '1c Fresh',
+            'url' => 'https://monopoly.online/fuel.api',
+            'user_name' => 'naa@rlexport.ru',
+            'password' => 'P1$t0let',
+            'access_token' => 'eyJhbGciOiJBMjU2S1ciLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIiwidHlwIjoiSldUIiwiY3R5IjoiSldUIn0.Xn4SFQZIgdKvZdww_uNv9fWSir1uisWcD_NqzrhG1wxVfyWkboBukuyb0X-sSQgGRM8KPiMBKFVkrHb8-bPlPMZ9DRhULfMY.26K9vEf1EXE3jtr6MsKssg.EDwhuKhYjF_Cs4__HEENqow2r3uUPSdB4lBiTyj7mti0O7E1cCFUZpz40aTmW-ACL2_VC9ua3fG_jA89yYOtbLESG21WmnbpkLcuazeAiog5jVqVPji12aWcYj9ppr4PjJCopmLpNrOLj_ViRVasFAXrtPs5MJ-HQzdrNVBPeVtQC9ZtVS0TK_-6dAoBujDAkOQrAsThwalPRxmZsyQCzjue443RXO5eL2qTCkDqYjsACnCkEww_rI6EasBk7HfE92wPVsuPmOUASOSl1EQpBeRQpFV7WkKLv_lz_xXf-LBTM4UCqHA-REeSpVJLdOmTIKc_7yEcYDwtZd-oXFBVPgY7psQ5msCWA1fvL1FOXG4rWDmXZh43_itK6BgodSNrm-MivcMwaKJaf6LgLlDd8kmLshPvjaSx3UHdMgPdX1rpUaOiWuvQuQmPQVvv2ou81KM2UIyhQzxQEaIZ4CMoFKmGm2-jLNgk8Vs5Mh94d_gBUPU4fj7cP_k2MzBO-cQrr06uzmKpH-Gui-De6ONwf182BDc-eXvqV9Tbc7KB2N0g4NRJumR0yPdFXCAnbNp_rxlDIAas7h2dcEu00SxM0RsY_7F8Yc3NAaadV7pSfG3cqr5EsxONbCZcYm5-P2aP.ZItnUAYZmGjn7mEZeMsp9934R1tq4U3RMrrNsoz22wY',
+            'additionally' => [
+                'contract_id' => '7efdb271-bc26-11ed-86cc-00505601d4a1',
+            ],
+            'help_api' => 'https://help.monopoly.online/pages/viewpage.action?pageId=3475181',
+        ]);
     }
 
 

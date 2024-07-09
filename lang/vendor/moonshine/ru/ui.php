@@ -100,5 +100,14 @@ return [
             'file_required' => 'Файл обязателен',
             'extension_not_supported' => 'Расширение файла не поддерживается'
         ]
-    ]
+    ],
+    '1c' => [
+        'users_1c' => 'Контрагенты',
+        'nomenclature_1c' => 'Номенклатура',
+        'contract_1c' => 'Договоры',
+        'the_list_is_generated_in_real_time_from_1c' => 'Список формируется в реальном времени из 1с',
+        'description' => 'Описание',
+        'owner' => 'Владелец',
+        'ref_key' => 'Ключ',
+    ],
 ];

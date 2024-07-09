@@ -100,5 +100,14 @@ return [
             'file_required' => 'File is required',
             'extension_not_supported' => 'File extension not supported'
         ]
-    ]
+    ],
+    '1c' => [
+        'users_1c' => 'Users',
+        'nomenclature_1c' => 'Nomenclature',
+        'contract_1c' => 'Contracts',
+        'the_list_is_generated_in_real_time_from_1c' => 'The list is generated in real time from 1c',
+        'description' => 'Description',
+        'owner' => 'Owner',
+        'ref_key' => 'Ref Key',
+    ],
 ];

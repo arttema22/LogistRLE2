@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\MoonShine\Pages\DirFuelCategoryFormPage;
+use App\MoonShine\Pages\fresh1c\contract1cPage;
+use App\MoonShine\Pages\fresh1c\nomenclature1cPage;
+use App\MoonShine\Pages\fresh1c\users1cPage;
+use App\MoonShine\Pages\fresh1c\users_1c;
 use App\MoonShine\Pages\NewUserPage;
 use App\MoonShine\Pages\Profit;
 use Illuminate\Http\Request;
@@ -47,12 +51,19 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
     {
         return [
             NewUserPage::make('New user', 'new'),
+
         ];
     }
 
     protected function menu(): array
     {
         return [
+            MenuGroup::make('1c', [
+                MenuItem::make('users_1c', new users1cPage())->translatable('moonshine::menu'),
+                MenuItem::make('nomenclature_1c', new nomenclature1cPage())->translatable('moonshine::menu'),
+                MenuItem::make('contract_1c', new contract1cPage())->translatable('moonshine::menu'),
+            ]),
+
 
             MenuItem::make('test', new DirFuelCategoryFormPage()),
 
