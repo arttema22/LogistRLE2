@@ -106,6 +106,7 @@ return [
         'nomenclature_1c' => 'Nomenclature',
         'contract_1c' => 'Contracts',
         'the_list_is_generated_in_real_time_from_1c' => 'The list is generated in real time from 1c',
+        'error_connection' => 'Error Connection',
         'description' => 'Description',
         'owner' => 'Owner',
         'ref_key' => 'Ref Key',

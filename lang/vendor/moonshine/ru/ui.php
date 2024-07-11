@@ -106,6 +106,7 @@ return [
         'nomenclature_1c' => 'Номенклатура',
         'contract_1c' => 'Договоры',
         'the_list_is_generated_in_real_time_from_1c' => 'Список формируется в реальном времени из 1с',
+        'error_connection' => 'Ошибка соединения. Проверьте настройки.',
         'description' => 'Описание',
         'owner' => 'Владелец',
         'ref_key' => 'Ключ',

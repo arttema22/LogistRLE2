@@ -49,10 +49,7 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
 
     protected function pages(): array
     {
-        return [
-            NewUserPage::make('New user', 'new'),
-
-        ];
+        return [];
     }
 
     protected function menu(): array
@@ -63,6 +60,13 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
                 MenuItem::make('nomenclature_1c', new nomenclature1cPage())->translatable('moonshine::menu'),
                 MenuItem::make('contract_1c', new contract1cPage())->translatable('moonshine::menu'),
             ]),
+            MenuGroup::make('users', [
+                MenuItem::make('new_user', new NewUserPage())->translatable('moonshine::menu'),
+                MenuItem::make(
+                    static fn () => __('moonshine::system.user.users'),
+                    new MoonShineUserResource()
+                ),
+            ])->translatable('moonshine::menu'),
 
 
             MenuItem::make('test', new DirFuelCategoryFormPage()),
@@ -93,10 +97,6 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
                 MenuItem::make(
                     static fn () => __('moonshine::system.role.roles'),
                     new MoonShineUserRoleResource()
-                ),
-                MenuItem::make(
-                    static fn () => __('moonshine::system.user.users'),
-                    new MoonShineUserResource()
                 ),
                 MenuItem::make('settings', new Settings())->icon('heroicons.cog-6-tooth')
                     ->translatable('moonshine::setup'),

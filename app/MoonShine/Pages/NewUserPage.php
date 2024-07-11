@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Pages;
 
-use App\MoonShine\Controllers\UserController;
 use MoonShine\Pages\Page;
 use MoonShine\Fields\Text;
 use MoonShine\Fields\Email;
@@ -17,6 +16,9 @@ use MoonShine\Decorations\Column;
 use MoonShine\Fields\PasswordRepeat;
 use MoonShine\Components\FormBuilder;
 use MoonShine\Models\MoonshineUserRole;
+use MoonShine\ActionButtons\ActionButton;
+use App\MoonShine\Controllers\UserController;
+use MoonShine\Decorations\Flex;
 
 class NewUserPage extends Page
 {
@@ -42,7 +44,7 @@ class NewUserPage extends Page
         return [
             Grid::make([
                 Column::make([
-                    Block::make([
+                    Block::make('full_name', [
                         Text::make('surname')
                             //->required()
                             ->translatable('moonshine::ui.resource'),
@@ -52,9 +54,9 @@ class NewUserPage extends Page
                         Text::make('patronymic')
                             ->translatable('moonshine::ui.resource'),
                     ]),
-                ])->columnSpan(6),
+                ])->columnSpan(4),
                 Column::make([
-                    Block::make([
+                    Block::make('permitions', [
                         Select::make('role')
                             //->required()
                             ->options($role)
@@ -68,24 +70,34 @@ class NewUserPage extends Page
                             ->customAttributes(['autocomplete' => 'confirm-password'])
                             ->eye(),
                     ]),
-                ])->columnSpan(6),
+                ])->columnSpan(4),
                 Column::make([
-                    Block::make([
+                    Block::make('contact', [
                         Email::make('email')
                             //->required()
                             ->translatable('moonshine::ui.resource'),
                         Phone::make('phone')
                             ->translatable('moonshine::ui.resource'),
                     ]),
-                ])->columnSpan(6),
+                ])->columnSpan(4),
                 Column::make([
-                    Block::make([
+                    Block::make('refilling', [
                         Text::make('e1_card')
                             ->translatable('moonshine::ui.resource'),
+                    ]),
+                ])->columnSpan(4),
+                Column::make([
+                    Block::make('finance', [
                         Text::make('saldo_start')
                             ->translatable('moonshine::ui.resource'),
                     ]),
-                ])->columnSpan(6),
+                ])->columnSpan(4),
+                Column::make([
+                    Block::make('integration_1c', [
+                        Text::make('1с_ref_key')->translatable('moonshine::ui.resource'),
+                        Text::make('1с_contract')->translatable('moonshine::ui.resource'),
+                    ]),
+                ])->columnSpan(4),
             ]),
         ];
     }

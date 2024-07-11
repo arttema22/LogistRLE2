@@ -6,6 +6,8 @@ namespace App\MoonShine\Pages\fresh1c;
 
 use MoonShine\Pages\Page;
 use MoonShine\Fields\Text;
+use MoonShine\Components\Badge;
+use App\Models\Sys\SetupIntegration;
 use Illuminate\Support\Facades\Http;
 use MoonShine\Components\TableBuilder;
 use MoonShine\Components\MoonShineComponent;
@@ -37,34 +39,35 @@ class nomenclature1cPage extends Page
      */
     public function components(): array
     {
-        $response = Http::withBasicAuth('odata.user', '2024_04-03_UserOdata')
+        $data = SetupIntegration::find(3);
+        $response = Http::withBasicAuth($data->user_name, $data->password)
             ->withHeaders([
                 'Accept' => 'application/json'
             ])
             ->get(
-                'https://1cfresh.com/a/sbm/2326097/odata/standard.odata/Catalog_Номенклатура',
+                $data->url . 'Catalog_Номенклатура',
                 [
-                    '$filter' => "like(Description, 'Транспортные%') or like(Description, '%Дополнительные%')",
-                    // '$filter' => "like(Description, '%Дополнительные%')",
-                    //'$filter' => "like('ТипНоменклатуры', '%Услуга%')",
-
-                    //'$select' => 'Description, Ref_Key',
+                    '$filter' => "like(Комментарий, '%Логист%')",
+                    '$select' => 'Description, Ref_Key, Комментарий',
                     //'$select' => '**',
                     //'$format' => 'json'
                 ]
             )->json();
 
-
-        // dd($response['value']);
-
-        return [
-            TableBuilder::make()
-                ->items($response['value'])
-                ->fields([
-                    Text::make('description', 'Description')->translatable('moonshine::ui.1c'),
-                    Text::make('ref_key', 'Ref_Key')->translatable('moonshine::ui.1c'),
-                ])
-                ->withNotFound(),
-        ];
+        if ($response) {
+            return [
+                TableBuilder::make()
+                    ->items($response['value'])
+                    ->fields([
+                        Text::make('description', 'Description')->translatable('moonshine::ui.1c'),
+                        Text::make('ref_key', 'Ref_Key')->translatable('moonshine::ui.1c'),
+                    ])
+                    ->withNotFound(),
+            ];
+        } else {
+            return [
+                Badge::make(__('moonshine::ui.1c.error_connection'), 'warning'),
+            ];
+        }
     }
 }

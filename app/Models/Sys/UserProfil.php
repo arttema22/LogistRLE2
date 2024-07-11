@@ -14,7 +14,7 @@ class UserProfil extends Model
 
     protected $fillable = [
         'driver_id', 'surname', 'name', 'patronymic',
-        'phone', 'e1_card'
+        'phone', 'e1_card', '1с_ref_key', '1с_contract'
     ];
 
     /**
