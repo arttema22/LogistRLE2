@@ -24,8 +24,8 @@ return new class extends Migration
             $table->string('patronymic')->nullable();
             $table->string('phone')->unique()->nullable();
             $table->string('e1_card')->unique()->nullable();
-            $table->string('1с_ref_key')->unique()->nullable();
-            $table->string('1с_contract')->unique()->nullable();
+            $table->string('f1с_ref_key')->unique()->nullable();
+            $table->string('f1с_contract')->unique()->nullable();
         });
 
         UserProfil::create([
@@ -49,8 +49,8 @@ return new class extends Migration
             'patronymic' => 'Рафисович',
             'phone' => '79214432509',
             'e1_card' => '7005230017154060139',
-            '1с_ref_key' => '0c19ebf6-29f7-11ee-9f3e-fa163e3df684',
-            '1с_contract' => '0bcebb4a-29f7-11ee-9f3e-fa163e3df684',
+            'f1с_ref_key' => '0c19ebf6-29f7-11ee-9f3e-fa163e3df684',
+            'f1с_contract' => '0bcebb4a-29f7-11ee-9f3e-fa163e3df684',
         ]);
 
         UserProfil::create([
@@ -60,8 +60,8 @@ return new class extends Migration
             'patronymic' => 'Антонович',
             'phone' => '79312629190',
             'e1_card' => '7005230017154060022',
-            '1с_ref_key' => 'b69cd44e-29f7-11ee-9f3e-fa163e3df684',
-            '1с_contract' => 'b69c8d72-29f7-11ee-9f3e-fa163e3df684',
+            'f1с_ref_key' => 'b69cd44e-29f7-11ee-9f3e-fa163e3df684',
+            'f1с_contract' => 'b69c8d72-29f7-11ee-9f3e-fa163e3df684',
         ]);
 
         UserProfil::create([
@@ -71,8 +71,8 @@ return new class extends Migration
             'patronymic' => 'Владимирович',
             'phone' => '79657711838',
             'e1_card' => '7005230017154060014',
-            '1с_ref_key' => 'e321907c-29f7-11ee-9f3e-fa163e3df684',
-            '1с_contract' => 'e3214c34-29f7-11ee-9f3e-fa163e3df684',
+            'f1с_ref_key' => 'e321907c-29f7-11ee-9f3e-fa163e3df684',
+            'f1с_contract' => 'e3214c34-29f7-11ee-9f3e-fa163e3df684',
         ]);
 
         UserProfil::create([
@@ -82,8 +82,8 @@ return new class extends Migration
             'patronymic' => 'Николаевич',
             'phone' => '79218600782',
             'e1_card' => '7005230017154060030',
-            '1с_ref_key' => '045a5472-29f8-11ee-9f3e-fa163e3df684',
-            '1с_contract' => '0459dc04-29f8-11ee-9f3e-fa163e3df684',
+            'f1с_ref_key' => '045a5472-29f8-11ee-9f3e-fa163e3df684',
+            'f1с_contract' => '0459dc04-29f8-11ee-9f3e-fa163e3df684',
         ]);
 
         UserProfil::create([
@@ -93,8 +93,8 @@ return new class extends Migration
             'patronymic' => 'Сергеевич',
             'phone' => '79219754573',
             'e1_card' => '7005230017154060121',
-            '1с_ref_key' => '3bf40266-29f8-11ee-9f3e-fa163e3df684',
-            '1с_contract' => '3bf3af00-29f8-11ee-9f3e-fa163e3df684',
+            'f1с_ref_key' => '3bf40266-29f8-11ee-9f3e-fa163e3df684',
+            'f1с_contract' => '3bf3af00-29f8-11ee-9f3e-fa163e3df684',
         ]);
 
         UserProfil::create([
@@ -104,8 +104,8 @@ return new class extends Migration
             'patronymic' => 'Яковлевич',
             'phone' => '79216540978',
             'e1_card' => '7005230017154060105',
-            '1с_ref_key' => 'a070cb7a-29f8-11ee-9f3e-fa163e3df684',
-            '1с_contract' => 'a0707fd0-29f8-11ee-9f3e-fa163e3df684',
+            'f1с_ref_key' => 'a070cb7a-29f8-11ee-9f3e-fa163e3df684',
+            'f1с_contract' => 'a0707fd0-29f8-11ee-9f3e-fa163e3df684',
         ]);
 
         UserProfil::create([
@@ -115,8 +115,8 @@ return new class extends Migration
             'patronymic' => 'Анатольевич',
             'phone' => '79214270568',
             'e1_card' => '7005230017154060147',
-            '1с_ref_key' => '929565f6-2610-11ee-9f3e-fa163e3df684',
-            '1с_contract' => '9294fc24-2610-11ee-9f3e-fa163e3df684',
+            'f1с_ref_key' => '929565f6-2610-11ee-9f3e-fa163e3df684',
+            'f1с_contract' => '9294fc24-2610-11ee-9f3e-fa163e3df684',
         ]);
 
         UserProfil::create([
@@ -126,8 +126,8 @@ return new class extends Migration
             'patronymic' => 'Сергеевич',
             'phone' => '79312148432',
             'e1_card' => '7005230017154060063',
-            '1с_ref_key' => 'b279f39a-29f9-11ee-9f3e-fa163e3df684',
-            '1с_contract' => 'b279b038-29f9-11ee-9f3e-fa163e3df684',
+            'f1с_ref_key' => 'b279f39a-29f9-11ee-9f3e-fa163e3df684',
+            'f1с_contract' => 'b279b038-29f9-11ee-9f3e-fa163e3df684',
         ]);
 
         UserProfil::create([
@@ -137,8 +137,8 @@ return new class extends Migration
             'patronymic' => 'Дмитриевич',
             'phone' => '79313219697',
             'e1_card' => '7005230017154060055',
-            '1с_ref_key' => 'cf578e78-29f9-11ee-9f3e-fa163e3df684',
-            '1с_contract' => 'cf574c60-29f9-11ee-9f3e-fa163e3df684',
+            'f1с_ref_key' => 'cf578e78-29f9-11ee-9f3e-fa163e3df684',
+            'f1с_contract' => 'cf574c60-29f9-11ee-9f3e-fa163e3df684',
         ]);
 
         UserProfil::create([
@@ -148,8 +148,8 @@ return new class extends Migration
             'patronymic' => 'Александрович',
             'phone' => '79210014828',
             'e1_card' => '7005230017154060071',
-            '1с_ref_key' => '20193a46-29fa-11ee-9f3e-fa163e3df684',
-            '1с_contract' => '2018f702-29fa-11ee-9f3e-fa163e3df684',
+            'f1с_ref_key' => '20193a46-29fa-11ee-9f3e-fa163e3df684',
+            'f1с_contract' => '2018f702-29fa-11ee-9f3e-fa163e3df684',
         ]);
 
         UserProfil::create([
@@ -183,8 +183,8 @@ return new class extends Migration
             'patronymic' => 'Николаевич',
             'phone' => '79212466953',
             'e1_card' => '7005230017154060097',
-            '1с_ref_key' => '3edfaa28-29fa-11ee-9f3e-fa163e3df684',
-            '1с_contract' => '3edf65b8-29fa-11ee-9f3e-fa163e3df684',
+            'f1с_ref_key' => '3edfaa28-29fa-11ee-9f3e-fa163e3df684',
+            'f1с_contract' => '3edf65b8-29fa-11ee-9f3e-fa163e3df684',
         ]);
 
         UserProfil::create([
@@ -194,8 +194,8 @@ return new class extends Migration
             'patronymic' => 'Владимирович',
             'phone' => '79214423011',
             'e1_card' => '7005230017154060048',
-            '1с_ref_key' => '5c91cd6c-29fa-11ee-9f3e-fa163e3df684',
-            '1с_contract' => '5c918dde-29fa-11ee-9f3e-fa163e3df684',
+            'f1с_ref_key' => '5c91cd6c-29fa-11ee-9f3e-fa163e3df684',
+            'f1с_contract' => '5c918dde-29fa-11ee-9f3e-fa163e3df684',
         ]);
 
         UserProfil::create([
@@ -205,8 +205,8 @@ return new class extends Migration
             'patronymic' => 'Александрович',
             'phone' => '79211898330',
             'e1_card' => '7005230017154060113',
-            '1с_ref_key' => '6c6f1adc-667c-11ee-90ec-fa163e3df684',
-            '1с_contract' => '6c7136a0-667c-11ee-90ec-fa163e3df684',
+            'f1с_ref_key' => '6c6f1adc-667c-11ee-90ec-fa163e3df684',
+            'f1с_contract' => '6c7136a0-667c-11ee-90ec-fa163e3df684',
         ]);
 
         UserProfil::create([
@@ -216,8 +216,8 @@ return new class extends Migration
             'patronymic' => 'Юрьевич',
             'phone' => '79117210092',
             'e1_card' => '7005230017154060089',
-            '1с_ref_key' => '8a70d204-d6d5-11ee-9c16-fa163e3df684',
-            '1с_contract' => '8a72e3b4-d6d5-11ee-9c16-fa163e3df684',
+            'f1с_ref_key' => '8a70d204-d6d5-11ee-9c16-fa163e3df684',
+            'f1с_contract' => '8a72e3b4-d6d5-11ee-9c16-fa163e3df684',
         ]);
     }
 

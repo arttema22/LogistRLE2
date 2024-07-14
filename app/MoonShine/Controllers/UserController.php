@@ -9,7 +9,6 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\ProfileFormRequest;
 use App\Models\Sys\MoonshineUser;
-use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 use MoonShine\Http\Controllers\MoonShineController;
 
@@ -92,6 +91,18 @@ final class UserController extends MoonShineController
             $profileData[config('moonshine.auth.fields.e1_card', 'e1_card')] = null;
         }
 
+        if (isset($data['f1c_ref_key']) && filled($data['f1с_ref_key'])) {
+            $profileData[config('moonshine.auth.fields.f1c_ref_key', 'f1c_ref_key')] = e($data['f1c_ref_key']);
+        } else {
+            $profileData[config('moonshine.auth.fields.f1c_ref_key', 'f1c_ref_key')] = null;
+        }
+
+        if (isset($data['f1c_contract']) && filled($data['f1c_contract'])) {
+            $profileData[config('moonshine.auth.fields.f1c_contract', 'f1c_contract')] = e($data['f1c_contract']);
+        } else {
+            $profileData[config('moonshine.auth.fields.f1c_contract', 'f1c_contract')] = null;
+        }
+        dd($profileData);
         $userData = [
             'moonshine_user_role_id' => e($data['role']),
 

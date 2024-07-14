@@ -47,6 +47,14 @@ class NewUserFormRequest extends FormRequest
                 Rule::unique('user_profils', 'e1_card'),
             ],
             'saldo_start' => 'nullable',
+            'f1с_ref_key' => [
+                'nullable',
+                Rule::unique('user_profils', 'f1с_ref_key'),
+            ],
+            'f1с_contract' => [
+                'nullable',
+                Rule::unique('user_profils', 'f1с_contract'),
+            ],
         ];
     }
 }

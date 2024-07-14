@@ -16,9 +16,7 @@ use MoonShine\Decorations\Column;
 use MoonShine\Fields\PasswordRepeat;
 use MoonShine\Components\FormBuilder;
 use MoonShine\Models\MoonshineUserRole;
-use MoonShine\ActionButtons\ActionButton;
 use App\MoonShine\Controllers\UserController;
-use MoonShine\Decorations\Flex;
 
 class NewUserPage extends Page
 {
@@ -28,13 +26,19 @@ class NewUserPage extends Page
     public function breadcrumbs(): array
     {
         return [
+            '/resource/user/list' => __('moonshine::system.user.users'),
             '#' => $this->title()
         ];
     }
 
+    /**
+     * title
+     * Устанавливает заголовок.
+     * @return string
+     */
     public function title(): string
     {
-        return $this->title ?: 'NewUserPage';
+        return __('moonshine::system.user.new_users');
     }
 
     public function fields(): array
@@ -94,8 +98,8 @@ class NewUserPage extends Page
                 ])->columnSpan(4),
                 Column::make([
                     Block::make('integration_1c', [
-                        Text::make('1с_ref_key')->translatable('moonshine::ui.resource'),
-                        Text::make('1с_contract')->translatable('moonshine::ui.resource'),
+                        Text::make('f1с_ref_key')->translatable('moonshine::ui.resource'),
+                        Text::make('f1с_contract')->translatable('moonshine::ui.resource'),
                     ]),
                 ])->columnSpan(4),
             ]),

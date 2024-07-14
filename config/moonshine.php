@@ -62,6 +62,8 @@ return [
             'patronymic' => 'patronymic',
             'phone' => 'phone',
             'e1_card' => 'e1_card',
+            'f1c_ref_key' => 'f1c_ref_key',
+            'f1c_contract' => 'f1c_contract',
             'email' => 'email',
             'password' => 'password',
             'avatar' => false,
