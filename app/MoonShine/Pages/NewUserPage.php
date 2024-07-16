@@ -98,8 +98,8 @@ class NewUserPage extends Page
                 ])->columnSpan(4),
                 Column::make([
                     Block::make('integration_1c', [
-                        Text::make('f1с_ref_key')->translatable('moonshine::ui.resource'),
-                        Text::make('f1с_contract')->translatable('moonshine::ui.resource'),
+                        Text::make('1c_ref_key')->translatable('moonshine::ui.resource'),
+                        Text::make('1c_contract')->translatable('moonshine::ui.resource'),
                     ]),
                 ])->columnSpan(4),
             ]),

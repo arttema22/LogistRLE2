@@ -13,8 +13,14 @@ class UserProfil extends Model
     use HasFactory, HasChangeLog;
 
     protected $fillable = [
-        'driver_id', 'surname', 'name', 'patronymic',
-        'phone', 'e1_card', 'f1с_ref_key', 'f1с_contract',
+        'driver_id',
+        'surname',
+        'name',
+        'patronymic',
+        'phone',
+        'e1_card',
+        '1c_ref_key',
+        '1c_contract',
     ];
 
     /**

@@ -91,18 +91,18 @@ final class UserController extends MoonShineController
             $profileData[config('moonshine.auth.fields.e1_card', 'e1_card')] = null;
         }
 
-        if (isset($data['f1c_ref_key']) && filled($data['f1с_ref_key'])) {
-            $profileData[config('moonshine.auth.fields.f1c_ref_key', 'f1c_ref_key')] = e($data['f1c_ref_key']);
+        if (isset($data['1c_ref_key']) && filled($data['1c_ref_key'])) {
+            $profileData[config('moonshine.auth.fields.1c_ref_key', '1c_ref_key')] = e($data['1c_ref_key']);
         } else {
-            $profileData[config('moonshine.auth.fields.f1c_ref_key', 'f1c_ref_key')] = null;
+            $profileData[config('moonshine.auth.fields.1c_ref_key', '1c_ref_key')] = null;
         }
 
-        if (isset($data['f1c_contract']) && filled($data['f1c_contract'])) {
-            $profileData[config('moonshine.auth.fields.f1c_contract', 'f1c_contract')] = e($data['f1c_contract']);
+        if (isset($data['1c_contract']) && filled($data['1c_contract'])) {
+            $profileData[config('moonshine.auth.fields.1c_contract', '1c_contract')] = e($data['1c_contract']);
         } else {
-            $profileData[config('moonshine.auth.fields.f1c_contract', 'f1c_contract')] = null;
+            $profileData[config('moonshine.auth.fields.1c_contract', '1c_contract')] = null;
         }
-        dd($profileData);
+        // dd($profileData);
         $userData = [
             'moonshine_user_role_id' => e($data['role']),
 
